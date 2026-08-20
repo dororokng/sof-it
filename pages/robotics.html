@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Роботизированное оборудование</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs"><a href="/index.html">Главная</a> / Роботизированное оборудование</div>
+      <span class="tag" style="margin-top: 14px; display: inline-flex">Направление 02</span>
+      <h1>Роботизированное оборудование</h1>
+      <p class="lead" style="margin-top: 16px">
+        Промышленные роботы, а также складские и логистические роботизированные
+        системы, подобранные под задачу бизнеса.
+      </p>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <div class="cat-tabs" id="catTabs">
+          <button class="cat-tab active" data-cat="all">Все категории</button>
+          <button class="cat-tab" data-cat="industrial">Промышленные роботы</button>
+          <button class="cat-tab" data-cat="warehouse">Складские и логистические роботы</button>
+        </div>
+        <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)" id="catalogGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="wrap" style="text-align: center">
+        <span class="tag" style="justify-content: center">Не нашли подходящую модель?</span>
+        <h2 style="margin-top: 16px">Подберём оборудование под вашу задачу</h2>
+        <p class="lead" style="margin: 16px auto 32px; text-align: center">
+          Расскажите о процессе, который нужно автоматизировать — предложим
+          подходящие варианты оборудования.
+        </p>
+        <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Оставить заявку</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/render.js"></script>
+  <script src="/js/include.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/catalog-page.js"></script>
+</body>
+</html>

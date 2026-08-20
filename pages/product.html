@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Карточка оборудования</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs">
+        <a href="/index.html">Главная</a> /
+        <a href="/pages/robotics.html">Роботизированное оборудование</a> /
+        <span id="pdBreadcrumbName"></span>
+      </div>
+    </div>
+    <section class="tight">
+      <div class="wrap pd-grid">
+        <div>
+          <div class="pd-thumb bracket">
+            <span class="bl"></span><span class="br"></span>
+            <div class="grid-overlay"></div>
+            <svg id="pdSvg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <div class="pd-thumbs-row"><div></div><div></div><div></div><div></div></div>
+        </div>
+        <div class="pd-body">
+          <span class="tag" id="pdCat"></span>
+          <h1 id="pdName"></h1>
+          <p class="pd-desc" id="pdDesc"></p>
+          <div class="placeholder-note">
+            Характеристики и производитель — демонстрационные данные.
+            Реальные значения заполняются через административную панель.
+          </div>
+          <table class="spec-table" id="pdSpecs"></table>
+          <div class="pd-tags" id="pdTags"></div>
+          <div class="hero-ctas">
+            <a href="/pages/contacts.html" class="btn btn-primary">Получить консультацию</a>
+            <a href="/pages/contacts.html" class="btn btn-outline">Запросить предложение</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/render.js"></script>
+  <script src="/js/include.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/product-page.js"></script>
+</body>
+</html>
