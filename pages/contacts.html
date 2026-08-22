@@ -29,10 +29,10 @@
     <section>
       <div class="wrap">
         <div class="contact-info-grid">
-          <div class="contact-info-card"><span class="tag">Телефон</span><div class="val" id="contactPhone">+7 (000) 000-00-00</div></div>
-          <div class="contact-info-card"><span class="tag">E-mail</span><div class="val" id="contactEmail">info@sofit.example</div></div>
-          <div class="contact-info-card"><span class="tag">Адрес</span><div class="val" id="contactAddress">Уточняется</div></div>
-          <div class="contact-info-card"><span class="tag">Часы работы</span><div class="val" id="contactHours">Пн–Пт, 9:00–18:00</div></div>
+          <div class="contact-info-card"><span class="info-label">Телефон</span><div class="val" id="contactPhone">+7 (000) 000-00-00</div></div>
+          <div class="contact-info-card"><span class="info-label">E-mail</span><div class="val" id="contactEmail">info@sofit.example</div></div>
+          <div class="contact-info-card"><span class="info-label">Адрес</span><div class="val" id="contactAddress">Уточняется</div></div>
+          <div class="contact-info-card"><span class="info-label">Часы работы</span><div class="val" id="contactHours">Пн–Пт, 9:00–18:00</div></div>
         </div>
 
         <div class="messenger-row section-gap">
@@ -43,7 +43,6 @@
 
         <div class="section-head">
           <div>
-            <span class="tag">Заявка</span>
             <h2>Оставить заявку</h2>
           </div>
         </div>
@@ -82,8 +81,7 @@
           </form>
           <div class="map-placeholder bracket">
             <span class="bl"></span><span class="br"></span>
-            <div class="grid-overlay"></div>
-            <span class="map-label">Схема проезда — уточняется</span>
+            <div id="contactMap"></div>
           </div>
         </div>
       </div>
@@ -97,5 +95,7 @@
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
   <script src="/js/contact-form.js"></script>
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=8fcdcc47-5586-415e-aad0-11a6175782d4&lang=ru_RU"></script>
+  <script src="/js/contacts-map.js"></script>
 </body>
 </html>

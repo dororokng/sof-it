@@ -11,9 +11,9 @@ document.addEventListener("data:ready", () => {
   document.getElementById("ndBreadcrumb").textContent = n.title;
   document.getElementById("ndDate").textContent = n.date;
   document.getElementById("ndTitle").textContent = n.title;
-  // textContent (не innerHTML) + CSS white-space:pre-line на .article-body —
-  // переносы строк, как их набрали в админке, сохраняются один в один.
-  document.getElementById("ndBody").textContent = n.body;
+  // innerHTML + highlightLatin (экранирует и смягчает латинские слова) —
+  // переносы строк по-прежнему сохраняются через white-space:pre-line в CSS.
+  document.getElementById("ndBody").innerHTML = highlightLatin(n.body);
   if (n.image) {
     document.getElementById("ndImage").src = n.image;
     document.querySelector(".news-thumb.article-thumb").classList.add("has-photo");

@@ -9,18 +9,20 @@ document.addEventListener("data:ready", () => {
   }
 
   document.getElementById("pdBreadcrumbName").textContent = p.name;
-  document.getElementById("pdCat").textContent = p.catLabel;
   document.getElementById("pdName").textContent = p.name;
-  document.getElementById("pdDesc").textContent = p.desc;
+  // innerHTML + highlightLatin (не textContent) — так же, как в render.js:
+  // латинские названия/модели внутри описания смягчаются, а переносы строк
+  // по-прежнему сохраняются через white-space:pre-line в CSS.
+  document.getElementById("pdDesc").innerHTML = highlightLatin(p.desc);
   if (p.image) {
     document.getElementById("pdImage").src = p.image;
     document.querySelector(".pd-thumb").classList.add("has-photo");
   }
   document.getElementById("pdSpecs").innerHTML = p.specs
-    .map((s) => `<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`)
+    .map((s) => `<tr><td>${escapeHtml(s[0])}</td><td>${highlightLatin(s[1])}</td></tr>`)
     .join("");
   document.getElementById("pdTags").innerHTML =
-    `<span>${p.catLabel}</span><span>Производитель: ${p.manufacturer}</span>`;
+    `<span>${escapeHtml(p.catLabel)}</span><span>Производитель: ${escapeHtml(p.manufacturer)}</span>`;
 
   const related = products.filter((x) => x.cat === p.cat && x.id !== p.id).slice(0, 3);
   document.getElementById("pdRelatedGrid").innerHTML = related.map(productCardHTML).join("");
