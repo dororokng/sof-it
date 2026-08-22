@@ -1,0 +1,74 @@
+<%- include('../partials/head', { title: service ? 'Изменить услугу' : 'Новая услуга' }) %>
+<%- include('../partials/nav', { active: 'services' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">IT / 1С</span>
+        <h2><%= service ? 'Изменить услугу' : 'Новая услуга' %></h2>
+      </div>
+      <a href="/admin/services" class="btn btn-outline">К списку</a>
+    </div>
+
+    <% if (error) { %>
+      <div class="admin-flash error"><%= error %></div>
+    <% } %>
+
+    <form method="post" enctype="multipart/form-data"
+          action="<%= service ? '/admin/services/' + service.id + '/edit' : '/admin/services/new' %>"
+          class="form-wrap admin-form">
+
+      <div class="field">
+        <label for="image">Изображение</label>
+        <% if (service && service.imageUrl) { %>
+          <img src="<%= service.imageUrl %>" alt="" class="admin-image-preview" />
+        <% } %>
+        <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+      </div>
+      <div class="hint">Необязательно. JPG/PNG/WEBP/GIF, до 5 МБ.</div>
+
+      <div class="field">
+        <label for="id">Идентификатор (id)</label>
+        <input id="id" name="id" type="text" required pattern="[a-z0-9-]+"
+               value="<%= service ? service.id : (values && values.id) || '' %>"
+               <%= service ? 'readonly' : '' %> />
+      </div>
+      <div class="hint">Только латиница, цифры и дефис, напр. <code>1c-implementation</code>.</div>
+
+      <div class="field">
+        <label for="name">Название</label>
+        <input id="name" name="name" type="text" required value="<%= service ? service.name : (values && values.name) || '' %>" />
+      </div>
+
+      <div class="field">
+        <label for="shortDescription">Краткое описание</label>
+        <textarea id="shortDescription" name="shortDescription" required><%= service ? service.shortDescription : (values && values.shortDescription) || '' %></textarea>
+      </div>
+      <div class="hint">Показывается в карточке услуги на странице «IT».</div>
+
+      <div class="field">
+        <label for="fullDescription">Полное описание</label>
+        <textarea id="fullDescription" name="fullDescription"><%= service ? (service.fullDescription || '') : (values && values.fullDescription) || '' %></textarea>
+      </div>
+      <div class="hint">Необязательно — для будущей отдельной страницы услуги.</div>
+
+      <div class="field">
+        <label for="order">Порядок отображения</label>
+        <input id="order" name="order" type="number" step="1" value="<%= service ? service.order : (values && values.order) || 0 %>" />
+      </div>
+
+      <% if (service) { %>
+        <div class="field field-check">
+          <input type="checkbox" id="isPublished" name="isPublished" <%= service.isPublished ? 'checked' : '' %> />
+          <label for="isPublished">Опубликована (показывается на сайте)</label>
+        </div>
+      <% } %>
+
+      <div class="admin-form-actions">
+        <button type="submit" class="btn btn-primary"><%= service ? 'Сохранить' : 'Создать' %></button>
+      </div>
+    </form>
+  </main>
+
+</body>
+</html>

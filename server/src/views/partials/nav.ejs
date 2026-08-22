@@ -1,0 +1,13 @@
+<header class="admin-topbar">
+  <span class="logo"><span class="dot"></span>СОФИТ / АДМИН</span>
+  <nav class="admin-nav">
+    <a href="/admin/products" class="<%= active === 'products' ? 'active' : '' %>">Товары</a>
+    <a href="/admin/categories" class="<%= active === 'categories' ? 'active' : '' %>">Категории</a>
+    <a href="/admin/services" class="<%= active === 'services' ? 'active' : '' %>">Услуги IT</a>
+    <a href="/admin/news" class="<%= active === 'news' ? 'active' : '' %>">Новости</a>
+    <a href="/admin/settings" class="<%= active === 'settings' ? 'active' : '' %>">Настройки</a>
+    <form method="post" action="/admin/logout" class="logout-form">
+      <button type="submit" class="btn btn-outline">Выйти</button>
+    </form>
+  </nav>
+</header>

@@ -1,0 +1,64 @@
+<%- include('../partials/head', { title: 'Настройки сайта' }) %>
+<%- include('../partials/nav', { active: 'settings' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">Сайт</span>
+        <h2>Настройки сайта</h2>
+      </div>
+    </div>
+
+    <% if (flash) { %>
+      <div class="admin-flash"><%= flash %></div>
+    <% } %>
+    <% if (error) { %>
+      <div class="admin-flash error"><%= error %></div>
+    <% } %>
+
+    <form method="post" class="form-wrap admin-form">
+      <div class="field">
+        <label for="phone">Телефон</label>
+        <input id="phone" name="phone" type="text" value="<%= settings.phone || '' %>" placeholder="+7 (000) 000-00-00" />
+      </div>
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" value="<%= settings.email || '' %>" />
+      </div>
+      <div class="field">
+        <label for="address">Адрес</label>
+        <input id="address" name="address" type="text" value="<%= settings.address || '' %>" />
+      </div>
+      <div class="field">
+        <label for="workingHours">Часы работы</label>
+        <input id="workingHours" name="workingHours" type="text" value="<%= settings.workingHours || '' %>" placeholder="Пн–Пт, 9:00–18:00" />
+      </div>
+      <div class="field">
+        <label for="requisites">Реквизиты</label>
+        <textarea id="requisites" name="requisites"><%= settings.requisites || '' %></textarea>
+      </div>
+      <div class="field">
+        <label for="telegramUrl">Telegram (ссылка)</label>
+        <input id="telegramUrl" name="telegramUrl" type="text" value="<%= settings.telegramUrl || '' %>" placeholder="https://t.me/..." />
+      </div>
+      <div class="field">
+        <label for="whatsappUrl">WhatsApp (ссылка)</label>
+        <input id="whatsappUrl" name="whatsappUrl" type="text" value="<%= settings.whatsappUrl || '' %>" placeholder="https://wa.me/..." />
+      </div>
+      <div class="field">
+        <label for="vkUrl">VK (ссылка)</label>
+        <input id="vkUrl" name="vkUrl" type="text" value="<%= settings.vkUrl || '' %>" placeholder="https://vk.com/..." />
+      </div>
+      <div class="field">
+        <label for="footerAbout">Текст «о компании» в футере</label>
+        <textarea id="footerAbout" name="footerAbout"><%= settings.footerAbout || '' %></textarea>
+      </div>
+
+      <div class="admin-form-actions">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </div>
+    </form>
+  </main>
+
+</body>
+</html>

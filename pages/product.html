@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Софит — Карточка оборудования</title>
+  <meta name="description" content="Карточка оборудования из каталога компании «Софит»: промышленные, складские и логистические роботы." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
@@ -28,8 +30,8 @@
         <div>
           <div class="pd-thumb bracket">
             <span class="bl"></span><span class="br"></span>
-            <div class="grid-overlay"></div>
-            <svg id="pdSvg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+            <img id="pdImage" alt="" />
+            <div class="thumb-fallback">Фото не загружено</div>
           </div>
           <div class="pd-thumbs-row"><div></div><div></div><div></div><div></div></div>
         </div>
@@ -49,6 +51,15 @@
           </div>
         </div>
       </div>
+      <div class="wrap">
+        <div class="section-head related-head">
+          <div>
+            <span class="tag">Похожие модели</span>
+            <h2>Может заинтересовать</h2>
+          </div>
+        </div>
+        <div class="card-grid" id="pdRelatedGrid"></div>
+      </div>
     </section>
   </main>
 
@@ -58,6 +69,7 @@
   <script src="/js/render.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
+  <script src="/js/settings.js"></script>
   <script src="/js/product-page.js"></script>
 </body>
 </html>

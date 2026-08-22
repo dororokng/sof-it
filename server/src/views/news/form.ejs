@@ -1,0 +1,70 @@
+<%- include('../partials/head', { title: post ? 'Изменить новость' : 'Новая новость' }) %>
+<%- include('../partials/nav', { active: 'news' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">Публикации</span>
+        <h2><%= post ? 'Изменить новость' : 'Новая новость' %></h2>
+      </div>
+      <a href="/admin/news" class="btn btn-outline">К списку</a>
+    </div>
+
+    <% if (error) { %>
+      <div class="admin-flash error"><%= error %></div>
+    <% } %>
+
+    <form method="post" enctype="multipart/form-data"
+          action="<%= post ? '/admin/news/' + post.id + '/edit' : '/admin/news/new' %>"
+          class="form-wrap admin-form">
+
+      <div class="field">
+        <label for="image">Фото новости</label>
+        <% if (post && post.imageUrl) { %>
+          <img src="<%= post.imageUrl %>" alt="" class="admin-image-preview" />
+        <% } %>
+        <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+      </div>
+      <div class="hint">
+        Необязательно, JPG/PNG/WEBP/GIF, до 5 МБ. Новость можно опубликовать и без фото.
+        <% if (post) { %> Оставьте пустым, чтобы не менять текущее фото.<% } %>
+      </div>
+
+      <div class="field">
+        <label for="id">Идентификатор (id)</label>
+        <input id="id" name="id" type="text" required pattern="[a-z0-9-]+"
+               value="<%= post ? post.id : (values && values.id) || '' %>"
+               <%= post ? 'readonly' : '' %> />
+      </div>
+      <div class="hint">Только латиница, цифры и дефис, напр. <code>n5</code>. Используется в ссылке на новость, после создания не меняется.</div>
+
+      <div class="field">
+        <label for="date">Дата публикации</label>
+        <input id="date" name="date" type="date" required
+               value="<%= post ? post.date.toISOString().slice(0, 10) : (values && values.date) || '' %>" />
+      </div>
+
+      <div class="field">
+        <label for="title">Заголовок</label>
+        <input id="title" name="title" type="text" required value="<%= post ? post.title : (values && values.title) || '' %>" />
+      </div>
+
+      <div class="field">
+        <label for="excerpt">Краткое описание</label>
+        <textarea id="excerpt" name="excerpt" required><%= post ? post.excerpt : (values && values.excerpt) || '' %></textarea>
+      </div>
+      <div class="hint">Показывается в карточке новости в списке.</div>
+
+      <div class="field">
+        <label for="body">Текст новости</label>
+        <textarea id="body" name="body" required><%= post ? post.body : (values && values.body) || '' %></textarea>
+      </div>
+
+      <div class="admin-form-actions">
+        <button type="submit" class="btn btn-primary"><%= post ? 'Сохранить' : 'Создать' %></button>
+      </div>
+    </form>
+  </main>
+
+</body>
+</html>

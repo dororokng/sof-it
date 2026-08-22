@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Софит — IT и 1С</title>
+  <meta name="description" content="Внедрение, сопровождение и доработка 1С, автоматизация бизнес-процессов, интеграции и консультации от компании «Софит»." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Софит — IT и 1С" />
+  <meta property="og:description" content="Внедрение, сопровождение и доработка 1С, автоматизация бизнес-процессов, интеграции и консультации от компании «Софит»." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://sofit.example/pages/it.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
@@ -17,9 +23,9 @@
   <main>
     <div class="page-hero wrap">
       <div class="breadcrumbs"><a href="/index.html">Главная</a> / IT</div>
-      <span class="tag" style="margin-top: 14px; display: inline-flex">Направление 01</span>
+      <span class="tag">Направление 01</span>
       <h1>IT и 1С</h1>
-      <p class="lead" style="margin-top: 16px">
+      <p class="lead">
         Внедрение, сопровождение и доработка решений на базе 1С, автоматизация
         бизнес-процессов, интеграции и консультации.
       </p>
@@ -30,42 +36,10 @@
         <div class="section-head">
           <div>
             <span class="tag">Услуги</span>
-            <h2 style="margin-top: 16px">Что мы делаем</h2>
+            <h2>Что мы делаем</h2>
           </div>
         </div>
-        <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)">
-          <div class="service-card">
-            <span class="tag">IT / 01</span>
-            <h4>Внедрение 1С</h4>
-            <p>Настройка и запуск конфигурации под процессы компании — от старта проекта до передачи в эксплуатацию.</p>
-          </div>
-          <div class="service-card">
-            <span class="tag">IT / 02</span>
-            <h4>Сопровождение 1С</h4>
-            <p>Плановое обслуживание, обновления релизов и консультации пользователей.</p>
-          </div>
-          <div class="service-card">
-            <span class="tag">IT / 03</span>
-            <h4>Доработка решений 1С</h4>
-            <p>Разработка дополнительного функционала под нетиповые задачи бизнеса.</p>
-          </div>
-          <div class="service-card">
-            <span class="tag">IT / 04</span>
-            <h4>Автоматизация бизнес-процессов</h4>
-            <p>Перевод ручных операций в управляемые автоматизированные сценарии.</p>
-          </div>
-          <div class="service-card">
-            <span class="tag">IT / 05</span>
-            <h4>Интеграция</h4>
-            <p>Связка 1С с другими системами компании и внешними сервисами.</p>
-          </div>
-          <div class="service-card">
-            <span class="tag">IT / 06</span>
-            <h4>Консультации</h4>
-            <p>Экспертная оценка задачи и рекомендации по выбору конфигурации.</p>
-          </div>
-        </div>
-
+        <div class="card-grid" id="servicesGrid"></div>
       </div>
     </section>
 
@@ -74,10 +48,10 @@
         <div class="section-head">
           <div>
             <span class="tag">Конфигурации</span>
-            <h2 style="margin-top: 16px">Возможные решения на базе 1С</h2>
+            <h2>Возможные решения на базе 1С</h2>
           </div>
         </div>
-        <div class="adv-grid" style="grid-template-columns: repeat(4, 1fr)">
+        <div class="adv-grid">
           <div class="adv-card"><h4>1С:ERP</h4><p>Управление ресурсами предприятия.</p></div>
           <div class="adv-card"><h4>1С:Управление торговлей</h4><p>Учёт продаж и торговых операций.</p></div>
           <div class="adv-card"><h4>1С:Бухгалтерия</h4><p>Бухгалтерский и налоговый учёт.</p></div>
@@ -91,7 +65,7 @@
         <div class="section-head">
           <div>
             <span class="tag">Как мы работаем</span>
-            <h2 style="margin-top: 16px">Этапы работы</h2>
+            <h2>Этапы работы</h2>
           </div>
         </div>
         <div class="steps">
@@ -118,7 +92,11 @@
 
   <div id="footer"></div>
 
+  <script src="/js/data.js"></script>
+  <script src="/js/render.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
+  <script src="/js/settings.js"></script>
+  <script src="/js/it-page.js"></script>
 </body>
 </html>

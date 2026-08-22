@@ -1,13 +1,13 @@
-function svgFor(cat) {
-  if (cat === "industrial") {
-    return `<circle cx="100" cy="140" r="10" fill="#6E8CB4"/><line x1="100" y1="140" x2="100" y2="90" stroke="#8FA6C2" stroke-width="4"/><line x1="100" y1="90" x2="150" y2="70" stroke="#8FA6C2" stroke-width="4"/><line x1="150" y1="70" x2="150" y2="40" stroke="#8FA6C2" stroke-width="4"/><circle cx="150" cy="40" r="6" fill="#8FA6C2"/><rect x="70" y="150" width="60" height="14" fill="#3E5C82"/>`;
+function productThumbHTML(p) {
+  if (p.image) {
+    return `<img src="${p.image}" alt="${p.name}" loading="lazy" />`;
   }
-  return `<rect x="50" y="100" width="100" height="45" rx="4" stroke="#8FA6C2" stroke-width="3"/><circle cx="70" cy="150" r="10" fill="#6E8CB4"/><circle cx="130" cy="150" r="10" fill="#6E8CB4"/><line x1="60" y1="100" x2="60" y2="70" stroke="#3E5C82" stroke-width="3"/><line x1="60" y1="70" x2="100" y2="70" stroke="#3E5C82" stroke-width="3"/>`;
+  return `<div class="thumb-fallback">Фото не загружено</div>`;
 }
 
 function productCardHTML(p) {
   return `<div class="product-card">
-    <div class="product-thumb"><div class="grid-overlay"></div><svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">${svgFor(p.cat)}</svg></div>
+    <div class="product-thumb">${productThumbHTML(p)}</div>
     <div class="product-body">
       <span class="product-cat">${p.catLabel}</span>
       <h4>${p.name}</h4>
@@ -20,9 +20,25 @@ function productCardHTML(p) {
   </div>`;
 }
 
+function serviceCardHTML(s, index) {
+  const num = String(index + 1).padStart(2, "0");
+  return `<div class="service-card">
+    <span class="tag">IT / ${num}</span>
+    <h4>${s.name}</h4>
+    <p>${s.shortDescription}</p>
+  </div>`;
+}
+
+function newsThumbHTML(n) {
+  if (n.image) {
+    return `<img src="${n.image}" alt="${n.title}" loading="lazy" />`;
+  }
+  return `<div class="grid-overlay"></div>`;
+}
+
 function newsCardHTML(n) {
   return `<a class="news-card" href="/pages/news-detail.html?id=${n.id}">
-    <div class="news-thumb"><div class="grid-overlay"></div></div>
+    <div class="news-thumb">${newsThumbHTML(n)}</div>
     <span class="news-date">${n.date}</span>
     <h4>${n.title}</h4>
     <p>${n.excerpt}</p>

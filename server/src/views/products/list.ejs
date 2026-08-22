@@ -1,0 +1,60 @@
+<%- include('../partials/head', { title: 'Товары' }) %>
+<%- include('../partials/nav', { active: 'products' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">Каталог</span>
+        <h2>Товары</h2>
+      </div>
+      <a href="/admin/products/new" class="btn btn-primary">Добавить товар</a>
+    </div>
+
+    <% if (flash) { %>
+      <div class="admin-flash"><%= flash %></div>
+    <% } %>
+
+    <% if (products.length === 0) { %>
+      <div class="admin-empty">Пока нет ни одного товара.</div>
+    <% } else { %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Фото</th>
+            <th>Название</th>
+            <th>Категория</th>
+            <th>Производитель</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach((p) => { %>
+            <tr>
+              <td class="thumb-cell">
+                <% if (p.imageUrl) { %>
+                  <img src="<%= p.imageUrl %>" alt="" class="thumb" />
+                <% } else { %>
+                  <div class="thumb-placeholder">нет фото</div>
+                <% } %>
+              </td>
+              <td><%= p.name %></td>
+              <td><%= p.category.name %></td>
+              <td><%= p.manufacturer %></td>
+              <td>
+                <div class="row-actions">
+                  <a href="/admin/products/<%= p.id %>/edit" class="btn btn-outline">Изменить</a>
+                  <form method="post" action="/admin/products/<%= p.id %>/delete"
+                        onsubmit="return confirm('Удалить товар «<%= p.name %>»?')">
+                    <button type="submit" class="btn btn-outline">Удалить</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+
+</body>
+</html>

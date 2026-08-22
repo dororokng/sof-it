@@ -1,0 +1,58 @@
+<%- include('../partials/head', { title: 'Новости' }) %>
+<%- include('../partials/nav', { active: 'news' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">Публикации</span>
+        <h2>Новости</h2>
+      </div>
+      <a href="/admin/news/new" class="btn btn-primary">Добавить новость</a>
+    </div>
+
+    <% if (flash) { %>
+      <div class="admin-flash"><%= flash %></div>
+    <% } %>
+
+    <% if (news.length === 0) { %>
+      <div class="admin-empty">Пока нет ни одной новости.</div>
+    <% } else { %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Фото</th>
+            <th>Дата</th>
+            <th>Заголовок</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% news.forEach((n) => { %>
+            <tr>
+              <td class="thumb-cell">
+                <% if (n.imageUrl) { %>
+                  <img src="<%= n.imageUrl %>" alt="" class="thumb" />
+                <% } else { %>
+                  <div class="thumb-placeholder">нет фото</div>
+                <% } %>
+              </td>
+              <td><%= n.date.toLocaleDateString('ru-RU') %></td>
+              <td><%= n.title %></td>
+              <td>
+                <div class="row-actions">
+                  <a href="/admin/news/<%= n.id %>/edit" class="btn btn-outline">Изменить</a>
+                  <form method="post" action="/admin/news/<%= n.id %>/delete"
+                        onsubmit="return confirm('Удалить новость «<%= n.title %>»?')">
+                    <button type="submit" class="btn btn-outline">Удалить</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+
+</body>
+</html>

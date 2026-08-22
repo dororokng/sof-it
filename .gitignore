@@ -1,3 +1,12 @@
 .vscode/
 .DS_Store
 Thumbs.db
+test_fotos/
+
+# Backend / DB
+server/node_modules/
+server/.env
+server/dist/
+server/uploads/
+.env
+

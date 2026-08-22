@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          String     @id
+  name        String
+  slug        String     @unique
+  description String?
+  imageUrl    String?
+  order       Int        @default(0)
+  isActive    Boolean    @default(true)
+  parentId    String?
+  parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children    Category[] @relation("CategoryTree")
+  products    Product[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("categories")
+}
+
+model Product {
+  id           String   @id
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  name         String
+  description  String
+  manufacturer String
+  specs        Json
+  imageUrl     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("products")
+}
+
+model Service {
+  id               String   @id
+  name             String
+  slug             String   @unique
+  shortDescription String
+  fullDescription  String?
+  imageUrl         String?
+  order            Int      @default(0)
+  isPublished      Boolean  @default(true)
+  metaTitle        String?
+  metaDescription  String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("services")
+}
+
+model SiteSettings {
+  id           Int      @id @default(1)
+  phone        String?
+  email        String?
+  address      String?
+  workingHours String?
+  requisites   String?
+  telegramUrl  String?
+  whatsappUrl  String?
+  vkUrl        String?
+  footerAbout  String?
+  updatedAt    DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model NewsPost {
+  id        String   @id
+  date      DateTime
+  title     String
+  excerpt   String
+  body      String
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("news")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  @@map("admin_users")
+}

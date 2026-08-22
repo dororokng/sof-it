@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("data:ready", () => {
   const id = new URLSearchParams(window.location.search).get("id");
   const n = news.find((x) => x.id === id);
 
@@ -11,5 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("ndBreadcrumb").textContent = n.title;
   document.getElementById("ndDate").textContent = n.date;
   document.getElementById("ndTitle").textContent = n.title;
-  document.getElementById("ndBody").innerHTML = `<p>${n.body}</p>`;
+  // textContent (не innerHTML) + CSS white-space:pre-line на .article-body —
+  // переносы строк, как их набрали в админке, сохраняются один в один.
+  document.getElementById("ndBody").textContent = n.body;
+  if (n.image) {
+    document.getElementById("ndImage").src = n.image;
+    document.querySelector(".news-thumb.article-thumb").classList.add("has-photo");
+  }
+
+  const related = news.filter((x) => x.id !== n.id).slice(0, 3);
+  document.getElementById("ndRelatedGrid").innerHTML = related.map(newsCardHTML).join("");
 });

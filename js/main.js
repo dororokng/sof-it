@@ -5,6 +5,12 @@ document.addEventListener("layout:ready", () => {
   const closeBurger = document.getElementById("closeBurger");
   const mobileNav = document.getElementById("mobileNav");
 
+  const currentPath = window.location.pathname.replace(/\/index\.html$/, "/").replace(/\/$/, "") || "/";
+  document.querySelectorAll("nav.main-nav a").forEach((link) => {
+    const linkPath = new URL(link.href).pathname.replace(/\/index\.html$/, "/").replace(/\/$/, "") || "/";
+    if (linkPath === currentPath) link.classList.add("active");
+  });
+
   if (header) {
     window.addEventListener("scroll", () => {
       header.classList.toggle("compact", window.scrollY > 40);

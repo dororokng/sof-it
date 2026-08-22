@@ -1,0 +1,68 @@
+<%- include('../partials/head', { title: category ? 'Изменить категорию' : 'Новая категория' }) %>
+<%- include('../partials/nav', { active: 'categories' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">Каталог</span>
+        <h2><%= category ? 'Изменить категорию' : 'Новая категория' %></h2>
+      </div>
+      <a href="/admin/categories" class="btn btn-outline">К списку</a>
+    </div>
+
+    <% if (error) { %>
+      <div class="admin-flash error"><%= error %></div>
+    <% } %>
+
+    <form method="post" enctype="multipart/form-data"
+          action="<%= category ? '/admin/categories/' + category.id + '/edit' : '/admin/categories/new' %>"
+          class="form-wrap admin-form">
+
+      <div class="field">
+        <label for="image">Фото категории</label>
+        <% if (category && category.imageUrl) { %>
+          <img src="<%= category.imageUrl %>" alt="" class="admin-image-preview" />
+        <% } %>
+        <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+      </div>
+      <div class="hint">Необязательно. JPG/PNG/WEBP/GIF, до 5 МБ.</div>
+
+      <div class="field">
+        <label for="id">Идентификатор (id)</label>
+        <input id="id" name="id" type="text" required pattern="[a-z0-9-]+"
+               value="<%= category ? category.id : (values && values.id) || '' %>"
+               <%= category ? 'readonly' : '' %> />
+      </div>
+      <div class="hint">Только латиница, цифры и дефис, напр. <code>industrial</code>. Используется как категория товаров, после создания не меняется.</div>
+
+      <div class="field">
+        <label for="name">Название</label>
+        <input id="name" name="name" type="text" required value="<%= category ? category.name : (values && values.name) || '' %>" />
+      </div>
+
+      <div class="field">
+        <label for="description">Описание</label>
+        <textarea id="description" name="description"><%= category ? (category.description || '') : (values && values.description) || '' %></textarea>
+      </div>
+
+      <div class="field">
+        <label for="order">Порядок отображения</label>
+        <input id="order" name="order" type="number" step="1" value="<%= category ? category.order : (values && values.order) || 0 %>" />
+      </div>
+      <div class="hint">Чем меньше число, тем раньше категория показывается (в фильтре каталога, на главной и т.д.).</div>
+
+      <% if (category) { %>
+        <div class="field field-check">
+          <input type="checkbox" id="isActive" name="isActive" <%= category.isActive ? 'checked' : '' %> />
+          <label for="isActive">Активна (показывается на сайте)</label>
+        </div>
+      <% } %>
+
+      <div class="admin-form-actions">
+        <button type="submit" class="btn btn-primary"><%= category ? 'Сохранить' : 'Создать' %></button>
+      </div>
+    </form>
+  </main>
+
+</body>
+</html>

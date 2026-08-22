@@ -1,0 +1,83 @@
+<%- include('../partials/head', { title: product ? 'Изменить товар' : 'Новый товар' }) %>
+<%- include('../partials/nav', { active: 'products' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">Каталог</span>
+        <h2><%= product ? 'Изменить товар' : 'Новый товар' %></h2>
+      </div>
+      <a href="/admin/products" class="btn btn-outline">К списку</a>
+    </div>
+
+    <% if (error) { %>
+      <div class="admin-flash error"><%= error %></div>
+    <% } %>
+
+    <form method="post" enctype="multipart/form-data"
+          action="<%= product ? '/admin/products/' + product.id + '/edit' : '/admin/products/new' %>"
+          class="form-wrap admin-form">
+
+      <div class="field">
+        <label for="image">Фото товара</label>
+        <% if (product && product.imageUrl) { %>
+          <img src="<%= product.imageUrl %>" alt="" class="admin-image-preview" />
+        <% } %>
+        <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" <%= product ? '' : 'required' %> />
+      </div>
+      <div class="hint">
+        <% if (product) { %>
+          JPG/PNG/WEBP/GIF, до 5 МБ. Оставьте пустым, чтобы не менять текущее фото.
+        <% } else { %>
+          JPG/PNG/WEBP/GIF, до 5 МБ. Обязательно — без фото карточку не создать.
+        <% } %>
+      </div>
+
+      <div class="field">
+        <label for="id">Идентификатор (id)</label>
+        <input id="id" name="id" type="text" required pattern="[a-z0-9-]+"
+               value="<%= product ? product.id : (values && values.id) || '' %>"
+               <%= product ? 'readonly' : '' %> />
+      </div>
+      <div class="hint">Только латиница, цифры и дефис, напр. <code>sf-r6</code>. Используется в ссылке на карточку товара, после создания не меняется.</div>
+
+      <div class="field">
+        <label for="categoryId">Категория</label>
+        <select id="categoryId" name="categoryId" required>
+          <% const catId = product ? product.categoryId : (values && values.categoryId); %>
+          <% categories.forEach((c) => { %>
+            <option value="<%= c.id %>" <%= catId === c.id ? 'selected' : '' %>><%= c.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="hint">Список категорий и их названия управляются в разделе <a href="/admin/categories">«Категории»</a>.</div>
+
+      <div class="field">
+        <label for="name">Название</label>
+        <input id="name" name="name" type="text" required value="<%= product ? product.name : (values && values.name) || '' %>" />
+      </div>
+
+      <div class="field">
+        <label for="description">Описание</label>
+        <textarea id="description" name="description" required><%= product ? product.description : (values && values.description) || '' %></textarea>
+      </div>
+
+      <div class="field">
+        <label for="manufacturer">Производитель</label>
+        <input id="manufacturer" name="manufacturer" type="text" value="<%= product ? product.manufacturer : (values && values.manufacturer) || '' %>" />
+      </div>
+
+      <div class="field">
+        <label for="specsText">Характеристики</label>
+        <textarea id="specsText" name="specsText"><%= product ? specsText : (values && values.specsText) || '' %></textarea>
+      </div>
+      <div class="hint">По одной паре на строку в формате «Название: Значение», например:<br>Грузоподъёмность: 20 кг</div>
+
+      <div class="admin-form-actions">
+        <button type="submit" class="btn btn-primary"><%= product ? 'Сохранить' : 'Создать' %></button>
+      </div>
+    </form>
+  </main>
+
+</body>
+</html>

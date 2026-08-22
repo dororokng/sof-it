@@ -1,0 +1,60 @@
+<%- include('../partials/head', { title: 'Категории' }) %>
+<%- include('../partials/nav', { active: 'categories' }) %>
+
+  <main class="admin-main">
+    <div class="admin-head">
+      <div>
+        <span class="tag">Каталог</span>
+        <h2>Категории оборудования</h2>
+      </div>
+      <a href="/admin/categories/new" class="btn btn-primary">Добавить категорию</a>
+    </div>
+
+    <% if (flash) { %>
+      <div class="admin-flash"><%= flash %></div>
+    <% } %>
+
+    <% if (categories.length === 0) { %>
+      <div class="admin-empty">Пока нет ни одной категории.</div>
+    <% } else { %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Фото</th>
+            <th>Название</th>
+            <th>Порядок</th>
+            <th>Статус</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% categories.forEach((c) => { %>
+            <tr>
+              <td class="thumb-cell">
+                <% if (c.imageUrl) { %>
+                  <img src="<%= c.imageUrl %>" alt="" class="thumb" />
+                <% } else { %>
+                  <div class="thumb-placeholder">нет фото</div>
+                <% } %>
+              </td>
+              <td><%= c.name %></td>
+              <td><%= c.order %></td>
+              <td><%= c.isActive ? 'Активна' : 'Скрыта' %></td>
+              <td>
+                <div class="row-actions">
+                  <a href="/admin/categories/<%= c.id %>/edit" class="btn btn-outline">Изменить</a>
+                  <form method="post" action="/admin/categories/<%= c.id %>/delete"
+                        onsubmit="return confirm('Удалить категорию «<%= c.name %>»?')">
+                    <button type="submit" class="btn btn-outline">Удалить</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+
+</body>
+</html>
