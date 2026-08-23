@@ -4,7 +4,7 @@ document.addEventListener("data:ready", () => {
 
   if (!p) {
     document.querySelector("main").innerHTML =
-      "<div class='wrap' style='padding:80px 0'>Товар не найден.</div>";
+      "<div class='wrap empty-state'>Товар не найден.</div>";
     return;
   }
 

@@ -4,7 +4,7 @@ document.addEventListener("data:ready", () => {
 
   if (!n) {
     document.querySelector("main").innerHTML =
-      "<div class='wrap' style='padding:80px 0'>Новость не найдена.</div>";
+      "<div class='wrap empty-state'>Новость не найдена.</div>";
     return;
   }
 
