@@ -6,7 +6,12 @@ document.addEventListener("layout:ready", () => {
   const mobileNav = document.getElementById("mobileNav");
 
   const currentPath = window.location.pathname.replace(/\/index\.html$/, "/").replace(/\/$/, "") || "/";
+  // Только пункты верхнего уровня — ссылки внутри .nav-dropdown ведут на
+  // разные #якоря одной и той же страницы (например, все пять подпунктов
+  // "Услуги 1С" указывают на it.html), и раньше при сравнении по одному
+  // pathname все они одновременно помечались активными и подчёркивались.
   document.querySelectorAll("nav.main-nav a").forEach((link) => {
+    if (link.closest(".nav-dropdown")) return;
     const linkPath = new URL(link.href).pathname.replace(/\/index\.html$/, "/").replace(/\/$/, "") || "/";
     if (linkPath === currentPath) link.classList.add("active");
   });

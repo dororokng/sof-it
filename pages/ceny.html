@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Цены на внедрение 1С</title>
+  <meta name="description" content="Тарифные пакеты внедрения 1С: Быстрый старт, Стандартные настройки, Проектное внедрение — состав работ, сроки и стоимость." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Софит — Цены на внедрение 1С" />
+  <meta property="og:description" content="Тарифные пакеты внедрения 1С: состав работ, сроки и стоимость." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://sofit.example/pages/ceny.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs"><a href="/index.html">Главная</a> / Цены</div>
+      <h1>Цены на внедрение 1С</h1>
+      <p class="lead">
+        Три формата работы — от быстрого запуска типовой конфигурации до
+        полного проектного внедрения с обследованием и доработками.
+      </p>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <div class="tariff-grid" id="tariffsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Сравнение пакетов</h2>
+          </div>
+        </div>
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>Параметр</th><th>Быстрый старт</th><th>Стандартные настройки</th><th>Проектное внедрение</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Срок</td><td>от 5 дней</td><td>от 3 недель</td><td>от 2 месяцев</td></tr>
+              <tr><td>Обследование</td><td>—</td><td>Краткое</td><td>Полное, с техническим заданием</td></tr>
+              <tr><td>Доработки под процессы</td><td>—</td><td>Точечные</td><td>По согласованному ТЗ</td></tr>
+              <tr><td>Интеграции</td><td>—</td><td>Касса, банк, ЭДО</td><td>Любые, по проекту</td></tr>
+              <tr><td>Обучение</td><td>1 онлайн-сессия</td><td>По ролям сотрудников</td><td>По ролям + регламенты</td></tr>
+              <tr><td>Сопровождение после запуска</td><td>—</td><td>2 недели</td><td>По SLA</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="lead section-note">Итоговая стоимость зависит от выбранной конфигурации 1С, числа рабочих мест и объёма доработок — уточняется на консультации.</p>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-band-grid">
+        <div>
+          <h2>Рассчитаем стоимость под вашу задачу</h2>
+          <p>Опишите ситуацию — вернёмся с предложением по составу работ и цене.</p>
+        </div>
+        <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Рассчитать проект</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/solutions-data.js"></script>
+  <script src="/js/render.js"></script>
+  <script src="/js/include.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/settings.js"></script>
+  <script>
+    document.getElementById("tariffsGrid").innerHTML = tariffs.map(tariffCardHTML).join("");
+  </script>
+</body>
+</html>

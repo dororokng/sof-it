@@ -10,3 +10,5 @@ server/dist/
 server/uploads/
 .env
 
+/sites_for_mirror.md
+
