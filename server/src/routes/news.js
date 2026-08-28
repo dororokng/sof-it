@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db.js";
 import { requireAuth } from "../middleware/requireAuth.js";
+import { requireCsrf, verifyCsrfToken } from "../middleware/csrf.js";
 import { uploadNewsImage, deleteNewsImageFile } from "../lib/upload.js";
 
 export const newsRouter = Router();
@@ -24,6 +25,11 @@ newsRouter.post("/new", async (req, res) => {
       values: req.body,
       error: err.message || "Не удалось загрузить файл.",
     });
+  }
+
+  if (!verifyCsrfToken(req)) {
+    if (req.file) deleteNewsImageFile(`/uploads/news/${req.file.filename}`);
+    return res.render("news/form", { post: null, values: req.body, error: "Форма устарела. Обновите страницу и попробуйте снова." });
   }
 
   // Фото у новости необязательно — в отличие от товара, ошибки при его отсутствии нет.
@@ -67,6 +73,10 @@ newsRouter.post("/:id/edit", async (req, res) => {
   const { date, title, excerpt, body } = req.body;
   const existing = await prisma.newsPost.findUnique({ where: { id: req.params.id } });
   if (!existing) return res.redirect("/admin/news");
+  if (!verifyCsrfToken(req)) {
+    if (req.file) deleteNewsImageFile(`/uploads/news/${req.file.filename}`);
+    return res.render("news/form", { post: existing, values: null, error: "Форма устарела. Обновите страницу и попробуйте снова." });
+  }
 
   const newImageUrl = req.file ? `/uploads/news/${req.file.filename}` : existing.imageUrl;
 
@@ -83,7 +93,7 @@ newsRouter.post("/:id/edit", async (req, res) => {
   }
 });
 
-newsRouter.post("/:id/delete", async (req, res) => {
+newsRouter.post("/:id/delete", requireCsrf, async (req, res) => {
   const post = await prisma.newsPost.findUnique({ where: { id: req.params.id } });
   await prisma.newsPost.delete({ where: { id: req.params.id } }).catch(() => {});
   if (post) deleteNewsImageFile(post.imageUrl);

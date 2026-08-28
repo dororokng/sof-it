@@ -8,6 +8,10 @@ document.addEventListener("data:ready", () => {
     return;
   }
 
+  document.title = `Софит — ${n.title}`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", n.excerpt.slice(0, 160));
+
   document.getElementById("ndBreadcrumb").textContent = n.title;
   document.getElementById("ndDate").textContent = n.date;
   document.getElementById("ndTitle").textContent = n.title;

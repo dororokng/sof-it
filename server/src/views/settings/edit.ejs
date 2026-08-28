@@ -16,6 +16,7 @@
     <% } %>
 
     <form method="post" class="form-wrap admin-form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <div class="field">
         <label for="phone">Телефон</label>
         <input id="phone" name="phone" type="text" value="<%= settings.phone || '' %>" placeholder="+7 (000) 000-00-00" />

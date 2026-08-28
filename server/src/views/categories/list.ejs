@@ -44,6 +44,7 @@
                   <a href="/admin/categories/<%= c.id %>/edit" class="btn btn-outline">Изменить</a>
                   <form method="post" action="/admin/categories/<%= c.id %>/delete"
                         onsubmit="return confirm('Удалить категорию «<%= c.name %>»?')">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                     <button type="submit" class="btn btn-outline">Удалить</button>
                   </form>
                 </div>

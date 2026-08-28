@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db.js";
 import { requireAuth } from "../middleware/requireAuth.js";
+import { requireCsrf } from "../middleware/csrf.js";
 
 export const settingsRouter = Router();
 settingsRouter.use(requireAuth);
@@ -17,7 +18,7 @@ settingsRouter.get("/", async (req, res) => {
   res.render("settings/edit", { settings, flash: req.query.flash || null, error: null });
 });
 
-settingsRouter.post("/", async (req, res) => {
+settingsRouter.post("/", requireCsrf, async (req, res) => {
   const { phone, email, address, workingHours, requisites, telegramUrl, whatsappUrl, vkUrl, footerAbout } = req.body;
   try {
     await prisma.siteSettings.upsert({

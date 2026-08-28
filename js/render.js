@@ -105,20 +105,35 @@ function tariffCardHTML(t) {
   </div>`;
 }
 
+// Кейс всегда помечен как демонстрационный пример прямо на карточке — не
+// только текстом-предупреждением где-то рядом на странице (страницы могут
+// добавлять/не добавлять свой .placeholder-note, а карточка одна и та же
+// используется в 4 разных местах сайта: главная, /pages/keysy.html,
+// карточка программы, карточка отрасли). Метка на самой карточке
+// гарантирует, что кейс нигде не будет выглядеть как подтверждённый
+// реальный результат компании, даже если конкретную страницу забудут
+// снабдить отдельным .placeholder-note.
 function caseCardHTML(c) {
+  // Обратные ссылки "кейс → отрасль / решение": данные о них хранятся в
+  // обратную сторону (industries[].caseSlugs, c.programs — массив названий
+  // программ), поэтому здесь приходится искать по ним, а не по прямому полю
+  // на самом кейсе. industries/onecPrograms — глобальные массивы из
+  // js/solutions-data.js, которые везде подключены раньше этого файла.
+  const relatedIndustries = typeof industries !== "undefined" ? industries.filter((ind) => (ind.caseSlugs || []).includes(c.slug)) : [];
+  const relatedPrograms = typeof onecPrograms !== "undefined" ? onecPrograms.filter((p) => (c.programs || []).includes(p.name)) : [];
+  const links = [
+    ...relatedIndustries.map((ind) => `<a class="link-chip" href="/pages/otrasl.html?slug=${ind.slug}">${escapeHtml(ind.name)}</a>`),
+    ...relatedPrograms.map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`),
+  ].join("");
+
   return `<div class="case-card">
+    <span class="case-demo-badge">Демонстрационный пример</span>
     <span class="case-industry">${escapeHtml(c.industry)}</span>
     <h4>${escapeHtml(c.title)}</h4>
     <p>${highlightLatin(c.summary)}</p>
     <div class="case-metrics">
       ${c.metrics.map((m) => `<div><span class="case-metric-val">${escapeHtml(m.val)}</span><span class="case-metric-label">${escapeHtml(m.label)}</span></div>`).join("")}
     </div>
+    ${links ? `<div class="link-row case-links">${links}</div>` : ""}
   </div>`;
-}
-
-function solutionTileHTML(tile) {
-  return `<a class="solution-tile" href="${tile.href}">
-    <span class="tile-cat">${escapeHtml(tile.cat)}</span>
-    <h5>${escapeHtml(tile.name)}</h5>
-  </a>`;
 }

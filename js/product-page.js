@@ -8,6 +8,10 @@ document.addEventListener("data:ready", () => {
     return;
   }
 
+  document.title = `Софит — ${p.name}`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", p.desc.slice(0, 160));
+
   document.getElementById("pdBreadcrumbName").textContent = p.name;
   document.getElementById("pdName").textContent = p.name;
   // innerHTML + highlightLatin (не textContent) — так же, как в render.js:

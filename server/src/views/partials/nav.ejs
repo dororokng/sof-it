@@ -5,8 +5,10 @@
     <a href="/admin/categories" class="<%= active === 'categories' ? 'active' : '' %>">Категории</a>
     <a href="/admin/services" class="<%= active === 'services' ? 'active' : '' %>">Услуги IT</a>
     <a href="/admin/news" class="<%= active === 'news' ? 'active' : '' %>">Новости</a>
+    <a href="/admin/leads" class="<%= active === 'leads' ? 'active' : '' %>">Заявки</a>
     <a href="/admin/settings" class="<%= active === 'settings' ? 'active' : '' %>">Настройки</a>
     <form method="post" action="/admin/logout" class="logout-form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <button type="submit" class="btn btn-outline">Выйти</button>
     </form>
   </nav>

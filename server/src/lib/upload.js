@@ -6,7 +6,22 @@ import multer from "multer";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const uploadsRoot = path.resolve(__dirname, "../../uploads");
 
-const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+// Ключ — заявленный multipart Content-Type, значение — расширение, с которым
+// реально сохраняем файл на диск. Раньше расширение бралось из
+// file.originalname (это имя пришло от клиента и никак не проверялось) —
+// можно было отправить файл с телом HTML/JS, настоящим Content-Type
+// "image/jpeg" (мимо fileFilter) и оригинальным именем "x.html": сохранился
+// бы файл x.html внутри uploads/, который express.static потом отдал бы как
+// text/html — маленький, но настоящий stored-XSS/хостинг чужого HTML на
+// нашем домене. Теперь расширение всегда выбирается сервером из этой карты,
+// а не из имени файла — второй, полностью независимый уровень проверки типа
+// поверх fileFilter.
+const ALLOWED_TYPES = new Map([
+  ["image/jpeg", ".jpg"],
+  ["image/png", ".png"],
+  ["image/webp", ".webp"],
+  ["image/gif", ".gif"],
+]);
 
 // Обычный multer-middleware при ошибке (не тот тип файла, файл больше 5 МБ)
 // вызывает next(err) и падает в error-handler Express с некрасивой страницей.
@@ -18,7 +33,7 @@ function createImageUploader(subfolder) {
   const storage = multer.diskStorage({
     destination: dir,
     filename: (req, file, cb) => {
-      const ext = path.extname(file.originalname).toLowerCase();
+      const ext = ALLOWED_TYPES.get(file.mimetype) || ".bin"; // недостижимо для допущенных fileFilter'ом файлов
       cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`);
     },
   });

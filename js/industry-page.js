@@ -13,6 +13,10 @@ if (!industryPage) {
 } else {
   const ind = industryPage;
 
+  document.title = `Софит — 1С для отрасли «${ind.name}»`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", ind.offer);
+
   document.getElementById("indBreadcrumbName").textContent = ind.name;
   document.getElementById("indName").textContent = ind.name;
   document.getElementById("indOffer").textContent = ind.offer;
@@ -32,9 +36,4 @@ if (!industryPage) {
   document.getElementById("indEffectsGrid").innerHTML = ind.effects
     .map((e) => `<div class="effect-item"><span class="effect-val">${escapeHtml(e.val)}</span><span class="effect-label">${escapeHtml(e.label)}</span></div>`)
     .join("");
-
-  const relatedCases = cases.filter((c) => ind.caseSlugs.includes(c.slug));
-  document.getElementById("indCasesGrid").innerHTML = relatedCases.length
-    ? relatedCases.map(caseCardHTML).join("")
-    : "<p class='lead'>По этой отрасли кейсы пока не опубликованы.</p>";
 }

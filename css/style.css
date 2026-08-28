@@ -9,6 +9,7 @@
 --accent:#1B4D8C;
 --accent-dark:#123661;
 --accent-soft:#E7EEF7;
+--accent-on-dark:#6EA1DE;
 --accent-warm:#B8622E;
 --accent-warm-dark:#8F4A20;
 --accent-warm-soft:#FBEEE3;
@@ -25,7 +26,6 @@
 --shadow-lg:0 20px 48px rgba(16,22,29,.16);
 --shadow-dark:0 12px 32px rgba(0,0,0,.45);
 --glass-bg:rgba(255,255,255,.05);
---chip-bg:rgba(16,22,29,.72);
 --radius:2px;
 --radius-lg:8px;
 --disp: 'Big Shoulders Display', sans-serif;
@@ -89,9 +89,10 @@ header.compact{box-shadow:var(--shadow-dark);}
 header.compact .header-inner{padding:13px 0;}
 .logo{font-family:var(--disp); font-weight:700; font-size:26px; letter-spacing:.02em; display:flex; align-items:center; gap:10px; color:var(--dark-ink);}
 .logo .dot{width:8px; height:8px; background:var(--accent); display:inline-block;}
-nav.main-nav{display:flex; gap:36px;}
+nav.main-nav{display:flex; gap:28px;}
 nav.main-nav a{
 font-size:14px; font-weight:500; color:var(--dark-ink-soft); position:relative; padding:4px 0;
+white-space:nowrap;
 }
 nav.main-nav a:hover, nav.main-nav a.active{color:#fff;}
 nav.main-nav a.active::after{
@@ -100,6 +101,7 @@ content:''; position:absolute; left:0; right:0; bottom:-2px; height:2px; backgro
 .header-right{display:flex; align-items:center; gap:22px;}
 .phone-link{font-family:var(--mono); font-size:14px; color:var(--dark-ink); white-space:nowrap;}
 .phone-link .phone-caption{color:var(--dark-ink-soft); display:block; font-size:10px; font-family:var(--body); letter-spacing:.04em;}
+
 .btn{
 display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600;
 padding:12px 22px; border-radius:var(--radius); border:1px solid transparent; white-space:nowrap;
@@ -148,7 +150,6 @@ background:radial-gradient(circle, var(--glow-warm), transparent 70%); filter:bl
 .hero h1{font-size:68px; text-transform:uppercase; margin:20px 0 24px;}
 .hero h1 em{font-style:normal; color:var(--accent);}
 .hero-ctas{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
-.hero-visual-wrap{position:relative;}
 .hero-visual{aspect-ratio:4/5; background:var(--bg-alt); position:relative; overflow:hidden; margin-right:-40px; box-shadow:var(--shadow-lg);}
 .hero-visual.bracket::before, .hero-visual.bracket::after,
 .hero-visual.bracket .bl, .hero-visual.bracket .br{ box-shadow:0 0 12px 1px var(--glow-accent); }
@@ -157,14 +158,6 @@ position:absolute; bottom:20px; left:20px; font-family:var(--mono); font-size:11
 letter-spacing:.08em;
 }
 .hero-visual img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;}
-.hero-chip{
-position:absolute; left:-28px; bottom:-28px; z-index:2;
-background:var(--chip-bg); backdrop-filter:blur(10px);
-border:1px solid var(--dark-line); box-shadow:var(--shadow-dark);
-padding:18px 22px; display:flex; flex-direction:column; gap:4px; border-radius:var(--radius-lg);
-}
-.hero-chip-num{font-family:var(--disp); font-weight:700; font-size:30px; color:#fff; line-height:1;}
-.hero-chip-label{font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--dark-ink-soft); max-width:140px;}
 .hero-stats-note{margin-top:44px; padding-top:24px; border-top:1px solid var(--line); font-size:13px; color:var(--ink-faint); max-width:480px;}
 
 /* ---------- Two directions ---------- */
@@ -200,6 +193,14 @@ transition:background .2s ease; cursor:pointer;
 .service-card p{font-size:14px; color:var(--ink-soft); margin-bottom:20px;}
 .service-card .more{font-size:13px; font-weight:600; color:var(--accent);}
 .service-card-featured{max-width:640px;}
+/* Тизер роботизации на главной — тот же компонент "featured"-карточки,
+   что уже используется для эталонной услуги "Внедрение 1С" на it.html и
+   vnedrenie-1s.html, но в тёплом акценте направления роботизации вместо
+   синего — чтобы блок читался как связанный с 1С-акцентными карточками
+   по форме, но визуально вторичный по цвету. */
+.service-card-featured.warm:hover{border-color:var(--accent-warm); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-warm);}
+.service-card-featured.warm .btn-outline:hover{border-color:var(--accent-warm); color:var(--accent-warm);}
+.service-card-featured .info-label{margin-bottom:14px;}
 
 .product-card{border:1px solid var(--line); background:var(--bg); display:flex; flex-direction:column; box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;}
 .product-card:hover{border-color:var(--accent-warm); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-warm);}
@@ -248,6 +249,12 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 .news-more{font-size:13px; font-weight:600; color:var(--accent);}
 .article-wrap{max-width:760px;}
 .article-body{font-size:16px; color:var(--ink-soft); line-height:1.8; white-space:pre-line;}
+
+/* ---------- Юридические страницы (privacy/personal-data/requisites) ---------- */
+.legal-text{max-width:760px;}
+.legal-text h2{font-size:20px; font-weight:600; font-family:var(--body); margin:36px 0 12px;}
+.legal-text h2:first-child{margin-top:0;}
+.legal-text p{font-size:15px; color:var(--ink-soft); line-height:1.7; margin-bottom:12px;}
 .news-thumb.article-thumb{margin-bottom:36px;}
 
 /* ---------- CTA band ---------- */
@@ -272,9 +279,9 @@ color:var(--dark-ink-soft); padding-top:64px; position:relative;
 content:''; position:absolute; top:0; left:0; right:0; height:1px; pointer-events:none;
 background:linear-gradient(90deg, transparent, var(--glow-accent) 35%, var(--glow-warm) 65%, transparent);
 }
-.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:56px; border-bottom:1px solid var(--dark-line);}
+.footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr 1.1fr; gap:28px; padding-bottom:56px; border-bottom:1px solid var(--dark-line);}
 .footer-grid h5{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--dark-ink); margin-bottom:20px;}
-.footer-grid h5.footer-contacts-head{margin-top:32px;}
+.footer-grid h5.footer-subhead{margin-top:32px;}
 .footer-grid p{font-size:14px; line-height:1.7;}
 .footer-grid ul{list-style:none;}
 .footer-grid li{margin-bottom:10px;}
@@ -348,6 +355,12 @@ display:none; background:var(--accent-soft); border-left:2px solid var(--accent)
 font-size:14px; margin-top:16px;
 }
 .form-success.show{display:block;}
+.form-error{
+display:none; background:#fdeceb; border-left:2px solid #d64545; color:#a02f2f; padding:20px 22px;
+font-size:14px; margin-top:16px;
+}
+.form-error.show{display:block;}
+.field-honeypot{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
 
 /* ---------- Contacts info ---------- */
 .contact-info-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); margin-bottom:64px;}
@@ -373,8 +386,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-o
 .hero-grid{grid-template-columns:1fr; gap:44px;}
 .hero h1{font-size:52px;}
 .hero-visual{margin-right:0;}
-.hero-chip{left:16px; bottom:16px; padding:14px 18px;}
-.hero-chip-num{font-size:24px;}
 .hero::before, .hero::after{width:380px; height:380px;}
 .about-grid{grid-template-columns:1fr; gap:48px;}
 .adv-grid{grid-template-columns:repeat(2,1fr);}
@@ -394,7 +405,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-o
 .trust-grid{grid-template-columns:repeat(2,1fr);}
 .effect-grid{grid-template-columns:repeat(2,1fr);}
 .segment-grid{grid-template-columns:1fr;}
-.solution-tiles{grid-template-columns:repeat(2,1fr);}
 }
 @media (max-width: 760px){
 .wrap{padding:0 20px;}
@@ -416,12 +426,9 @@ section{padding:64px 0;}
 .stats-grid{grid-template-columns:1fr;}
 .principle-grid{grid-template-columns:1fr;}
 .error-code{font-size:76px;}
-.hero-chip{position:static; margin-top:16px; display:inline-flex; flex-direction:row; align-items:center; gap:10px;}
-.hero-chip-label{max-width:none;}
 .industry-grid{grid-template-columns:1fr;}
 .trust-grid{grid-template-columns:1fr;}
 .effect-grid{grid-template-columns:1fr;}
-.solution-tiles{grid-template-columns:1fr;}
 .stage-item .stage-body{padding-left:4px;}
 }
 
@@ -517,33 +524,99 @@ color:var(--dark-ink);
 
 /* ---------- Nav dropdowns (desktop) ---------- */
 .nav-item{position:relative;}
+/* Мега-панель позиционируется от левого края всего меню (nav.main-nav),
+   а не от узкого пункта «Услуги 1С» — так она гарантированно не вылезает
+   ни за левый, ни за правый край окна на любой десктопной ширине. Поэтому
+   у самого пункта убираем свой контекст позиционирования. */
+.main-nav{position:relative;}
+.nav-item.has-dropdown{position:static;}
 .nav-item > a{display:inline-flex; align-items:center; gap:6px;}
 .nav-item.has-dropdown > a::after{
 content:''; width:6px; height:6px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor;
 transform:rotate(45deg); margin-top:-3px; opacity:.7;
 }
 .nav-dropdown{
-position:absolute; top:100%; left:-18px; margin-top:16px; min-width:250px; z-index:10;
+position:absolute; top:100%; left:-18px; margin-top:14px; min-width:250px; z-index:10;
 background:linear-gradient(180deg, var(--dark-2), var(--dark-3)); border:1px solid var(--dark-line);
-box-shadow:var(--shadow-dark); padding:10px;
-opacity:0; visibility:hidden; transform:translateY(6px); pointer-events:none;
-transition:opacity .15s ease, transform .15s ease, visibility .15s ease;
+box-shadow:var(--shadow-dark); padding:10px; border-radius:var(--radius-lg);
+opacity:0; visibility:hidden; transform:translateY(8px);
+/* Появление — мгновенно по наведению (см. правило :hover/:focus-within
+   ниже, где transition без задержки). Закрытие — с «периодом снисхождения»:
+   0.28s панель остаётся полностью видимой и кликабельной после ухода
+   курсора, затем 0.18s плавно гаснет. visibility переключается в hidden
+   только в самом конце (0.46s), поэтому всё это время по панели можно
+   вести курсор и кликать — если вернуться раньше, срабатывает :hover и
+   панель мгновенно «возвращается». pointer-events НЕ трогаем: скрытие
+   через visibility:hidden само по себе отключает клики, а держать
+   pointer-events в списке transition (как было раньше) приводило к тому,
+   что панель гасла раньше, чем переставала перехватывать курсор —
+   из-за этого меню казалось одновременно «улетающим» и «не кликающимся». */
+transition:opacity .18s ease .28s, transform .18s ease .28s, visibility 0s linear .46s;
 }
-/* Невидимый мостик над меню — закрывает "мёртвую зону" в margin-top
-   (16px) между пунктом меню и выпадающим списком. Без него курсор мыши,
-   двигаясь по прямой от ссылки вниз к списку, на долю секунды покидает
-   .nav-item (там, где нет margin-top, к которому привязан hover-селектор
-   .nav-item:hover .nav-dropdown), список успевает закрыться раньше, чем
-   курсор до него доходит. Мостик наследует pointer-events от
-   .nav-dropdown, поэтому "включается" одновременно с самим списком. */
+/* Невидимый мостик вдоль верхнего края раскрытой панели: перекрывает
+   зрительно пустой зазор (margin-top) между пунктом меню и панелью.
+   Панель — потомок .nav-item, поэтому пока курсор над мостиком/панелью,
+   селектор .nav-item.has-dropdown:hover остаётся истинным. Плюс к этому
+   период снисхождения на закрытие (0.28s, см. .nav-dropdown выше) даёт
+   курсору спокойно пересечь сам зазор. */
 .nav-dropdown::before{
-content:''; position:absolute; top:-16px; left:0; right:0; height:16px;
+content:''; position:absolute; top:-18px; left:0; right:0; height:18px;
 }
 .nav-item.has-dropdown:hover .nav-dropdown, .nav-item.has-dropdown:focus-within .nav-dropdown{
-opacity:1; visibility:visible; transform:none; pointer-events:auto;
+opacity:1; visibility:visible; transform:none;
+transition:opacity .18s ease, transform .18s ease, visibility 0s;
 }
 .nav-dropdown a{display:block; padding:11px 14px; font-size:13px; color:var(--dark-ink-soft); white-space:nowrap;}
 .nav-dropdown a:hover{color:#fff; background:rgba(255,255,255,.06);}
+
+/* ---------- Мега-меню «Услуги 1С» (единая панель для всех разделов сайта) ----------
+   Технически это тот же .nav-dropdown (наследует всю его hover/focus-within
+   механику и невидимые мостики, см. выше) с модификатором для широкой
+   grid-раскладки в четыре колонки + нижняя строка-CTA во всю ширину. */
+/* Селекторы ниже намеренно уточнены до .main-nav .nav-dropdown-mega … —
+   ссылки панели физически лежат внутри nav.main-nav, а правило
+   `nav.main-nav a` (0,0,1,2) перебивало бы одноклассовые `.nav-mega-* a`
+   (0,0,1,1) по специфичности: без этого не работал бы ни перенос длинных
+   названий (white-space), ни размер шрифта пунктов. */
+.main-nav .nav-dropdown-mega{
+/* left:0 — от левого края nav.main-nav (под пунктом «Услуги 1С»).
+   Ширина ограничена и абсолютным пределом, и «100vw минус примерный отступ
+   меню от левого края окна» — на узких десктопах панель ужимается вместо
+   того, чтобы уехать за правый край. */
+left:0; margin-left:0; width:min(860px, calc(100vw - 400px));
+display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:0;
+padding:22px 20px; max-height:calc(100vh - 110px); overflow-y:auto; overflow-x:hidden;
+}
+.main-nav .nav-mega-col{display:flex; flex-direction:column; min-width:0; padding:0 14px; position:relative;}
+.main-nav .nav-mega-col + .nav-mega-col::after{
+content:''; position:absolute; left:0; top:4px; bottom:8px; width:1px; background:var(--dark-line);
+}
+.main-nav .nav-dropdown-mega a{
+white-space:normal; overflow-wrap:break-word; line-height:1.3; font-size:13px; padding:8px 10px;
+border-radius:4px; border-left:2px solid transparent;
+transition:background .12s ease, color .12s ease, border-color .12s ease;
+}
+.main-nav .nav-dropdown-mega a:hover{background:rgba(255,255,255,.06); color:#fff; border-left-color:var(--accent-on-dark);}
+.main-nav .nav-mega-featured{color:var(--dark-ink); font-weight:600;}
+.main-nav .nav-mega-all{
+margin-top:auto; padding-top:12px; border-top:1px solid var(--dark-line);
+color:var(--accent-on-dark); font-size:12px; font-weight:500;
+}
+.main-nav .nav-mega-all:hover{color:#fff; border-left-color:transparent;}
+.main-nav .nav-mega-col-title{
+display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+color:var(--dark-ink-soft); padding:2px 10px 12px; margin-bottom:6px; border-bottom:1px solid var(--dark-line);
+}
+.main-nav .nav-mega-foot{
+grid-column:1 / -1; margin-top:18px; padding:16px 14px 2px; border-top:1px solid var(--dark-line);
+display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+}
+.main-nav .nav-mega-foot span{font-size:13px; color:var(--dark-ink-soft);}
+.main-nav .nav-mega-foot .btn{padding:10px 18px; font-size:13px; color:#fff;}
+@media (max-width:1200px){
+.main-nav .nav-dropdown-mega{grid-template-columns:repeat(2, minmax(0, 1fr)); width:min(540px, calc(100vw - 340px)); row-gap:20px;}
+.main-nav .nav-mega-col + .nav-mega-col::after{display:none;}
+}
 
 /* ---------- Mobile nav dropdown groups ---------- */
 .mobile-nav details{border-bottom:1px solid var(--dark-line);}
@@ -596,7 +669,12 @@ border:1px solid var(--line); background:var(--bg); padding:32px;
 box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 .case-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md);}
+.case-demo-badge{
+display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+color:var(--ink-faint); background:var(--bg-alt); border:1px solid var(--line-strong); padding:4px 8px; margin-bottom:14px;
+}
 .case-industry{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent);}
+.case-links{margin-top:18px; padding-top:18px; border-top:1px solid var(--line);}
 .case-card h4{font-size:19px; font-weight:600; font-family:var(--body); margin:10px 0 10px;}
 .case-card p{font-size:14px; color:var(--ink-soft); margin-bottom:20px;}
 .case-metrics{display:flex; gap:28px; flex-wrap:wrap; padding-top:18px; border-top:1px solid var(--line);}
@@ -624,17 +702,6 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 .effect-item{background:var(--bg); padding:28px 24px;}
 .effect-val{font-family:var(--disp); font-weight:700; font-size:36px; color:var(--accent); display:block;}
 .effect-label{font-size:13px; color:var(--ink-soft); margin-top:8px; display:block;}
-
-/* ---------- Второстепенный блок «Каталог решений» на главной ----------
-   Нейтральные плитки без выделения — сюда попадает в том числе плитка на
-   роботизацию, наравне с остальными, без тёплого акцента (тёплый акцент
-   зарезервирован за товарными карточками .product-card на самих страницах
-   каталога оборудования — см. CLAUDE.md). */
-.solution-tiles{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
-.solution-tile{background:var(--bg); padding:26px 22px; display:flex; flex-direction:column; gap:8px; transition:background .2s ease;}
-.solution-tile:hover{background:var(--bg-alt);}
-.solution-tile .tile-cat{font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
-.solution-tile h5{font-family:var(--body); font-size:15px; font-weight:600;}
 
 /* ---------- Аккордеон этапов внедрения ---------- */
 .stage-list{border-top:1px solid var(--line);}

@@ -16,6 +16,7 @@
     <form method="post" enctype="multipart/form-data"
           action="<%= post ? '/admin/news/' + post.id + '/edit' : '/admin/news/new' %>"
           class="form-wrap admin-form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
 
       <div class="field">
         <label for="image">Фото новости</label>

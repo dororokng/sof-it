@@ -44,6 +44,7 @@
                   <a href="/admin/products/<%= p.id %>/edit" class="btn btn-outline">Изменить</a>
                   <form method="post" action="/admin/products/<%= p.id %>/delete"
                         onsubmit="return confirm('Удалить товар «<%= p.name %>»?')">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                     <button type="submit" class="btn btn-outline">Удалить</button>
                   </form>
                 </div>

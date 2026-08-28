@@ -11,6 +11,10 @@ if (!programPage) {
 } else {
   const p = programPage;
 
+  document.title = `Софит — ${p.name}`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", p.shortDesc);
+
   document.getElementById("progBreadcrumbName").textContent = p.name;
   document.getElementById("progName").textContent = p.name;
   document.getElementById("progShortDesc").textContent = p.shortDesc;

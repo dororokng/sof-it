@@ -13,7 +13,9 @@ import { newsRouter } from "./routes/news.js";
 import { categoriesRouter } from "./routes/categories.js";
 import { servicesRouter } from "./routes/services.js";
 import { settingsRouter } from "./routes/settings.js";
+import { leadsRouter } from "./routes/leads.js";
 import { publicApiRouter } from "./routes/publicApi.js";
+import { csrfMiddleware } from "./middleware/csrf.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "../../"); // корень репозитория — там css/, js/, pages/
@@ -25,6 +27,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); // нужен для fetch(JSON) с формы заявки на /pages/contacts.html
 
 // Отдаём наружу только то, что реально должно быть публичным — НЕ весь
 // корень репозитория целиком (там же лежат server/, docker-compose.yml,
@@ -54,6 +57,7 @@ app.use(
     cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }, // неделя
   })
 );
+app.use(csrfMiddleware); // кладёт res.locals.csrfToken — нужен и /admin/login (до входа), и всем формам админки
 
 app.get("/api/health", async (req, res) => {
   await prisma.$queryRaw`SELECT 1`;
@@ -68,6 +72,7 @@ app.use("/admin/categories", categoriesRouter);
 app.use("/admin/services", servicesRouter);
 app.use("/admin/news", newsRouter);
 app.use("/admin/settings", settingsRouter);
+app.use("/admin/leads", leadsRouter);
 
 app.listen(port, () => {
   console.log(`Sofit API listening on http://localhost:${port}`);

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db.js";
 import { requireAuth } from "../middleware/requireAuth.js";
+import { requireCsrf, verifyCsrfToken } from "../middleware/csrf.js";
 import { uploadCategoryImage, deleteCategoryImageFile } from "../lib/upload.js";
 
 export const categoriesRouter = Router();
@@ -20,6 +21,10 @@ categoriesRouter.post("/new", async (req, res) => {
     await uploadCategoryImage(req, res);
   } catch (err) {
     return res.render("categories/form", { category: null, values: req.body, error: err.message || "Не удалось загрузить файл." });
+  }
+  if (!verifyCsrfToken(req)) {
+    if (req.file) deleteCategoryImageFile(`/uploads/categories/${req.file.filename}`);
+    return res.render("categories/form", { category: null, values: req.body, error: "Форма устарела. Обновите страницу и попробуйте снова." });
   }
 
   const { id, name, description, order } = req.body;
@@ -62,6 +67,10 @@ categoriesRouter.post("/:id/edit", async (req, res) => {
   const { name, description, order, isActive } = req.body;
   const existing = await prisma.category.findUnique({ where: { id: req.params.id } });
   if (!existing) return res.redirect("/admin/categories");
+  if (!verifyCsrfToken(req)) {
+    if (req.file) deleteCategoryImageFile(`/uploads/categories/${req.file.filename}`);
+    return res.render("categories/form", { category: existing, values: null, error: "Форма устарела. Обновите страницу и попробуйте снова." });
+  }
 
   const newImageUrl = req.file ? `/uploads/categories/${req.file.filename}` : existing.imageUrl;
 
@@ -84,7 +93,7 @@ categoriesRouter.post("/:id/edit", async (req, res) => {
   }
 });
 
-categoriesRouter.post("/:id/delete", async (req, res) => {
+categoriesRouter.post("/:id/delete", requireCsrf, async (req, res) => {
   const inUse = await prisma.product.count({ where: { categoryId: req.params.id } });
   if (inUse > 0) {
     return res.redirect(
