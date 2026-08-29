@@ -69,15 +69,20 @@ function newsCardHTML(n) {
   </a>`;
 }
 
-// ---------- Отрасли / программы 1С / тарифы / кейсы ----------
+// ---------- Отрасли / решения 1С / тарифы / кейсы ----------
 // Данные для этих карточек — статический js/solutions-data.js (не БД), см.
 // комментарий в начале этого файла. escapeHtml/highlightLatin здесь не
 // обязательны по соображениям безопасности (контент не редактируется через
 // админку), но используются для единообразия с остальными карточками сайта.
+//
+// Фаза 3 редизайна «убрать шаблонность»: все витринные карточки сведены к
+// одному компоненту .service-card (Card A). Прежние .program-card /
+// .industry-card / .solution-row / .svc-card удалены. Единственный
+// самостоятельный вариант — .industry-media-card (та же карточка + рамка
+// под фоновое фото), используется только на главной.
 
-function industryCardHTML(ind, i) {
-  return `<a class="industry-card" href="/pages/otrasl.html?slug=${ind.slug}">
-    <span class="n">${String(i + 1).padStart(2, "0")}</span>
+function industryCardHTML(ind) {
+  return `<a class="service-card" href="/pages/otrasl.html?slug=${ind.slug}">
     <h4>${escapeHtml(ind.name)}</h4>
     <p>${escapeHtml(ind.offer)}</p>
     <span class="more">Решения для отрасли →</span>
@@ -85,21 +90,7 @@ function industryCardHTML(ind, i) {
 }
 
 function programCardHTML(p) {
-  return `<a class="program-card" href="/pages/programma.html?slug=${p.slug}">
-    <h4>${highlightLatin(p.name)}</h4>
-    <p>${escapeHtml(p.shortDesc)}</p>
-    <span class="more">Подробнее →</span>
-  </a>`;
-}
-
-// Компактная строка списка решений 1С — используется только на главной
-// (блок «Решения 1С» в виде списка + панель-превью, а не сетки карточек).
-// Для каталога /pages/programy-1s.html по-прежнему используется
-// programCardHTML выше. Флаг p.popular (см. js/solutions-data.js) помечает
-// одно решение как рекомендуемое.
-function solutionRowHTML(p) {
-  const pop = p.popular ? " solution-row--popular" : "";
-  return `<a class="solution-row${pop}" href="/pages/programma.html?slug=${p.slug}">
+  return `<a class="service-card" href="/pages/programma.html?slug=${p.slug}">
     <h4>${highlightLatin(p.name)}</h4>
     <p>${escapeHtml(p.shortDesc)}</p>
     <span class="more">Подробнее →</span>
@@ -110,12 +101,11 @@ function solutionRowHTML(p) {
 // главной (блок «Отраслевые решения»). Пока реального фото нет, .media-frame
 // показывает подпись-хинт; когда фото появится, внутрь рамки кладётся <img>
 // (см. .media-frame img в style.css). Для /pages/otrasli.html используется
-// прежний industryCardHTML.
-function industryMediaCardHTML(ind, i) {
+// industryCardHTML выше (обычная .service-card без фото).
+function industryMediaCardHTML(ind) {
   return `<a class="industry-media-card" href="/pages/otrasl.html?slug=${ind.slug}">
     <div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(ind.name)}"></div>
     <div class="industry-media-body">
-      <span class="n">${String(i + 1).padStart(2, "0")}</span>
       <h4>${escapeHtml(ind.name)}</h4>
       <p>${escapeHtml(ind.offer)}</p>
       <span class="more">Решения для отрасли →</span>

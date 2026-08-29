@@ -73,7 +73,6 @@ color:var(--ink-faint); display:block;
    синего (у IT остаётся синий). Применяется точечно: везде, что относится
    именно к роботам/оборудованию (карточки товаров, вкладки каталога,
    hero-фото карточки товара), а не глобально по всему сайту. */
-.direction-card.warm:hover{background:var(--accent-warm-soft);}
 
 /* Смягчение латинских слов (названия брендов/моделей) внутри русского
    текста — чтобы они не «кричали» на фоне кириллицы. См. highlightLatin()
@@ -240,17 +239,7 @@ color:var(--ink-faint); text-align:center; padding:0 28px; max-width:280px;
 .media-frame--dark{aspect-ratio:4/3; background:var(--dark-2); border-color:var(--dark-line);}
 .media-frame--dark::after{color:var(--dark-ink-soft);}
 
-/* ---------- Two directions ---------- */
-.directions{display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--line);}
-.direction-card{
-background:var(--bg); padding:56px; min-height:340px; display:flex; flex-direction:column; justify-content:space-between;
-transition:background .2s ease; cursor:pointer;
-}
-.direction-card:hover{background:var(--accent-soft);}
-.direction-card h3{font-size:32px; margin:18px 0 12px;}
-.direction-card p{color:var(--ink-soft); max-width:380px; margin-bottom:28px;}
-.direction-num{font-family:var(--mono); font-size:13px; color:var(--ink-faint);}
-.direction-card > .btn{align-self:flex-start;}
+/* Отступ для инлайн-CTA (текст-ссылка/кнопка под текстом блока). */
 .cta-inline{margin-top:28px;}
 
 /* ---------- About / advantages ---------- */
@@ -265,58 +254,28 @@ transition:background .2s ease; cursor:pointer;
 .adv-card h4{font-family:var(--body); font-size:16px; font-weight:600; margin-bottom:10px;}
 .adv-card p{font-size:14px; color:var(--ink-soft);}
 
-/* ---------- Service / product cards ---------- */
-.card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
-.service-card{border:1px solid var(--line); padding:32px; background:var(--bg); box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;}
-.service-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-accent);}
-.service-card h4{font-size:19px; font-weight:600; margin-bottom:10px; font-family:var(--body);}
-.service-card p{font-size:14px; color:var(--ink-soft); margin-bottom:20px;}
-.service-card .more{font-size:13px; font-weight:600; color:var(--accent);}
-.service-card-featured{max-width:640px;}
-/* Тизер роботизации на главной — тот же компонент "featured"-карточки,
-   что уже используется для эталонной услуги "Внедрение 1С" на it.html и
-   vnedrenie-1s.html, но в тёплом акценте направления роботизации вместо
-   синего — чтобы блок читался как связанный с 1С-акцентными карточками
-   по форме, но визуально вторичный по цвету. */
-.service-card-featured.warm:hover{border-color:var(--accent-warm); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-warm);}
-.service-card-featured.warm .btn-outline:hover{border-color:var(--accent-warm); color:var(--accent-warm);}
-.service-card-featured .info-label{margin-bottom:14px;}
-
-/* Карточки услуг 1С на главной — с линейной иконкой сверху. Отличаются от
-   плоских .service-card наличием иконки и выделением одной услуги как
-   популярной. Лежат в .card-grid (3→2→1 колонки), наследуют hover-подъём. */
-.svc-card{
-position:relative; display:flex; flex-direction:column; align-items:flex-start;
-border:1px solid var(--line); background:var(--bg); padding:32px; box-shadow:var(--shadow-sm);
+/* ---------- Card A: «Витрина» (.service-card) ----------
+   Единый витринный компонент (фаза 3 редизайна «убрать шаблонность»).
+   Заменил собой .svc-card / .program-card / .industry-card / .solution-row.
+   Опциональные слоты: .info-label (eyebrow сверху), .card-icon (линейная
+   SVG-иконка), .more (ссылка снизу, прижата к низу через margin-top:auto).
+   Может лежать в .card-grid (3→2→1) как <a> или как <div>. */
+.card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.service-card{
+display:flex; flex-direction:column; align-items:flex-start;
+border:1px solid var(--line); padding:28px; background:var(--bg); box-shadow:var(--shadow-sm);
 transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
-.svc-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-accent);}
-.svc-icon{width:38px; height:38px; color:var(--accent); margin-bottom:20px; flex:none;}
-.svc-card h4{font-size:19px; font-weight:600; margin-bottom:10px; font-family:var(--body);}
-.svc-card p{font-size:14px; color:var(--ink-soft); margin-bottom:20px;}
-.svc-card .more{font-size:13px; font-weight:600; color:var(--accent); margin-top:auto;}
-.svc-card--popular{border-color:var(--accent); background:var(--accent-soft);}
-.pop-badge{
-position:absolute; top:16px; right:16px; font-family:var(--mono); font-size:10px; letter-spacing:.06em;
-text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:3px 8px; background:var(--bg);
-}
-
-/* Блок «Решения 1С» на главной — вертикальный список + панель-превью
-   интерфейса справа (вместо ещё одной сетки карточек). */
-.solutions-split{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
-.solution-list{display:flex; flex-direction:column; border-top:1px solid var(--line);}
-.solution-row{
-position:relative; display:block; padding:22px 4px 22px 0; border-bottom:1px solid var(--line);
-transition:padding-left .15s ease;
-}
-.solution-row:hover{padding-left:12px;}
-.solution-row--popular{box-shadow:inset 3px 0 0 var(--accent);}
-.solution-row h4{font-size:18px; font-weight:600; font-family:var(--body); margin-bottom:6px;}
-.solution-row:hover h4{color:var(--accent);}
-.solution-row p{font-size:13px; color:var(--ink-soft); margin-bottom:10px; max-width:420px;}
-.solution-row .more{font-size:12.5px; font-weight:600; color:var(--accent);}
-.solution-preview{position:sticky; top:96px;}
-.solution-preview .media-frame{aspect-ratio:4/3;}
+.service-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-accent);}
+.service-card .card-icon{width:34px; height:34px; color:var(--accent); margin-bottom:18px; flex:none;}
+.service-card h4{font-size:17px; font-weight:600; margin-bottom:8px; font-family:var(--body);}
+.service-card p{font-size:14px; color:var(--ink-soft); margin-bottom:18px;}
+.service-card .more{font-size:13px; font-weight:600; color:var(--accent); margin-top:auto;}
+.service-card .info-label{margin-bottom:12px;}
+/* Выделенная карточка (ключевая услуга / акцентная плашка-ссылка). */
+.service-card-featured{border-color:var(--line-strong);}
+.service-card-featured.warm:hover{border-color:var(--accent-warm); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-warm);}
+.service-card-featured.warm .btn-outline:hover{border-color:var(--accent-warm); color:var(--accent-warm);}
 
 /* Отраслевые карточки на главной — с рамкой под фоновое изображение сверху. */
 .industry-media-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
@@ -327,7 +286,6 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 .industry-media-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-accent);}
 .industry-media-card .media-frame{border:none; border-bottom:1px solid var(--line);}
 .industry-media-body{padding:24px; display:flex; flex-direction:column; gap:10px; flex:1;}
-.industry-media-body .n{font-family:var(--mono); font-size:12px; color:var(--accent);}
 .industry-media-body h4{font-family:var(--body); font-size:17px; font-weight:600;}
 .industry-media-body p{font-size:13px; color:var(--ink-soft);}
 .industry-media-body .more{font-size:12.5px; font-weight:600; color:var(--accent); margin-top:auto;}
@@ -568,8 +526,6 @@ h2{font-size:28px;}
 .about-grid{grid-template-columns:1fr; gap:48px;}
 .adv-grid{grid-template-columns:repeat(2,1fr);}
 .card-grid{grid-template-columns:repeat(2,1fr);}
-.solutions-split{grid-template-columns:1fr; gap:32px;}
-.solution-preview{position:static;}
 .industry-media-grid{grid-template-columns:repeat(2,1fr);}
 .section-dark .wrap{grid-template-columns:1fr; gap:36px;}
 .steps{grid-template-columns:repeat(3,1fr);}
@@ -580,7 +536,6 @@ h2{font-size:28px;}
 .contact-info-grid{grid-template-columns:1fr;}
 .stats-grid{grid-template-columns:repeat(2,1fr);}
 .principle-grid{grid-template-columns:repeat(2,1fr);}
-.industry-grid{grid-template-columns:repeat(2,1fr);}
 .tariff-grid{grid-template-columns:1fr;}
 .case-grid{grid-template-columns:1fr;}
 .trust-grid{grid-template-columns:repeat(2,1fr);}
@@ -594,7 +549,6 @@ h2{font-size:28px;}
 nav.main-nav{display:none;}
 .burger{display:flex;}
 .header-right .phone-link{display:none;}
-.directions{grid-template-columns:1fr;}
 .adv-grid{grid-template-columns:1fr;}
 .card-grid{grid-template-columns:1fr;}
 .industry-media-grid{grid-template-columns:1fr;}
@@ -612,7 +566,6 @@ section{padding:64px 0;}
 .stats-grid{grid-template-columns:1fr;}
 .principle-grid{grid-template-columns:1fr;}
 .error-code{font-size:76px;}
-.industry-grid{grid-template-columns:1fr;}
 .trust-grid{grid-template-columns:1fr;}
 .effect-grid{grid-template-columns:1fr;}
 .stage-item .stage-body{padding-left:4px;}
@@ -772,18 +725,6 @@ font-family:var(--body); font-size:15px; text-transform:none; padding:10px 0 10p
 border-bottom:none; color:var(--dark-ink-soft);
 }
 
-/* ---------- Industries selector ---------- */
-.industry-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
-.industry-card{
-background:var(--bg); padding:32px 28px; display:flex; flex-direction:column; gap:14px;
-transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
-}
-.industry-card:hover{background:var(--accent-soft); transform:translateY(-3px); box-shadow:var(--shadow-md);}
-.industry-card .n{font-family:var(--mono); font-size:12px; color:var(--accent);}
-.industry-card h4{font-family:var(--body); font-size:17px; font-weight:600;}
-.industry-card p{font-size:13px; color:var(--ink-soft);}
-.industry-card .more{font-size:12.5px; font-weight:600; color:var(--accent); margin-top:auto;}
-
 /* ---------- Tariff cards ---------- */
 .tariff-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
 .tariff-card{
@@ -824,16 +765,6 @@ color:var(--ink-faint); background:var(--bg-alt); border:1px solid var(--line-st
 .case-metrics div{display:flex; flex-direction:column; gap:4px;}
 .case-metric-val{font-family:var(--disp); font-size:24px; font-weight:700; color:var(--accent);}
 .case-metric-label{font-size:11px; color:var(--ink-faint); font-family:var(--mono); text-transform:uppercase; letter-spacing:.04em;}
-
-/* ---------- Program cards (каталог 1С) ---------- */
-.program-card{
-border:1px solid var(--line); background:var(--bg); padding:28px; display:flex; flex-direction:column; gap:10px;
-box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
-}
-.program-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-accent);}
-.program-card h4{font-size:18px; font-weight:600; font-family:var(--body);}
-.program-card p{font-size:13px; color:var(--ink-soft); flex:1;}
-.program-card .more{font-size:12.5px; font-weight:600; color:var(--accent);}
 
 /* ---------- Доверие / показатели эффекта ---------- */
 .trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
