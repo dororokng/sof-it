@@ -92,9 +92,45 @@ function programCardHTML(p) {
   </a>`;
 }
 
+// Компактная строка списка решений 1С — используется только на главной
+// (блок «Решения 1С» в виде списка + панель-превью, а не сетки карточек).
+// Для каталога /pages/programy-1s.html по-прежнему используется
+// programCardHTML выше. Флаг p.popular (см. js/solutions-data.js) помечает
+// одно решение как рекомендуемое.
+function solutionRowHTML(p) {
+  const pop = p.popular ? " solution-row--popular" : "";
+  const badge = p.popular ? '<span class="pop-badge">Популярное решение</span>' : "";
+  return `<a class="solution-row${pop}" href="/pages/programma.html?slug=${p.slug}">
+    ${badge}
+    <h4>${highlightLatin(p.name)}</h4>
+    <p>${escapeHtml(p.shortDesc)}</p>
+    <span class="more">Подробнее →</span>
+  </a>`;
+}
+
+// Карточка отрасли с рамкой под фоновое изображение — используется только на
+// главной (блок «Отраслевые решения»). Пока реального фото нет, .media-frame
+// показывает подпись-хинт; когда фото появится, внутрь рамки кладётся <img>
+// (см. .media-frame img в style.css). Для /pages/otrasli.html используется
+// прежний industryCardHTML.
+function industryMediaCardHTML(ind, i) {
+  return `<a class="industry-media-card" href="/pages/otrasl.html?slug=${ind.slug}">
+    <div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(ind.name)}"></div>
+    <div class="industry-media-body">
+      <span class="n">${String(i + 1).padStart(2, "0")}</span>
+      <h4>${escapeHtml(ind.name)}</h4>
+      <p>${escapeHtml(ind.offer)}</p>
+      <span class="more">Решения для отрасли →</span>
+    </div>
+  </a>`;
+}
+
 function tariffCardHTML(t) {
+  // Слот бейджа рендерится всегда (в невыделенных карточках он скрыт через
+  // visibility в CSS) — так у всех трёх карточек одинаковая высота шапки и
+  // заголовок/цена/кнопка выстраиваются в одну линию.
   return `<div class="tariff-card${t.highlighted ? " highlighted" : ""}">
-    ${t.highlighted ? '<span class="tariff-badge">Популярный выбор</span>' : ""}
+    <span class="tariff-badge">${t.highlighted ? "Популярный выбор" : ""}</span>
     <h4>${escapeHtml(t.name)}</h4>
     <div class="tariff-term">${escapeHtml(t.term)}</div>
     <div class="tariff-price">${escapeHtml(t.priceFrom)}</div>

@@ -31,7 +31,7 @@
       </p>
       <div class="hero-ctas">
         <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
-        <a href="#tarify" class="btn btn-outline">Форматы — от 60 000 ₽</a>
+        <a href="#tarify" class="btn btn-outline">Тарифы — от 60 000 ₽</a>
       </div>
     </div>
 
@@ -62,14 +62,17 @@
           <div class="segment-card">
             <h4>Малый бизнес</h4>
             <p>Первая система учёта или переход с самостоятельно настроенной базы. Важны скорость запуска и понятная стоимость.</p>
+            <a href="#tarify" class="segment-rec">Рекомендуем: «Быстрый старт»</a>
           </div>
           <div class="segment-card">
             <h4>Средний бизнес</h4>
             <p>Рост числа операций и подразделений, ручной учёт перестаёт справляться с объёмом и требует единой системы.</p>
+            <a href="#tarify" class="segment-rec">Рекомендуем: «Стандартные настройки»</a>
           </div>
           <div class="segment-card">
             <h4>Крупный бизнес</h4>
             <p>Несколько юрлиц, сложные процессы и интеграции — нужен проект с обследованием и поэтапным вводом в эксплуатацию.</p>
+            <a href="#tarify" class="segment-rec">Рекомендуем: «Проектное внедрение»</a>
           </div>
         </div>
       </div>
@@ -81,10 +84,10 @@
           <div>
             <h2>Тарифные пакеты</h2>
           </div>
-          <a href="/pages/ceny.html" class="btn btn-outline btn-arrow">Все тарифы</a>
+          <a href="/pages/ceny.html" class="text-link">Цены и тарифы</a>
         </div>
         <div class="tariff-grid" id="pageTariffGrid"></div>
-        <p class="lead section-note">Подробное сравнение пакетов по срокам, обследованию и составу работ — на странице <a href="/pages/ceny.html">«Цены»</a>.</p>
+        <p class="lead section-note">Подробное сравнение пакетов по срокам, обследованию и составу работ — на странице <a href="/pages/ceny.html">«Цены и тарифы»</a>.</p>
       </div>
     </section>
 
@@ -95,6 +98,7 @@
             <h2>Этапы внедрения</h2>
           </div>
         </div>
+        <div class="media-frame media-frame--wide" data-hint="Схема этапов внедрения / скриншот настроенной 1С"></div>
         <div class="stage-list">
           <details class="stage-item" open>
             <summary><span class="n">01</span>Инициация</summary>
@@ -132,26 +136,40 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>Результаты внедрения</h2>
+            <h2>Примеры проектов</h2>
           </div>
         </div>
         <div class="placeholder-note">
-          Показатели ниже — пример структуры блока, ориентированный на
-          типовые эффекты внедрения. Перед публикацией стоит подставить
-          показатели по реальным завершённым проектам.
+          Кейсы — заготовки под реальные завершённые проекты. Подставить
+          перед публикацией; выдуманные цифры и клиентов не добавлять.
         </div>
-        <div class="effect-grid">
-          <div class="effect-item"><span class="effect-val">до 30%</span><span class="effect-label">быстрее закрытие периода</span></div>
-          <div class="effect-item"><span class="effect-val">до 20%</span><span class="effect-label">снижение ошибок учёта</span></div>
-          <div class="effect-item"><span class="effect-val">1 база</span><span class="effect-label">вместо разрозненных таблиц</span></div>
+        <div class="proof-grid">
+          <div class="proof-case">
+            <span class="proof-case-industry">[Отрасль клиента]</span>
+            <dl>
+              <dt>Задача</dt><dd>[Что не устраивало клиента до внедрения]</dd>
+              <dt>Решение</dt><dd>[Какая конфигурация, что было сделано]</dd>
+              <dt>Результат</dt><dd>[Метрика в цифрах]</dd>
+            </dl>
+            <p class="proof-quote">[Цитата клиента], — [Имя, должность, компания]</p>
+          </div>
+          <div class="proof-case">
+            <span class="proof-case-industry">[Отрасль клиента]</span>
+            <dl>
+              <dt>Задача</dt><dd>[Что не устраивало клиента до внедрения]</dd>
+              <dt>Решение</dt><dd>[Какая конфигурация, что было сделано]</dd>
+              <dt>Результат</dt><dd>[Метрика в цифрах]</dd>
+            </dl>
+          </div>
         </div>
       </div>
     </section>
 
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head section-head--sub">
           <div>
+            <span class="info-label">Конфигурации</span>
             <h2>Внедрение любых конфигураций 1С</h2>
             <p class="lead">Работаем с полным набором типовых конфигураций — выберите свою для подробностей.</p>
           </div>
@@ -163,14 +181,15 @@
     <section class="section-alt">
       <div class="wrap about-grid">
         <div>
-          <h2>Кто ведёт проект</h2>
+          <span class="info-label">Команда</span>
+          <h2 class="h2-sub">Кто ведёт проект</h2>
           <p class="lead">
             Внедрение сопровождает команда с практическим опытом настройки и
             запуска конфигураций 1С — от предпроектного обследования до
             обучения пользователей и плановой поддержки после запуска.
           </p>
           <div class="cta-inline">
-            <a href="/pages/about.html#team" class="btn btn-outline btn-arrow">Состав команды</a>
+            <a href="/pages/about.html#team" class="text-link">Состав команды</a>
           </div>
         </div>
         <ul class="about-list">
@@ -183,15 +202,16 @@
 
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head section-head--sub">
           <div>
+            <span class="info-label">FAQ</span>
             <h2>Частые вопросы о внедрении</h2>
           </div>
         </div>
         <div class="stage-list">
           <details class="stage-item">
             <summary><span class="n">Q</span>Сколько времени занимает внедрение?</summary>
-            <div class="stage-body">Зависит от формата: «Быстрый старт» — от 5 рабочих дней для типовой настройки без доработок, «Проектное внедрение» с обследованием и адаптацией под нетиповые процессы — от 2 месяцев. Точный срок фиксируется после обследования.</div>
+            <div class="stage-body">Зависит от формата: «Быстрый старт» — от 5 рабочих дней для типовой настройки без доработок, «Стандартные настройки» — от 3 недель, «Проектное внедрение» с обследованием и адаптацией под нетиповые процессы — от 2 месяцев. Точный срок фиксируется после обследования.</div>
           </details>
           <details class="stage-item">
             <summary><span class="n">Q</span>Можно ли внедрить не всю систему сразу, а по частям?</summary>
@@ -215,17 +235,34 @@
 
     <section class="section-alt">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head section-head--sub">
           <div>
+            <span class="info-label">Ещё по теме</span>
             <h2>Связанные услуги</h2>
             <p class="lead">Внедрение редко существует отдельно от других задач по 1С.</p>
           </div>
         </div>
-        <div class="link-row">
-          <a class="link-chip" href="/pages/avtomatizaciya-1s.html">Автоматизация процессов</a>
-          <a class="link-chip" href="/pages/soprovozhdenie-1s.html">Сопровождение 1С</a>
-          <a class="link-chip" href="/pages/dorabotka-1s.html">Доработка 1С</a>
-          <a class="link-chip" href="/pages/konsultacii-1s.html">Консультации по 1С</a>
+        <div class="card-grid related-grid">
+          <a class="service-card" href="/pages/avtomatizaciya-1s.html">
+            <h4>Автоматизация процессов</h4>
+            <p>Переводим ручные операции и разрозненные таблицы в автоматизированные сценарии внутри 1С.</p>
+            <span class="more">Подробнее →</span>
+          </a>
+          <a class="service-card" href="/pages/soprovozhdenie-1s.html">
+            <h4>Сопровождение 1С</h4>
+            <p>Постоянная поддержка работающей системы: консультации, исправление ошибок, контроль регламентных заданий.</p>
+            <span class="more">Подробнее →</span>
+          </a>
+          <a class="service-card" href="/pages/dorabotka-1s.html">
+            <h4>Доработка 1С</h4>
+            <p>Меняем типовую конфигурацию под нетиповые процессы — отчёты, печатные формы, бизнес-логику.</p>
+            <span class="more">Подробнее →</span>
+          </a>
+          <a class="service-card" href="/pages/konsultacii-1s.html">
+            <h4>Консультации по 1С</h4>
+            <p>Разбор конкретных вопросов по настройке, учётным операциям и выбору конфигурации.</p>
+            <span class="more">Подробнее →</span>
+          </a>
         </div>
       </div>
     </section>

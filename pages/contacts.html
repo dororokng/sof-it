@@ -46,49 +46,43 @@
             <h2>Оставить заявку</h2>
           </div>
         </div>
-        <div class="contacts-grid">
-          <form class="form-wrap" id="contactForm">
-            <div class="field">
-              <label for="f-name">Имя</label>
-              <input id="f-name" type="text" required placeholder="Как к вам обращаться" />
-            </div>
-            <div class="field">
-              <label for="f-company">Компания</label>
-              <input id="f-company" type="text" placeholder="Название компании" />
-            </div>
-            <div class="field">
-              <label for="f-phone">Телефон</label>
-              <input id="f-phone" type="tel" required placeholder="+7 (___) ___-__-__" />
-            </div>
-            <div class="field">
-              <label for="f-email">E-mail</label>
-              <input id="f-email" type="email" placeholder="you@company.ru" />
-            </div>
-            <div class="field">
-              <label for="f-comment">Комментарий</label>
-              <textarea id="f-comment" placeholder="Кратко опишите задачу"></textarea>
-            </div>
-            <div class="field field-honeypot" aria-hidden="true">
-              <label for="f-website">Оставьте это поле пустым</label>
-              <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
-            </div>
-            <div class="field field-check">
-              <input type="checkbox" id="f-consent" required />
-              <label for="f-consent">
-                Согласен на <a href="/pages/personal-data.html" target="_blank" rel="noopener">обработку персональных данных</a>
-              </label>
-            </div>
-            <button type="submit" class="btn btn-primary">Отправить заявку</button>
-            <div class="form-success" id="formSuccess">
-              Заявка отправлена. Мы свяжемся с вами в ближайшее время.
-            </div>
-            <div class="form-error" id="formError"></div>
-          </form>
-          <div class="map-placeholder bracket">
-            <span class="bl"></span><span class="br"></span>
-            <div id="contactMap"></div>
+        <form class="form-wrap" id="contactForm">
+          <div class="field">
+            <label for="f-name">Имя</label>
+            <input id="f-name" type="text" required placeholder="Как к вам обращаться" />
           </div>
-        </div>
+          <div class="field">
+            <label for="f-company">Компания</label>
+            <input id="f-company" type="text" placeholder="Название компании" />
+          </div>
+          <div class="field">
+            <label for="f-phone">Телефон</label>
+            <input id="f-phone" type="tel" required placeholder="+7 (___) ___-__-__" />
+          </div>
+          <div class="field">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" type="email" placeholder="you@company.ru" />
+          </div>
+          <div class="field">
+            <label for="f-comment">Комментарий</label>
+            <textarea id="f-comment" placeholder="Кратко опишите задачу"></textarea>
+          </div>
+          <div class="field field-honeypot" aria-hidden="true">
+            <label for="f-website">Оставьте это поле пустым</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="field field-check">
+            <input type="checkbox" id="f-consent" required />
+            <label for="f-consent">
+              Согласен на <a href="/pages/personal-data.html" target="_blank" rel="noopener">обработку персональных данных</a>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Отправить заявку</button>
+          <div class="form-success" id="formSuccess">
+            Заявка отправлена. Мы свяжемся с вами в ближайшее время.
+          </div>
+          <div class="form-error" id="formError"></div>
+        </form>
       </div>
     </section>
   </main>
@@ -100,7 +94,5 @@
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
   <script src="/js/contact-form.js"></script>
-  <script src="https://api-maps.yandex.ru/2.1/?apikey=8fcdcc47-5586-415e-aad0-11a6175782d4&lang=ru_RU"></script>
-  <script src="/js/contacts-map.js"></script>
 </body>
 </html>
