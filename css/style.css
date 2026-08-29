@@ -684,13 +684,13 @@ color:var(--dark-ink);
 .mobile-nav-top .burger span:nth-child(3){transform:rotate(-45deg) translate(4px, -4px);}
 
 /* ---------- Nav dropdowns (desktop) ---------- */
+/* Три одинаковых по устройству дропдауна: «Услуги 1С», «Решения 1С»,
+   «Компания» — простой одноколоночный список ссылок, открывается под своим
+   пунктом. Прежняя мега-панель «Услуги 1С» убрана в фазе 1 редизайна
+   «убрать шаблонность»: «Решения 1С» и «Роботизация» подняты на верхний
+   уровень меню, все дропдауны приведены к единому паттерну. */
 .nav-item{position:relative;}
-/* Мега-панель позиционируется от левого края всего меню (nav.main-nav),
-   а не от узкого пункта «Услуги 1С» — так она гарантированно не вылезает
-   ни за левый, ни за правый край окна на любой десктопной ширине. Поэтому
-   у самого пункта убираем свой контекст позиционирования. */
 .main-nav{position:relative;}
-.nav-item.has-dropdown{position:static;}
 .nav-item > a{display:inline-flex; align-items:center; gap:6px;}
 .nav-item.has-dropdown > a::after{
 content:''; width:6px; height:6px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor;
@@ -736,54 +736,13 @@ transition:opacity .18s ease, transform .18s ease, visibility 0s;
 .nav-item.has-dropdown.nav-item--rel{position:relative;}
 .nav-item--rel .nav-dropdown{left:auto; right:0; min-width:210px;}
 
-/* ---------- Мега-меню «Услуги 1С» (единая панель для всех разделов сайта) ----------
-   Технически это тот же .nav-dropdown (наследует всю его hover/focus-within
-   механику и невидимые мостики, см. выше) с модификатором для широкой
-   grid-раскладки в четыре колонки + нижняя строка-CTA во всю ширину. */
-/* Селекторы ниже намеренно уточнены до .main-nav .nav-dropdown-mega … —
-   ссылки панели физически лежат внутри nav.main-nav, а правило
-   `nav.main-nav a` (0,0,1,2) перебивало бы одноклассовые `.nav-mega-* a`
-   (0,0,1,1) по специфичности: без этого не работал бы ни перенос длинных
-   названий (white-space), ни размер шрифта пунктов. */
-.main-nav .nav-dropdown-mega{
-/* left:0 — от левого края nav.main-nav (под пунктом «Услуги 1С»).
-   Ширина ограничена и абсолютным пределом, и «100vw минус примерный отступ
-   меню от левого края окна» — на узких десктопах панель ужимается вместо
-   того, чтобы уехать за правый край. */
-left:0; margin-left:0; width:min(720px, calc(100vw - 380px));
-display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:0;
-padding:22px 20px; max-height:calc(100vh - 110px); overflow-y:auto; overflow-x:hidden;
-}
-.main-nav .nav-mega-col{display:flex; flex-direction:column; min-width:0; padding:0 14px; position:relative;}
-.main-nav .nav-mega-col + .nav-mega-col::after{
-content:''; position:absolute; left:0; top:4px; bottom:8px; width:1px; background:var(--dark-line);
-}
-.main-nav .nav-dropdown-mega a{
-white-space:normal; overflow-wrap:break-word; line-height:1.3; font-size:13px; padding:8px 10px;
-border-radius:4px; border-left:2px solid transparent;
-transition:background .12s ease, color .12s ease, border-color .12s ease;
-}
-.main-nav .nav-dropdown-mega a:hover{background:rgba(255,255,255,.06); color:#fff; border-left-color:var(--accent-on-dark);}
-.main-nav .nav-mega-featured{color:var(--dark-ink); font-weight:600;}
-.main-nav .nav-mega-all{
-margin-top:auto; padding-top:12px; border-top:1px solid var(--dark-line);
+/* Завершающая ссылка «Все … →» в дропдаунах «Услуги 1С» / «Решения 1С» —
+   визуально отделена верхней линией, синим акцентом на тёмном фоне. */
+.nav-dropdown-all{
+margin-top:6px; padding-top:12px; border-top:1px solid var(--dark-line);
 color:var(--accent-on-dark); font-size:12px; font-weight:500;
 }
-.main-nav .nav-mega-all:hover{color:#fff; border-left-color:transparent;}
-.main-nav .nav-mega-col-title{
-display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-color:var(--dark-ink-soft); padding:2px 10px 12px; margin-bottom:6px; border-bottom:1px solid var(--dark-line);
-}
-.main-nav .nav-mega-foot{
-grid-column:1 / -1; margin-top:18px; padding:16px 14px 2px; border-top:1px solid var(--dark-line);
-display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
-}
-.main-nav .nav-mega-foot span{font-size:13px; color:var(--dark-ink-soft);}
-.main-nav .nav-mega-foot .btn{padding:10px 18px; font-size:13px; color:#fff;}
-@media (max-width:1200px){
-.main-nav .nav-dropdown-mega{grid-template-columns:repeat(2, minmax(0, 1fr)); width:min(540px, calc(100vw - 340px)); row-gap:20px;}
-.main-nav .nav-mega-col + .nav-mega-col::after{display:none;}
-}
+.nav-dropdown a.nav-dropdown-all:hover{border-left-color:transparent;}
 
 /* ---------- Mobile nav dropdown groups ---------- */
 .mobile-nav details{border-bottom:1px solid var(--dark-line);}
