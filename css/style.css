@@ -28,7 +28,11 @@
 --glass-bg:rgba(255,255,255,.05);
 --radius:2px;
 --radius-lg:8px;
---disp: 'Big Shoulders Display', sans-serif;
+/* Одна гарнитура для всего текста — IBM Plex (инженерное происхождение,
+   однозначная цифра «1» с ножкой, в отличие от прежней Big Shoulders
+   Display, где «1» в «1С» читалась как «l»). --disp остаётся отдельным
+   токеном заголовков: та же гарнитура, но своя насыщенность и трекинг. */
+--disp: 'IBM Plex Sans', sans-serif;
 --body: 'IBM Plex Sans', sans-serif;
 --mono: 'IBM Plex Mono', monospace;
 }
@@ -157,16 +161,24 @@ section.tight{padding:64px 0;}
 .tint-warm{background:var(--accent-warm-soft);}
 .tint-blue{background:var(--accent-soft);}
 .eyebrow{margin-bottom:18px;}
-h1,h2,h3,h4{font-family:var(--disp); font-weight:700; line-height:1.02; letter-spacing:-0.01em;}
-h2{font-size:44px; text-transform:uppercase;}
-h3{font-size:24px; text-transform:uppercase;}
+/* Типографическая система заголовков (фаза 2 редизайна «убрать шаблонность»):
+   - Big Shoulders Display несёт ТОЛЬКО крупные секционные заголовки h1–h3.
+   - Component-заголовки (h4 в карточках) — IBM Plex Sans 600 (см. правила
+     компонентов ниже). Это осознанный двухуровневый выбор «display-шрифт
+     для витрин + UI-шрифт для плотного текста», а не рассинхрон.
+   - Регистр: длинные заголовки — обычный (капслок кириллицы в узком
+     display-начертании плохо читается). Капслок остаётся только за
+     mono-подписями (.info-label, .breadcrumbs, .footer-grid h5 и т.п.). */
+h1,h2,h3,h4{font-family:var(--disp); font-weight:700; line-height:1.12; letter-spacing:-0.02em;}
+h2{font-size:31px; line-height:1.15;}
+h3{font-size:21px;}
 p.lead{font-size:18px; color:var(--ink-soft); max-width:640px; line-height:1.6;}
-.section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:56px; flex-wrap:wrap;}
+.section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:52px; flex-wrap:wrap;}
 /* Заголовок уровня 2 (вспомогательные блоки: FAQ, Кто ведёт проект,
-   Связанные услуги, Кейсы) — eyebrow-подпись .info-label + уменьшенный h2,
+   Связанные услуги) — eyebrow-подпись .info-label + уменьшенный h2,
    чтобы визуально уступать ключевым продающим блокам (Услуги, Тарифы). */
-.section-head--sub{margin-bottom:36px;}
-.section-head--sub h2, h2.h2-sub{font-size:26px;}
+.section-head--sub{margin-bottom:32px;}
+.section-head--sub h2, h2.h2-sub{font-size:22px;}
 .section-head--sub .info-label, h2.h2-sub .info-label{margin-bottom:10px;}
 .info-label + h2.h2-sub{margin-top:10px;}
 .divider{height:1px; background:var(--line); border:none; margin:0;}
@@ -182,8 +194,8 @@ content:''; position:absolute; bottom:-15%; left:30%; width:520px; height:520px;
 background:radial-gradient(circle, var(--glow-accent), transparent 70%); filter:blur(48px); opacity:.35;
 }
 .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center; position:relative; z-index:1;}
-.hero h1{font-size:68px; font-weight:500; text-transform:uppercase; margin:20px 0 24px;}
-.hero h1 em{font-style:normal; font-weight:800; color:var(--accent);}
+.hero h1{font-size:50px; font-weight:700; margin:20px 0 22px; line-height:1.08; letter-spacing:-0.025em;}
+.hero h1 em{font-style:normal; color:var(--accent);}
 .hero-ctas{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
 /* Вторичная кнопка в hero остаётся кнопкой (не текст-ссылка), но усилена:
    более контрастная тёмная рамка вместо блёклой. Синяя заливка по-прежнему
@@ -385,7 +397,7 @@ content:''; position:absolute; inset:0; pointer-events:none;
 background:linear-gradient(120deg, rgba(27,77,140,.25), transparent 40%, rgba(184,98,46,.18));
 }
 .cta-band-grid{display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; position:relative;}
-.cta-band h2{font-size:38px; color:#fff; max-width:560px; text-transform:none;}
+.cta-band h2{font-size:30px; color:#fff; max-width:560px;}
 .cta-band p{color:var(--dark-ink-soft); margin-top:14px; max-width:440px;}
 
 /* ---------- Тёмная секция «Роботизация» на главной ----------
@@ -463,7 +475,7 @@ background:linear-gradient(90deg, transparent, var(--glow-accent) 35%, var(--glo
 
 /* ---------- Page header (inner pages) ---------- */
 .page-hero{padding:56px 0 64px; border-bottom:1px solid var(--line);}
-.page-hero h1{font-size:48px; text-transform:uppercase; margin-top:16px;}
+.page-hero h1{font-size:38px; margin-top:16px;}
 .breadcrumbs{font-family:var(--mono); font-size:12px; color:var(--ink-faint);}
 .breadcrumbs a{color:var(--ink-faint);}
 .breadcrumbs a:hover{color:var(--accent);}
@@ -488,7 +500,7 @@ background:var(--bg); color:var(--ink-soft);
 .pd-thumb.has-photo .thumb-fallback{display:none;}
 .pd-thumbs-row{display:flex; gap:10px; margin-top:12px;}
 .pd-thumbs-row div{width:64px; height:64px; background:#1c2733; opacity:.6; border:1px solid var(--line);}
-.pd-body h1{font-size:36px; text-transform:uppercase; margin:14px 0 18px;}
+.pd-body h1{font-size:30px; margin:14px 0 18px;}
 .pd-desc{color:var(--ink-soft); margin-bottom:28px; max-width:520px; white-space:pre-line;}
 .spec-table{width:100%; border-collapse:collapse; margin-bottom:32px;}
 .spec-table tr{border-top:1px solid var(--line);}
@@ -549,7 +561,8 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-o
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px){
 .hero-grid{grid-template-columns:1fr; gap:44px;}
-.hero h1{font-size:52px;}
+.hero h1{font-size:40px;}
+h2{font-size:28px;}
 .hero-visual{margin-right:0;}
 .hero::before, .hero::after{width:380px; height:380px;}
 .about-grid{grid-template-columns:1fr; gap:48px;}
@@ -591,8 +604,8 @@ nav.main-nav{display:none;}
 .steps.steps-4{grid-template-columns:1fr 1fr;}
 .news-grid{grid-template-columns:1fr;}
 .footer-grid{grid-template-columns:1fr;}
-h2{font-size:32px;}
-.hero h1{font-size:38px;}
+h2{font-size:24px;}
+.hero h1{font-size:32px;}
 section{padding:64px 0;}
 .cta-band-grid{flex-direction:column; align-items:flex-start;}
 .cat-tabs{overflow-x:auto; flex-wrap:nowrap;}
@@ -786,7 +799,7 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 .tariff-card:not(.highlighted) .tariff-badge{visibility:hidden;}
 .tariff-card h4{font-size:20px; font-weight:600; font-family:var(--body); margin-bottom:6px;}
 .tariff-term{font-size:13px; color:var(--ink-faint); margin-bottom:18px;}
-.tariff-price{font-family:var(--disp); font-size:34px; font-weight:700; margin-bottom:20px; text-transform:uppercase;}
+.tariff-price{font-family:var(--disp); font-size:32px; font-weight:700; margin-bottom:20px;}
 .tariff-price span{font-family:var(--body); font-size:13px; font-weight:400; color:var(--ink-faint); text-transform:none;}
 .tariff-features{list-style:none; margin-bottom:24px; flex:1;}
 .tariff-features li{font-size:13px; color:var(--ink-soft); padding:9px 0; border-top:1px solid var(--line);}
