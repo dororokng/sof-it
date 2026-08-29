@@ -1,24 +1,48 @@
 :root{
---bg:#F7F8FA;
---bg-alt:#EFF2F5;
+/* ---- Шкала одного синего (фаза 4 редизайна «убрать шаблонность») ----
+   Вместо произвольного «серый → голубой → белый» — 7 ступеней одного
+   холодного синего. Фоны секций идут по шкале: чем «весомее» блок, тем
+   темнее подложка. Старые токены (--bg / --bg-alt / --accent-soft)
+   переуказаны на ступени шкалы, чтобы не переписывать все правила. */
+--blue-0:#FFFFFF;
+--blue-1:#F5F7FA;
+--blue-2:#EBEFF6;
+--blue-3:#DEE6F1;
+--blue-4:#C5D3E6;
+--blue-5:#1B4D8C;
+--blue-6:#0F2036;
+--bg:var(--blue-1);
+--bg-alt:var(--blue-2);
 --ink:#14181C;
---ink-soft:#5B6570;
---ink-faint:#8B939C;
---line:#DEE3E8;
---line-strong:#C7CED5;
---accent:#1B4D8C;
+--ink-soft:#535C67;
+/* --ink-faint используется почти только на mono-подписях и тонких линиях —
+   уводим его в тёплый графит (см. --graphite-soft ниже): вся «техническая»
+   мелочь сайта разом получает нейтральный тёплый оттенок и проходит
+   контраст (прежний холодный #8B939C давал ~2.9:1). */
+--ink-faint:#6A665F;
+--line:#E0E5EE;
+--line-strong:var(--blue-4);
+--accent:var(--blue-5);
 --accent-dark:#123661;
---accent-soft:#E7EEF7;
+--accent-soft:var(--blue-3);
 --accent-on-dark:#6EA1DE;
 --accent-warm:#B8622E;
 --accent-warm-dark:#8F4A20;
 --accent-warm-soft:#FBEEE3;
---dark:#10161D;
---dark-line:rgba(255,255,255,0.14);
+/* ---- Тёплый графитовый — второй нейтральный (не синий) ----
+   Для mono-технических подписей, тонких «чертёжных» линий и фоновой
+   сетки. Даёт инженерный контраст синему, не вводя нового цветового тона.
+   --graphite-soft заодно темнее прежнего холодного --ink-faint —
+   mono-подписи теперь проходят контраст. */
+--graphite:#33322F;
+--graphite-soft:#6A665F;
+--graphite-line:#D7D3CA;
+--dark:#0F2036;
+--dark-line:rgba(255,255,255,0.12);
 --dark-ink:#E7EAED;
---dark-ink-soft:#98A2AC;
---dark-2:#171E27;
---dark-3:#1E2733;
+--dark-ink-soft:#9AA4AF;
+--dark-2:#15263D;
+--dark-3:#1B3251;
 --glow-accent:rgba(27,77,140,.45);
 --glow-warm:rgba(184,98,46,.4);
 --shadow-sm:0 2px 8px rgba(16,22,29,.06);
@@ -69,6 +93,17 @@ font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:up
 color:var(--ink-faint); display:block;
 }
 
+/* Mono-референс-код — фирменная техническая подпись (REF.01, CASE-002…).
+   Часть инженерного мотива вместе с уголками .bracket и чертёжной сеткой
+   на тёмных секциях. Ставится под/над ключевыми блоками. */
+.ref-code{
+font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+color:var(--graphite-soft); display:inline-flex; align-items:center; gap:8px;
+}
+.ref-code::before{content:''; width:16px; height:1px; background:var(--accent); flex:none;}
+.section-dark .ref-code{color:var(--dark-ink-soft);}
+.media-frame + .ref-code{margin-top:12px;}
+
 /* Направление «Роботизация» — второй, тёплый акцент поверх основного
    синего (у IT остаётся синий). Применяется точечно: везде, что относится
    именно к роботам/оборудованию (карточки товаров, вкладки каталога,
@@ -82,7 +117,7 @@ color:var(--ink-faint); display:block;
 /* ---------- Header ---------- */
 header{
 position:sticky; top:0; z-index:100;
-background:linear-gradient(180deg, rgba(16,22,29,.88), rgba(23,30,39,.88));
+background:linear-gradient(180deg, rgba(15,32,54,.9), rgba(21,38,61,.9));
 backdrop-filter:blur(14px) saturate(150%); border-bottom:1px solid var(--dark-line);
 box-shadow:0 1px 0 rgba(255,255,255,.04);
 transition:padding .2s ease, box-shadow .2s ease;
@@ -232,7 +267,16 @@ display:grid; place-items:center; overflow:hidden;
 content:attr(data-hint); font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
 color:var(--ink-faint); text-align:center; padding:0 28px; max-width:280px;
 }
-.media-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;}
+/* Дуотон: любое реальное фото, попавшее в рамку (или помеченное .duotone),
+   автоматически «прошивается» в брендовый синий — grayscale → sepia →
+   поворот тона в синий. Не двухцветный duotone в строгом смысле, но
+   фотография перестаёт выглядеть вставленным сторонним снимком.
+   Модификатор .media-frame--raw / .duotone--off отключает эффект. */
+.media-frame img, .duotone img, img.duotone{
+position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) saturate(2.1);
+}
+.media-frame--raw img, .duotone--off img{filter:none;}
 .media-frame--hero{position:absolute; inset:0; border:none;}
 .media-frame--card{aspect-ratio:16/10;}
 .media-frame--wide{aspect-ratio:16/6; margin-bottom:40px;}
@@ -326,7 +370,7 @@ border:1px solid var(--line); background:var(--bg); padding:16px;
 box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 .news-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md);}
-.news-thumb{aspect-ratio:16/10; background:linear-gradient(150deg,#1c2733,#0f151c); position:relative; margin-bottom:18px; overflow:hidden;}
+.news-thumb{aspect-ratio:16/10; background:linear-gradient(150deg,var(--dark-3),var(--dark)); position:relative; margin-bottom:18px; overflow:hidden;}
 .news-thumb .grid-overlay{position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size:24px 24px;}
 .news-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
 /* Страница новости всегда рендерит и картинку, и декоративный фон разом —
@@ -354,11 +398,23 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 background:radial-gradient(ellipse 100% 140% at 85% 100%, var(--dark-3), var(--dark) 60%);
 color:var(--dark-ink); padding:88px 0; position:relative; overflow:hidden;
 }
-.cta-band::before{
-content:''; position:absolute; inset:0; pointer-events:none;
-background:linear-gradient(120deg, rgba(27,77,140,.25), transparent 40%, rgba(184,98,46,.18));
+.cta-band-grid{display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; position:relative; z-index:1;}
+
+/* ---------- Фирменный мотив: чертёжная сетка на тёмных секциях ----------
+   Слабая координатная сетка (линии --dark-line ~12%), маской растворяется
+   к краям. Инженерная эстетика той же линии, что уголки-скобки .bracket и
+   mono-референсы .ref-code. Тёплый градиент (синий→терракота) с этих
+   поверхностей убран — терракота теперь только маркер направления
+   «Роботизация». */
+.section-dark::before, .stats-strip::before, .cta-band::before{
+content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+background-image:
+  linear-gradient(var(--dark-line) 1px, transparent 1px),
+  linear-gradient(90deg, var(--dark-line) 1px, transparent 1px);
+background-size:52px 52px;
+-webkit-mask-image:radial-gradient(ellipse 85% 80% at 50% 35%, #000 35%, transparent 100%);
+mask-image:radial-gradient(ellipse 85% 80% at 50% 35%, #000 35%, transparent 100%);
 }
-.cta-band-grid{display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; position:relative;}
 .cta-band h2{font-size:30px; color:#fff; max-width:560px;}
 .cta-band p{color:var(--dark-ink-soft); margin-top:14px; max-width:440px;}
 
@@ -415,8 +471,9 @@ background:linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
 color:var(--dark-ink-soft); padding-top:64px; position:relative;
 }
 .stats-strip::after, .cta-band::after, footer::after{
-content:''; position:absolute; top:0; left:0; right:0; height:1px; pointer-events:none;
-background:linear-gradient(90deg, transparent, var(--glow-accent) 35%, var(--glow-warm) 65%, transparent);
+content:''; position:absolute; top:0; left:0; right:0; height:1px; pointer-events:none; z-index:2;
+background:linear-gradient(90deg, transparent, var(--accent-on-dark) 30%, var(--accent-on-dark) 70%, transparent);
+opacity:.5;
 }
 .footer-grid{display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr .9fr 1.1fr; gap:28px; padding-bottom:56px; border-bottom:1px solid var(--dark-line);}
 .footer-grid h5{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--dark-ink); margin-bottom:20px;}
@@ -461,7 +518,7 @@ background:var(--bg); color:var(--ink-soft);
 .pd-thumb.has-photo #pdImage{display:block;}
 .pd-thumb.has-photo .thumb-fallback{display:none;}
 .pd-thumbs-row{display:flex; gap:10px; margin-top:12px;}
-.pd-thumbs-row div{width:64px; height:64px; background:#1c2733; opacity:.6; border:1px solid var(--line);}
+.pd-thumbs-row div{width:64px; height:64px; background:var(--dark-3); opacity:.6; border:1px solid var(--line);}
 .pd-body h1{font-size:30px; margin:14px 0 18px;}
 .pd-desc{color:var(--ink-soft); margin-bottom:28px; max-width:520px; white-space:pre-line;}
 .spec-table{width:100%; border-collapse:collapse; margin-bottom:32px;}
@@ -589,11 +646,12 @@ h1 + .lead, h2 + .lead, h3 + .lead{margin-top:16px;}
 /* ---------- Stats strip ---------- */
 .stats-strip{
 background:radial-gradient(ellipse 120% 100% at 15% 0%, var(--dark-2), var(--dark) 65%);
-color:var(--dark-ink); padding:64px 0; position:relative;
+color:var(--dark-ink); padding:64px 0; position:relative; overflow:hidden;
 }
+.stats-strip .wrap{position:relative; z-index:1;}
 .stats-grid{
 display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
-background:linear-gradient(90deg, var(--glow-accent), var(--glow-warm));
+background:var(--dark-line);
 }
 .stat{
 background:var(--glass-bg); backdrop-filter:blur(6px); padding:28px 32px;
