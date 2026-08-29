@@ -21,7 +21,7 @@ if (!programPage) {
   document.getElementById("progDesc").textContent = p.description;
 
   document.getElementById("progFeaturesGrid").innerHTML = p.features
-    .map((f) => `<div class="adv-card"><h4>${escapeHtml(f)}</h4></div>`)
+    .map((f) => `<div class="list-card"><h4>${escapeHtml(f)}</h4></div>`)
     .join("");
 
   const relatedIndustries = industries.filter((ind) => p.industries.includes(ind.slug));

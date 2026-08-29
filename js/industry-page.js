@@ -23,11 +23,11 @@ if (!industryPage) {
   document.getElementById("indCtaTitle").textContent = `Готовы обсудить автоматизацию для отрасли «${ind.name}»?`;
 
   document.getElementById("indProblemsGrid").innerHTML = ind.problems
-    .map((p) => `<div class="adv-card"><h4>${escapeHtml(p)}</h4></div>`)
+    .map((p) => `<div class="list-card"><h4>${escapeHtml(p)}</h4></div>`)
     .join("");
 
   document.getElementById("indSpecificsGrid").innerHTML = ind.specifics
-    .map((s, i) => `<div class="principle-card"><span class="n">${String(i + 1).padStart(2, "0")}</span><h4>${escapeHtml(s.title)}</h4><p>${escapeHtml(s.desc)}</p></div>`)
+    .map((s, i) => `<div class="list-card"><span class="n">${String(i + 1).padStart(2, "0")}</span><h4>${escapeHtml(s.title)}</h4><p>${escapeHtml(s.desc)}</p></div>`)
     .join("");
 
   const solutions = onecPrograms.filter((p) => ind.solutionSlugs.includes(p.slug));
