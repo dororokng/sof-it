@@ -303,7 +303,6 @@ transition:padding-left .15s ease;
 .solution-row:hover h4{color:var(--accent);}
 .solution-row p{font-size:13px; color:var(--ink-soft); margin-bottom:10px; max-width:420px;}
 .solution-row .more{font-size:12.5px; font-weight:600; color:var(--accent);}
-.solution-row .pop-badge{position:static; display:inline-block; margin-bottom:12px;}
 .solution-preview{position:sticky; top:96px;}
 .solution-preview .media-frame{aspect-ratio:4/3;}
 
@@ -417,17 +416,10 @@ font-size:14px; color:var(--dark-ink);
 background:rgba(255,255,255,.06); color:var(--dark-ink-soft); border-left-color:var(--accent-on-dark);
 }
 
-/* ---------- Блок «Доверие» (логотипы клиентов + кейсы) ----------
-   Пока реальных логотипов и кейсов нет — слоты-заглушки с
-   .placeholder-note. Кейс-карточка .proof-case НЕ переиспользует
-   caseCardHTML/массив cases: там демонстрационные «до X%», а по правилу
-   проекта выдуманные цифры недопустимы даже как пример. */
-.logo-strip{display:flex; flex-wrap:wrap; gap:16px;}
-.logo-slot{
-flex:1 1 140px; max-width:190px; height:64px; border:1px dashed var(--line-strong);
-display:grid; place-items:center; text-align:center; padding:0 12px;
-font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
-}
+/* ---------- Блок «Примеры проектов» (кейсы-заготовки) ----------
+   Используется на pages/vnedrenie-1s.html. Кейс-карточка .proof-case НЕ
+   переиспользует caseCardHTML/массив cases: там демонстрационные «до X%»,
+   а по правилу проекта выдуманные цифры недопустимы даже как пример. */
 .proof-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:32px;}
 .proof-case{border:1px solid var(--line); background:var(--bg); padding:32px; box-shadow:var(--shadow-sm);}
 .proof-case-industry{

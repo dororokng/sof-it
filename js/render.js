@@ -99,9 +99,7 @@ function programCardHTML(p) {
 // одно решение как рекомендуемое.
 function solutionRowHTML(p) {
   const pop = p.popular ? " solution-row--popular" : "";
-  const badge = p.popular ? '<span class="pop-badge">Популярное решение</span>' : "";
   return `<a class="solution-row${pop}" href="/pages/programma.html?slug=${p.slug}">
-    ${badge}
     <h4>${highlightLatin(p.name)}</h4>
     <p>${escapeHtml(p.shortDesc)}</p>
     <span class="more">Подробнее →</span>
