@@ -1,48 +1,55 @@
 :root{
-/* ---- Шкала одного синего (фаза 4 редизайна «убрать шаблонность») ----
-   Вместо произвольного «серый → голубой → белый» — 7 ступеней одного
-   холодного синего. Фоны секций идут по шкале: чем «весомее» блок, тем
-   темнее подложка. Старые токены (--bg / --bg-alt / --accent-soft)
-   переуказаны на ступени шкалы, чтобы не переписывать все правила. */
---blue-0:#FFFFFF;
---blue-1:#F5F7FA;
---blue-2:#EBEFF6;
---blue-3:#DEE6F1;
---blue-4:#C5D3E6;
---blue-5:#1B4D8C;
---blue-6:#0F2036;
---bg:var(--blue-1);
---bg-alt:var(--blue-2);
---ink:#14181C;
---ink-soft:#535C67;
-/* --ink-faint используется почти только на mono-подписях и тонких линиях —
-   уводим его в тёплый графит (см. --graphite-soft ниже): вся «техническая»
-   мелочь сайта разом получает нейтральный тёплый оттенок и проходит
-   контраст (прежний холодный #8B939C давал ~2.9:1). */
---ink-faint:#6A665F;
---line:#E0E5EE;
---line-strong:var(--blue-4);
---accent:var(--blue-5);
---accent-dark:#123661;
---accent-soft:var(--blue-3);
---accent-on-dark:#6EA1DE;
+/* ===================================================================
+   ТОНАЛЬНАЯ ШКАЛА ОДНОГО ФИРМЕННОГО СИНЕГО
+   -------------------------------------------------------------------
+   Базовый оттенок взят из цвета кнопки .btn-primary («Заказать
+   консультацию») = #1B4D8C = HSL(213°, 68%, 33%).
+   Hue 213° и Saturation 68% ЗАФИКСИРОВАНЫ — вся шкала строится
+   изменением только Lightness. S слегка снижена на 50/100 и поднята
+   на 900/950 (в пределах ±5%) для естественности крайних ступеней.
+   Нумерация ступеней как в Tailwind (50…950). Ступень 600 ≡ --accent
+   (тот самый цвет кнопки, НЕ меняется).
+   =================================================================== */
+--blue-50:#F3F7FC;   /* L 97% — почти белый           */
+--blue-100:#E7EFF9;  /* L 94%                          */
+--blue-200:#C5D9F1;  /* L 86% — hairline на светлом    */
+--blue-300:#9ABEEA;  /* L 76% — вторичный текст на тёмном */
+--blue-400:#5D98DF;  /* L 62% — ссылки на тёмном       */
+--blue-500:#2670C9;  /* L 47%                          */
+--blue-600:#1B4D8C;  /* L 33% — ≡ --accent, цвет кнопки */
+--blue-700:#143C6F;  /* L 25% — вторичный текст на светлом */
+--blue-800:#0E2E56;  /* L 19%                          */
+--blue-900:#0A2240;  /* L 14% — секция «Роботизация»   */
+--blue-950:#07182C;  /* L 10% — шапка, футер, CTA, тёмный текст */
+
+/* --- Роли: всё указывает на ступени шкалы. Отдельного серого/чёрного
+       в палитре нет — тёмный текст = ступень 950, светлый = белый/50. --- */
+--bg:var(--blue-50);
+--bg-alt:var(--blue-100);
+--ink:var(--blue-950);            /* основной текст на светлом (16.6:1 на 50) */
+--ink-soft:var(--blue-700);       /* вторичный текст на светлом (10.2:1 на 50) */
+--ink-faint:var(--blue-600);      /* mono-подписи/крошки на светлом (7.8:1 на 50) */
+--line:var(--blue-200);           /* hairline на светлых секциях */
+--line-strong:var(--blue-300);
+--accent:var(--blue-600);         /* кнопки/ссылки — БЕЗ ИЗМЕНЕНИЙ (#1B4D8C) */
+--accent-dark:var(--blue-700);    /* нижний стоп градиента кнопки */
+--accent-soft:var(--blue-100);    /* фон .tint-blue / .placeholder-note */
+--accent-on-dark:var(--blue-400); /* ссылки на тёмном фоне (5.3:1 на 900) */
+
+/* --- Тёмная семья — те же Hue/Saturation, ступени 850–950. --- */
+--dark:var(--blue-950);           /* шапка, футер, CTA-баннер */
+--dark-2:var(--blue-900);         /* секция «Роботизация» */
+--dark-3:#0C284B;                 /* ≈ступень 850, только как верхний стоп градиентов глубины */
+--dark-line:rgba(255,255,255,0.12);
+--dark-ink:#FFFFFF;               /* заголовки/основной текст на тёмном */
+--dark-ink-soft:var(--blue-300);  /* вторичный текст на тёмном (9.3:1 на 950) */
+
+/* Тёплый акцент оставлен ТОЛЬКО как маркер направления «Роботизация»
+   (pages/robotics.html) и каталога оборудования — на фонах секций и в
+   CTA не используется (оранжевый градиент из CTA убран). */
 --accent-warm:#B8622E;
 --accent-warm-dark:#8F4A20;
 --accent-warm-soft:#FBEEE3;
-/* ---- Тёплый графитовый — второй нейтральный (не синий) ----
-   Для mono-технических подписей, тонких «чертёжных» линий и фоновой
-   сетки. Даёт инженерный контраст синему, не вводя нового цветового тона.
-   --graphite-soft заодно темнее прежнего холодного --ink-faint —
-   mono-подписи теперь проходят контраст. */
---graphite:#33322F;
---graphite-soft:#6A665F;
---graphite-line:#D7D3CA;
---dark:#0F2036;
---dark-line:rgba(255,255,255,0.12);
---dark-ink:#E7EAED;
---dark-ink-soft:#9AA4AF;
---dark-2:#15263D;
---dark-3:#1B3251;
 --glow-accent:rgba(27,77,140,.45);
 --glow-warm:rgba(184,98,46,.4);
 --shadow-sm:0 2px 8px rgba(16,22,29,.06);
@@ -98,7 +105,7 @@ color:var(--ink-faint); display:block;
    на тёмных секциях. Ставится под/над ключевыми блоками. */
 .ref-code{
 font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
-color:var(--graphite-soft); display:inline-flex; align-items:center; gap:8px;
+color:var(--ink-faint); display:inline-flex; align-items:center; gap:8px;
 }
 .ref-code::before{content:''; width:16px; height:1px; background:var(--accent); flex:none;}
 .section-dark .ref-code{color:var(--dark-ink-soft);}
@@ -117,7 +124,8 @@ color:var(--graphite-soft); display:inline-flex; align-items:center; gap:8px;
 /* ---------- Header ---------- */
 header{
 position:sticky; top:0; z-index:100;
-background:linear-gradient(180deg, rgba(15,32,54,.9), rgba(21,38,61,.9));
+/* ступени 900 → 950 той же шкалы, с прозрачностью под backdrop-blur */
+background:linear-gradient(180deg, rgba(10,34,64,.92), rgba(7,24,44,.94));
 backdrop-filter:blur(14px) saturate(150%); border-bottom:1px solid var(--dark-line);
 box-shadow:0 1px 0 rgba(255,255,255,.04);
 transition:padding .2s ease, box-shadow .2s ease;
@@ -131,7 +139,7 @@ header.compact{box-shadow:var(--shadow-dark);}
    просто не показывается (graceful). */
 .nav-scrim{
 position:fixed; inset:0; z-index:90; pointer-events:none;
-background:rgba(10,16,22,.35); backdrop-filter:blur(2px);
+background:rgba(7,24,44,.4); backdrop-filter:blur(2px);
 opacity:0; visibility:hidden; transition:opacity .2s ease, visibility 0s linear .2s;
 }
 #header:has(.main-nav .nav-item.has-dropdown:hover) .nav-scrim,
@@ -395,7 +403,8 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 
 /* ---------- CTA band ---------- */
 .cta-band{
-background:radial-gradient(ellipse 100% 140% at 85% 100%, var(--dark-3), var(--dark) 60%);
+/* фирменный градиент ступеней 900 → 950 (вместо прежнего синий→оранжевый) */
+background:radial-gradient(ellipse 100% 140% at 85% 100%, var(--blue-900), var(--blue-950) 55%);
 color:var(--dark-ink); padding:88px 0; position:relative; overflow:hidden;
 }
 .cta-band-grid{display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; position:relative; z-index:1;}
@@ -424,7 +433,8 @@ mask-image:radial-gradient(ellipse 85% 80% at 50% 35%, #000 35%, transparent 100
    роботизации отдана полноценная секция — тёмно-синяя, тем же цветовым
    языком, что .cta-band/.stats-strip, но крупнее по содержанию. */
 .section-dark{
-background:radial-gradient(ellipse 100% 140% at 15% 0%, var(--dark-2), var(--dark) 65%);
+/* секция «Роботизация» = ступень 900 (лёгкий радиал для глубины: 880→900) */
+background:radial-gradient(ellipse 120% 130% at 20% 0%, #0B2547, var(--blue-900) 70%);
 color:var(--dark-ink); padding:96px 0; position:relative; overflow:hidden;
 }
 .section-dark .wrap{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; position:relative; z-index:1;}
@@ -467,7 +477,7 @@ font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:up
 
 /* ---------- Footer ---------- */
 footer{
-background:linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
+background:linear-gradient(180deg, var(--blue-950) 0%, #08203A 100%);
 color:var(--dark-ink-soft); padding-top:64px; position:relative;
 }
 .stats-strip::after, .cta-band::after, footer::after{
@@ -645,7 +655,7 @@ h1 + .lead, h2 + .lead, h3 + .lead{margin-top:16px;}
 
 /* ---------- Stats strip ---------- */
 .stats-strip{
-background:radial-gradient(ellipse 120% 100% at 15% 0%, var(--dark-2), var(--dark) 65%);
+background:radial-gradient(ellipse 120% 100% at 15% 0%, var(--blue-900), var(--blue-950) 65%);
 color:var(--dark-ink); padding:64px 0; position:relative; overflow:hidden;
 }
 .stats-strip .wrap{position:relative; z-index:1;}
@@ -722,7 +732,7 @@ transform:rotate(45deg); margin-top:-3px; opacity:.7;
 }
 .nav-dropdown{
 position:absolute; top:100%; left:-18px; margin-top:14px; min-width:250px; z-index:10;
-background:linear-gradient(180deg, var(--dark-2), var(--dark-3)); border:1px solid var(--dark-line);
+background:linear-gradient(180deg, var(--blue-900), var(--blue-950)); border:1px solid var(--dark-line);
 box-shadow:var(--shadow-dark); padding:10px; border-radius:var(--radius-lg);
 opacity:0; visibility:hidden; transform:translateY(8px);
 /* Появление — мгновенно по наведению (см. правило :hover/:focus-within
