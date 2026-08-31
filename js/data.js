@@ -4,22 +4,19 @@
 let products = [];
 let news = [];
 let categories = [];
-let services = [];
 let settings = {};
 
 async function loadData() {
   try {
-    const [productsRes, newsRes, categoriesRes, servicesRes, settingsRes] = await Promise.all([
+    const [productsRes, newsRes, categoriesRes, settingsRes] = await Promise.all([
       fetch("/api/products"),
       fetch("/api/news"),
       fetch("/api/categories"),
-      fetch("/api/services"),
       fetch("/api/settings"),
     ]);
     products = await productsRes.json();
     news = await newsRes.json();
     categories = await categoriesRes.json();
-    services = await servicesRes.json();
     settings = await settingsRes.json();
   } catch (err) {
     console.error("Не удалось загрузить данные из API", err);
