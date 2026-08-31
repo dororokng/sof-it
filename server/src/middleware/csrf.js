@@ -1,11 +1,8 @@
 import crypto from "node:crypto";
 
-// Простая CSRF-защита на сессионном токене (без сторонних пакетов). Токен
-// кладётся в сессию при первом заходе на страницу с формой и должен
-// вернуться в скрытом поле `_csrf` при отправке. Для multipart-форм (фото
-// товара/новости/категории/услуги) req.body ещё пуст на момент срабатывания
-// обычного middleware — там verifyCsrfToken() вызывается вручную в роуте,
-// уже после multer, а не через requireCsrf.
+// CSRF-защита на сессионном токене в скрытом поле `_csrf`. Для multipart-форм
+// req.body пуст до multer — там verifyCsrfToken() вызывается в роуте вручную
+// после загрузки файла, а не через requireCsrf.
 export function csrfMiddleware(req, res, next) {
   if (!req.session.csrfToken) {
     req.session.csrfToken = crypto.randomBytes(32).toString("hex");

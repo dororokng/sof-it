@@ -1,7 +1,5 @@
-// Единый шаблон для всех отраслей: /pages/otrasl.html?slug=... — контент
-// подставляется из статического массива industries (js/solutions-data.js).
-// Добавить новую отрасль — значит дописать один объект в этот массив, а не
-// сверстать ещё одну HTML-страницу.
+// /pages/otrasl.html?slug=... — контент из статического массива industries
+// (js/solutions-data.js).
 
 const industryPage = (() => {
   const slug = new URLSearchParams(window.location.search).get("slug");

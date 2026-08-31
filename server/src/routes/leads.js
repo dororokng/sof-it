@@ -3,9 +3,8 @@ import { prisma } from "../db.js";
 import { requireAuth } from "../middleware/requireAuth.js";
 import { requireCsrf } from "../middleware/csrf.js";
 
-// Read-only просмотр заявок с /pages/contacts.html + отметка "обработано" и
-// удаление. Своей формы создания/редактирования нет намеренно — заявки
-// создаёт только публичный POST /api/leads (см. routes/publicApi.js).
+// Просмотр заявок + отметка «обработано» и удаление. Заявки создаёт только
+// публичный POST /api/leads.
 export const leadsRouter = Router();
 leadsRouter.use(requireAuth);
 

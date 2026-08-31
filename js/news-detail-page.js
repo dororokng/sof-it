@@ -15,8 +15,7 @@ document.addEventListener("data:ready", () => {
   document.getElementById("ndBreadcrumb").textContent = n.title;
   document.getElementById("ndDate").textContent = n.date;
   document.getElementById("ndTitle").textContent = n.title;
-  // innerHTML + highlightLatin (экранирует и смягчает латинские слова) —
-  // переносы строк по-прежнему сохраняются через white-space:pre-line в CSS.
+  // innerHTML + highlightLatin: переносы строк держит white-space:pre-line в CSS.
   document.getElementById("ndBody").innerHTML = highlightLatin(n.body);
   if (n.image) {
     document.getElementById("ndImage").src = n.image;

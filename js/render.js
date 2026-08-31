@@ -1,24 +1,17 @@
-// Экранирует только опасные для HTML символы (< и >) — этого достаточно,
-// чтобы значения из БД, вставляемые через innerHTML, не могли создать
-// настоящий тег/скрипт. Амперсанд (&) намеренно не трогаем — иначе ломается
-// подстановка ниже (пары вида "Pick&Place").
+// Экранирование только < и > — амперсанд не трогаем, иначе ломается
+// highlightLatin (пары вида "Pick&Place").
 function escapeHtml(str) {
   return String(str).replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// Латинские названия брендов/моделей (MOTOMAN, GP4, IP67, Yaskawa) внутри
-// русского текста визуально "кричат" на фоне кириллицы. Оборачиваем такие
-// куски в <span class="latin-inline"> — CSS (см. style.css) слегка
-// приглушает их размер и цвет, чтобы они читались как часть текста, а не
-// выделялись. Строка сперва экранируется (см. выше), поэтому оборачивание
-// в HTML-тег безопасно даже для текста, введённого через админку.
+// Латинские слова (бренды/модели) внутри русского текста оборачиваем в
+// .latin-inline, чтобы они не выделялись на фоне кириллицы. Строка сперва
+// экранируется, поэтому обёртка в тег безопасна.
 function highlightLatin(str) {
   return escapeHtml(str).replace(/([A-Za-z][A-Za-z0-9&/+.\-]*)/g, '<span class="latin-inline">$1</span>');
 }
 
-// Для значений внутри HTML-атрибутов (alt="...") кавычки экранировать нужно
-// обязательно — иначе можно вырваться из атрибута; здесь это не мешает
-// подстановке highlightLatin, поэтому амперсанд экранируем тоже, как обычно.
+// Для значений внутри атрибутов кавычки и амперсанд экранируем тоже.
 function escapeAttr(str) {
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
@@ -45,13 +38,6 @@ function productCardHTML(p) {
   </div>`;
 }
 
-function serviceCardHTML(s) {
-  return `<div class="service-card">
-    <h4>${escapeHtml(s.name)}</h4>
-    <p>${highlightLatin(s.shortDescription)}</p>
-  </div>`;
-}
-
 function newsThumbHTML(n) {
   if (n.image) {
     return `<img src="${n.image}" alt="${escapeAttr(n.title)}" loading="lazy" />`;
@@ -69,17 +55,8 @@ function newsCardHTML(n) {
   </a>`;
 }
 
-// ---------- Отрасли / решения 1С / тарифы / кейсы ----------
-// Данные для этих карточек — статический js/solutions-data.js (не БД), см.
-// комментарий в начале этого файла. escapeHtml/highlightLatin здесь не
-// обязательны по соображениям безопасности (контент не редактируется через
-// админку), но используются для единообразия с остальными карточками сайта.
-//
-// Фаза 3 редизайна «убрать шаблонность»: все витринные карточки сведены к
-// одному компоненту .service-card (Card A). Прежние .program-card /
-// .industry-card / .solution-row / .svc-card удалены. Единственный
-// самостоятельный вариант — .industry-media-card (та же карточка + рамка
-// под фоновое фото), используется только на главной.
+// Карточки отраслей / решений 1С / тарифов / кейсов. Данные — статический
+// js/solutions-data.js, не БД; escapeHtml здесь для единообразия.
 
 function industryCardHTML(ind) {
   return `<a class="service-card" href="/pages/otrasl.html?slug=${ind.slug}">
@@ -97,13 +74,9 @@ function programCardHTML(p) {
   </a>`;
 }
 
-// Карточка отрасли с рамкой под фоновое изображение — используется только на
-// главной (блок «Отраслевые решения»). Если у отрасли задан ind.image —
-// внутрь .media-frame кладётся <img>; модификатор .media-frame--raw отключает
-// синий дуотон-фильтр (.media-frame img в style.css) — фото показывается в
-// естественном цвете (решение заказчика). Иначе показывается подпись-хинт из
-// data-hint. Для /pages/otrasli.html используется industryCardHTML выше
-// (обычная .service-card без фото).
+// Вариант карточки отрасли с рамкой под фоновое фото — только на главной.
+// media-frame--raw отключает синий дуотон, фото показывается в естественном
+// цвете. Без ind.image рендерится подпись-хинт из data-hint.
 function industryMediaCardHTML(ind) {
   const frame = ind.image
     ? `<div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(ind.image)}" alt="${escapeAttr(ind.name)}" loading="lazy" /></div>`
@@ -119,9 +92,8 @@ function industryMediaCardHTML(ind) {
 }
 
 function tariffCardHTML(t) {
-  // Слот бейджа рендерится всегда (в невыделенных карточках он скрыт через
-  // visibility в CSS) — так у всех трёх карточек одинаковая высота шапки и
-  // заголовок/цена/кнопка выстраиваются в одну линию.
+  // Слот бейджа рендерится всегда (в невыделенных карточках скрыт через CSS) —
+  // так у всех карточек одинаковая высота шапки.
   return `<div class="tariff-card${t.highlighted ? " highlighted" : ""}">
     <span class="tariff-badge">${t.highlighted ? "Популярный выбор" : ""}</span>
     <h4>${escapeHtml(t.name)}</h4>
@@ -134,20 +106,13 @@ function tariffCardHTML(t) {
   </div>`;
 }
 
-// Кейс всегда помечен как демонстрационный пример прямо на карточке — не
-// только текстом-предупреждением где-то рядом на странице (страницы могут
-// добавлять/не добавлять свой .placeholder-note, а карточка одна и та же
-// используется в 4 разных местах сайта: главная, /pages/keysy.html,
-// карточка программы, карточка отрасли). Метка на самой карточке
-// гарантирует, что кейс нигде не будет выглядеть как подтверждённый
-// реальный результат компании, даже если конкретную страницу забудут
-// снабдить отдельным .placeholder-note.
+// Кейс всегда помечен как демонстрационный прямо на карточке — она одна и та
+// же на 4 поверхностях сайта, отдельный .placeholder-note рядом может быть не
+// на каждой странице.
 function caseCardHTML(c) {
-  // Обратные ссылки "кейс → отрасль / решение": данные о них хранятся в
-  // обратную сторону (industries[].caseSlugs, c.programs — массив названий
-  // программ), поэтому здесь приходится искать по ним, а не по прямому полю
-  // на самом кейсе. industries/onecPrograms — глобальные массивы из
-  // js/solutions-data.js, которые везде подключены раньше этого файла.
+  // Обратные связи "кейс → отрасль / решение": хранятся на стороне отрасли
+  // (industries[].caseSlugs) и как список названий программ (c.programs),
+  // поэтому ищем по ним. industries/onecPrograms — глобальные из solutions-data.js.
   const relatedIndustries = typeof industries !== "undefined" ? industries.filter((ind) => (ind.caseSlugs || []).includes(c.slug)) : [];
   const relatedPrograms = typeof onecPrograms !== "undefined" ? onecPrograms.filter((p) => (c.programs || []).includes(p.name)) : [];
   const links = [

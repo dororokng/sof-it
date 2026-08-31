@@ -1,8 +1,5 @@
-// Создаёт (или обновляет пароль) администратора для входа в /admin.
-// В админке нет формы регистрации намеренно — учётку заводит только тот,
-// у кого есть доступ к серверу/базе.
-//
-// Использование: node scripts/create-admin.js you@example.com "пароль"
+// Создаёт или меняет пароль администратора /admin (формы регистрации в
+// админке нет). Использование: node scripts/create-admin.js you@example.com "пароль"
 import "dotenv/config";
 import bcrypt from "bcryptjs";
 import { prisma } from "../src/db.js";

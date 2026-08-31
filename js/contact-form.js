@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       email: document.getElementById("f-email").value.trim(),
       comment: document.getElementById("f-comment").value.trim(),
       consent,
-      website: document.getElementById("f-website").value, // honeypot — у людей всегда пусто
+      website: document.getElementById("f-website").value, // honeypot
     };
 
     if (submitBtn) submitBtn.disabled = true;

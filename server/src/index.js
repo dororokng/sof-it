@@ -18,7 +18,7 @@ import { publicApiRouter } from "./routes/publicApi.js";
 import { csrfMiddleware } from "./middleware/csrf.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, "../../"); // корень репозитория — там css/, js/, pages/
+const projectRoot = path.resolve(__dirname, "../../");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -27,23 +27,22 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json()); // нужен для fetch(JSON) с формы заявки на /pages/contacts.html
+app.use(express.json());
 
-// Отдаём наружу только то, что реально должно быть публичным — НЕ весь
-// корень репозитория целиком (там же лежат server/, docker-compose.yml,
-// .env и т.п., которым в вебе делать нечего).
+// Отдаём наружу только публичные директории, а не весь корень репозитория
+// (в нём же server/, docker-compose.yml, .env).
 app.use("/css", express.static(path.join(projectRoot, "css")));
 app.use("/js", express.static(path.join(projectRoot, "js")));
 app.use("/pages", express.static(path.join(projectRoot, "pages")));
 app.use("/partials", express.static(path.join(projectRoot, "partials")));
-app.use("/images", express.static(path.join(projectRoot, "images"))); // статичные картинки дизайна (не то же самое, что uploads/ — туда попадает только загруженное через админку)
-app.use("/uploads", express.static(path.join(__dirname, "..", "uploads"))); // фото товаров и новостей (uploads/products, uploads/news)
+app.use("/images", express.static(path.join(projectRoot, "images")));
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 for (const file of ["favicon.svg", "robots.txt", "sitemap.xml", "404.html"]) {
   app.get(`/${file}`, (req, res) => res.sendFile(path.join(projectRoot, file)));
 }
 app.get(["/", "/index.html"], (req, res) => res.sendFile(path.join(projectRoot, "index.html")));
 
-app.use(express.static(path.join(__dirname, "public"))); // отдаёт /admin.css
+app.use(express.static(path.join(__dirname, "public")));
 
 const pgPool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 const PgSession = connectPgSimple(session);
@@ -54,10 +53,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }, // неделя
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
   })
 );
-app.use(csrfMiddleware); // кладёт res.locals.csrfToken — нужен и /admin/login (до входа), и всем формам админки
+app.use(csrfMiddleware);
 
 app.get("/api/health", async (req, res) => {
   await prisma.$queryRaw`SELECT 1`;

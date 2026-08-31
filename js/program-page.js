@@ -1,5 +1,5 @@
-// Карточка программы 1С: /pages/programma.html?slug=... — контент из
-// статического массива onecPrograms (js/solutions-data.js).
+// /pages/programma.html?slug=... — контент из статического массива
+// onecPrograms (js/solutions-data.js).
 
 const programPage = (() => {
   const slug = new URLSearchParams(window.location.search).get("slug");
@@ -25,7 +25,5 @@ if (!programPage) {
     .join("");
 
   const relatedIndustries = industries.filter((ind) => p.industries.includes(ind.slug));
-  document.getElementById("progIndustriesGrid").innerHTML = relatedIndustries
-    .map((ind, i) => industryCardHTML(ind, i))
-    .join("");
+  document.getElementById("progIndustriesGrid").innerHTML = relatedIndustries.map(industryCardHTML).join("");
 }

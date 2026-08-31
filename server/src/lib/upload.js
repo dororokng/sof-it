@@ -6,16 +6,8 @@ import multer from "multer";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const uploadsRoot = path.resolve(__dirname, "../../uploads");
 
-// Ключ — заявленный multipart Content-Type, значение — расширение, с которым
-// реально сохраняем файл на диск. Раньше расширение бралось из
-// file.originalname (это имя пришло от клиента и никак не проверялось) —
-// можно было отправить файл с телом HTML/JS, настоящим Content-Type
-// "image/jpeg" (мимо fileFilter) и оригинальным именем "x.html": сохранился
-// бы файл x.html внутри uploads/, который express.static потом отдал бы как
-// text/html — маленький, но настоящий stored-XSS/хостинг чужого HTML на
-// нашем домене. Теперь расширение всегда выбирается сервером из этой карты,
-// а не из имени файла — второй, полностью независимый уровень проверки типа
-// поверх fileFilter.
+// Расширение сохраняемого файла берём из проверенного MIME-типа, а не из
+// имени файла клиента (иначе можно подсунуть x.html с Content-Type image/jpeg).
 const ALLOWED_TYPES = new Map([
   ["image/jpeg", ".jpg"],
   ["image/png", ".png"],
@@ -23,9 +15,7 @@ const ALLOWED_TYPES = new Map([
   ["image/gif", ".gif"],
 ]);
 
-// Обычный multer-middleware при ошибке (не тот тип файла, файл больше 5 МБ)
-// вызывает next(err) и падает в error-handler Express с некрасивой страницей.
-// Оборачиваем в промис, чтобы роут сам решал, что показать пользователю.
+// Оборачиваем multer в промис, чтобы роут сам обрабатывал ошибку загрузки.
 function createImageUploader(subfolder) {
   const dir = path.join(uploadsRoot, subfolder);
   fs.mkdirSync(dir, { recursive: true });
@@ -33,7 +23,7 @@ function createImageUploader(subfolder) {
   const storage = multer.diskStorage({
     destination: dir,
     filename: (req, file, cb) => {
-      const ext = ALLOWED_TYPES.get(file.mimetype) || ".bin"; // недостижимо для допущенных fileFilter'ом файлов
+      const ext = ALLOWED_TYPES.get(file.mimetype) || ".bin";
       cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`);
     },
   });
@@ -58,7 +48,7 @@ function createImageUploader(subfolder) {
   function deleteImageFile(imageUrl) {
     if (!imageUrl) return;
     const filePath = path.join(uploadsRoot, imageUrl.replace(/^\/uploads\//, ""));
-    fs.unlink(filePath, () => {}); // если файла уже нет — не страшно
+    fs.unlink(filePath, () => {});
   }
 
   return { uploadImage, deleteImageFile };

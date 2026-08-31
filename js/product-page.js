@@ -14,9 +14,7 @@ document.addEventListener("data:ready", () => {
 
   document.getElementById("pdBreadcrumbName").textContent = p.name;
   document.getElementById("pdName").textContent = p.name;
-  // innerHTML + highlightLatin (не textContent) — так же, как в render.js:
-  // латинские названия/модели внутри описания смягчаются, а переносы строк
-  // по-прежнему сохраняются через white-space:pre-line в CSS.
+  // innerHTML + highlightLatin: переносы строк держит white-space:pre-line в CSS.
   document.getElementById("pdDesc").innerHTML = highlightLatin(p.desc);
   if (p.image) {
     document.getElementById("pdImage").src = p.image;
