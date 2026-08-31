@@ -30,13 +30,17 @@ document.addEventListener("layout:ready", () => {
 });
 
 // Reveal-анимация секций при скролле — не зависит от шапки/футера
+// threshold:0 + нижний rootMargin вместо threshold:0.15 — секция длиннее
+// вьюпорта (напр. юридический текст на privacy.html) никогда не набрала бы
+// 15% видимости и осталась бы с opacity:0. Теперь reveal срабатывает, как
+// только верх секции заходит в нижнюю часть экрана.
 const io = new IntersectionObserver(
   (entries) => {
     entries.forEach((en) => {
       if (en.isIntersecting) en.target.classList.add("in");
     });
   },
-  { threshold: 0.15 }
+  { threshold: 0, rootMargin: "0px 0px -10% 0px" }
 );
 document.querySelectorAll("section").forEach((s) => {
   s.classList.add("reveal");

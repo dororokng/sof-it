@@ -67,7 +67,7 @@
             <h2>Что входит в сопровождение</h2>
           </div>
         </div>
-        <div class="card-grid">
+        <div class="card-grid card-grid--4col">
           <div class="service-card"><h4>Консультации</h4><p>Ответы на вопросы пользователей по работе в системе и учётным операциям.</p></div>
           <div class="service-card"><h4>Исправление ошибок</h4><p>Диагностика и устранение ошибок проведения документов и некорректных отчётов.</p></div>
           <div class="service-card"><h4>Обновления</h4><p>Плановое обновление релизов конфигурации и платформы 1С.</p></div>
@@ -88,15 +88,13 @@
             <p class="lead">Примеры обращений, с которыми чаще всего работает линия сопровождения.</p>
           </div>
         </div>
-        <div class="adv-grid">
+        <div class="adv-grid adv-grid--3col">
           <div class="list-card"><h4>Ошибка проведения документа</h4><p>Документ не проводится или проводится некорректно — нужно найти причину и исправить.</p></div>
           <div class="list-card"><h4>Некорректный отчёт</h4><p>Цифры в отчёте не сходятся с ожидаемыми — требуется разобраться в источнике расхождения.</p></div>
           <div class="list-card"><h4>Не работает обмен</h4><p>Данные перестали передаваться между базами или с внешней системой.</p></div>
           <div class="list-card"><h4>Проблемы после обновления</h4><p>После обновления релиза что-то работает иначе, чем раньше.</p></div>
-          <div class="list-card"><h4>Настройка прав</h4><p>Сотруднику нужен доступ к новому разделу или, наоборот, доступ нужно ограничить.</p></div>
           <div class="list-card"><h4>Восстановление данных</h4><p>Нужно откатить базу к резервной копии или восстановить случайно удалённые данные.</p></div>
           <div class="list-card"><h4>Изменение печатной формы</h4><p>В печатной форме документа нужно поменять формулировку, логотип или добавить поле.</p></div>
-          <div class="list-card"><h4>Настройка регламентного задания</h4><p>Нужно изменить расписание или условия автоматической фоновой операции.</p></div>
         </div>
       </div>
     </section>
@@ -108,7 +106,7 @@
             <h2>Форматы работы</h2>
           </div>
         </div>
-        <div class="card-grid">
+        <div class="card-grid card-grid--4col">
           <div class="service-card"><h4>Разовые работы</h4><p>Обращение по конкретной задаче без постоянного договора — оплата по факту выполнения.</p></div>
           <div class="service-card"><h4>Абонентское сопровождение</h4><p>Регулярная поддержка на постоянной основе — согласованный объём работ на период.</p></div>
           <div class="service-card"><h4>Расширенное сопровождение</h4><p>Абонентское сопровождение плюс приоритетная обработка обращений и более широкий состав работ.</p></div>
@@ -131,6 +129,7 @@
           <a class="link-chip" href="/pages/dorabotka-1s.html">Крупные доработки</a>
           <a class="link-chip" href="/pages/avtomatizaciya-1s.html">Сложные интеграции и автоматизация процессов</a>
         </div>
+        <p class="lead section-note">Если обмен уже настроен и вдруг перестал работать — это сопровождение. Если нужно построить обмен с системой, с которой раньше данные не передавались, — это автоматизация.</p>
       </div>
     </section>
 
@@ -141,7 +140,7 @@
             <h2>От чего зависит стоимость</h2>
           </div>
         </div>
-        <div class="adv-grid">
+        <div class="adv-grid" style="grid-template-columns: repeat(2, 1fr);">
           <div class="list-card"><h4>Конфигурация</h4><p>Типовая или доработанная — доработанную сложнее обслуживать при обновлениях.</p></div>
           <div class="list-card"><h4>Число пользователей</h4><p>Больше рабочих мест — больше обращений и объём администрирования.</p></div>
           <div class="list-card"><h4>Доработки и интеграции</h4><p>Нетиповая логика и внешние обмены требуют больше времени на диагностику.</p></div>
@@ -190,14 +189,7 @@
             <p class="lead">Сопровождаем все основные конфигурации 1С, с которыми работаем при внедрении.</p>
           </div>
         </div>
-        <div class="link-row">
-          <a class="link-chip" href="/pages/programma.html?slug=erp">1С:ERP</a>
-          <a class="link-chip" href="/pages/programma.html?slug=ut">1С:Управление торговлей</a>
-          <a class="link-chip" href="/pages/programma.html?slug=buhgalteriya">1С:Бухгалтерия</a>
-          <a class="link-chip" href="/pages/programma.html?slug=zup">1С:ЗУП</a>
-          <a class="link-chip" href="/pages/programma.html?slug=dokumentooborot">1С:Документооборот</a>
-          <a class="link-chip" href="/pages/programma.html?slug=unf">1С:УНФ</a>
-        </div>
+        <div class="link-row" id="supportProgramsRow"></div>
       </div>
     </section>
 
@@ -210,19 +202,19 @@
         </div>
         <div class="stage-list">
           <details class="stage-item">
-            <summary><span class="n">Q</span>Можно ли перейти на сопровождение, если систему внедряла не «Софит»?</summary>
+            <summary><span class="n"></span>Можно ли перейти на сопровождение, если систему внедряла не «Софит»?</summary>
             <div class="stage-body">Да, сопровождение подключается независимо от того, кто выполнял внедрение — начинаем с анализа текущей системы.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Что если по ходу сопровождения понадобится доработка?</summary>
+            <summary><span class="n"></span>Что если по ходу сопровождения понадобится доработка?</summary>
             <div class="stage-body">Небольшие доработки входят в сопровождение; более крупные задачи оцениваются и выполняются отдельно, см. <a href="/pages/dorabotka-1s.html">«Доработка 1С»</a>.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Сопровождение включает обновление системы?</summary>
+            <summary><span class="n"></span>Сопровождение включает обновление системы?</summary>
             <div class="stage-body">Плановые обновления релизов — часть сопровождения. Подробнее о самом процессе обновления — на странице <a href="/pages/obnovlenie-1s.html">«Обновление 1С»</a>.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Можно взять разовую консультацию без абонентского договора?</summary>
+            <summary><span class="n"></span>Можно взять разовую консультацию без абонентского договора?</summary>
             <div class="stage-body">Да, для разового вопроса подходит формат разовых работ или отдельная консультация, см. <a href="/pages/konsultacii-1s.html">«Консультации по 1С»</a>.</div>
           </details>
         </div>
@@ -247,8 +239,8 @@
     <section class="cta-band">
       <div class="wrap cta-band-grid">
         <div>
-          <h2>Нужна постоянная поддержка системы?</h2>
-          <p>Расскажите, какая у вас конфигурация и сколько пользователей — предложим формат сопровождения.</p>
+          <h2>Уточните конфигурацию и число пользователей</h2>
+          <p>Предложим формат сопровождения и ориентир по стоимости.</p>
         </div>
         <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
       </div>
@@ -258,8 +250,15 @@
   <div id="footer"></div>
 
   <script src="/js/data.js"></script>
+  <script src="/js/solutions-data.js"></script>
+  <script src="/js/render.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
+  <script>
+    document.getElementById("supportProgramsRow").innerHTML = onecPrograms
+      .map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
+      .join("");
+  </script>
 </body>
 </html>

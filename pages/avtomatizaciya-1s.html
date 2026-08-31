@@ -43,7 +43,7 @@
             <h2>Когда бизнесу нужна автоматизация</h2>
           </div>
         </div>
-        <div class="adv-grid">
+        <div class="adv-grid adv-grid--3col">
           <div class="list-card"><h4>Учёт в Excel</h4><p>Таблицы ведутся параллельно с 1С или вместо неё, данные расходятся между файлами и версиями.</p></div>
           <div class="list-card"><h4>Повторный ввод данных</h4><p>Одна и та же информация вручную переносится из заказа в накладную, из накладной в отчёт.</p></div>
           <div class="list-card"><h4>Согласования по почте и в мессенджерах</h4><p>Статус согласования документа не виден в системе — приходится уточнять вручную.</p></div>
@@ -90,7 +90,7 @@
           <div class="list-card"><h4>ЭДО</h4><p>Обмен юридически значимыми документами с контрагентами без бумажного архива.</p></div>
           <div class="list-card"><h4>Интернет-магазин</h4><p>Синхронизация остатков, цен и заказов между сайтом и учётной системой.</p></div>
           <div class="list-card"><h4>Складские системы</h4><p>Обмен данными с WMS, терминалами сбора данных и весовым оборудованием.</p></div>
-          <div class="list-card"><h4>Внешние сервисы</h4><p>Прочие информационные системы компании — по протоколам, которые они поддерживают.</p></div>
+          <div class="list-card"><h4>Другие сервисы</h4><p>Подключаем через API, обмен файлами или штатные механизмы 1С — конкретный способ зависит от того, что поддерживает система на другой стороне.</p></div>
         </div>
       </div>
     </section>
@@ -147,11 +147,11 @@
           </details>
           <details class="stage-item">
             <summary><span class="n">06</span>Тестирование</summary>
-            <div class="stage-body">Проверяем сценарий на реальных данных, включая нетиповые ситуации и ошибки ввода.</div>
+            <div class="stage-body">Прогоняем сценарий на реальных данных, специально проверяя нетиповые случаи и ошибки ввода — где обычно и всплывают проблемы.</div>
           </details>
           <details class="stage-item">
             <summary><span class="n">07</span>Запуск</summary>
-            <div class="stage-body">Переводим сценарий в рабочий режим, обучаем сотрудников новому порядку действий.</div>
+            <div class="stage-body">Переводим сценарий в рабочий режим и показываем сотрудникам, что в их привычных действиях изменится.</div>
           </details>
         </div>
       </div>
@@ -166,10 +166,7 @@
           </div>
         </div>
         <div class="link-row">
-          <a class="link-chip" href="/pages/programma.html?slug=erp">1С:ERP</a>
-          <a class="link-chip" href="/pages/programma.html?slug=ut">1С:Управление торговлей</a>
-          <a class="link-chip" href="/pages/programma.html?slug=buhgalteriya">1С:Бухгалтерия</a>
-          <a class="link-chip" href="/pages/programma.html?slug=unf">1С:УНФ</a>
+          <span id="autoProgramsRow"></span>
           <a class="link-chip" href="/pages/programy-1s.html">Все решения →</a>
         </div>
         <div class="link-row section-note">
@@ -190,19 +187,19 @@
         </div>
         <div class="stage-list">
           <details class="stage-item">
-            <summary><span class="n">Q</span>Автоматизация — это то же самое, что доработка 1С?</summary>
+            <summary><span class="n"></span>Автоматизация — это то же самое, что доработка 1С?</summary>
             <div class="stage-body">Не всегда. Часть сценариев закрывается уже существующим функционалом 1С через настройку, без изменения кода конфигурации. Если типового функционала не хватает — подключается доработка, см. <a href="/pages/dorabotka-1s.html">«Доработка 1С»</a>.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Можно ли автоматизировать только один процесс, а не всё сразу?</summary>
+            <summary><span class="n"></span>Можно ли автоматизировать только один процесс, а не всё сразу?</summary>
             <div class="stage-body">Да, это обычный подход — начать с процесса, где ручной труд и ошибки заметнее всего, и по результату решать, что автоматизировать дальше.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Нужно ли менять конфигурацию 1С для автоматизации?</summary>
+            <summary><span class="n"></span>Нужно ли менять конфигурацию 1С для автоматизации?</summary>
             <div class="stage-body">В большинстве случаев автоматизация настраивается поверх уже используемой конфигурации. Переход на другую конфигурацию 1С — отдельная задача, см. <a href="/pages/vnedrenie-1s.html">«Внедрение 1С»</a>.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Кто поддерживает автоматизированные сценарии после запуска?</summary>
+            <summary><span class="n"></span>Кто поддерживает автоматизированные сценарии после запуска?</summary>
             <div class="stage-body">Дальнейшая техническая поддержка — часть сопровождения, см. <a href="/pages/soprovozhdenie-1s.html">«Сопровождение 1С»</a>.</div>
           </details>
         </div>
@@ -227,8 +224,8 @@
     <section class="cta-band">
       <div class="wrap cta-band-grid">
         <div>
-          <h2>Знаете, какой процесс хотите автоматизировать?</h2>
-          <p>Расскажите о задаче — оценим, что можно сделать средствами 1С и с какими интеграциями.</p>
+          <h2>Расскажите про процесс, который отнимает больше всего времени</h2>
+          <p>Посмотрим, что можно сделать в рамках текущей конфигурации, а что потребует доработки или интеграции.</p>
         </div>
         <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
       </div>
@@ -238,8 +235,15 @@
   <div id="footer"></div>
 
   <script src="/js/data.js"></script>
+  <script src="/js/solutions-data.js"></script>
+  <script src="/js/render.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
+  <script>
+    document.getElementById("autoProgramsRow").innerHTML = onecPrograms
+      .map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
+      .join("");
+  </script>
 </body>
 </html>

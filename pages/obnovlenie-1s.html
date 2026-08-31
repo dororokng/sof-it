@@ -43,7 +43,7 @@
             <h2>Зачем обновлять 1С</h2>
           </div>
         </div>
-        <div class="adv-grid">
+        <div class="adv-grid adv-grid--3col">
           <div class="list-card"><h4>Актуальные формы отчётности</h4><p>Регламентированная отчётность меняется вслед за требованиями контролирующих органов.</p></div>
           <div class="list-card"><h4>Изменения законодательства</h4><p>Новые релизы учитывают изменения в расчётах налогов, взносов и учётных правил.</p></div>
           <div class="list-card"><h4>Исправления ошибок</h4><p>Разработчик конфигурации закрывает найденные ошибки в новых релизах.</p></div>
@@ -79,7 +79,7 @@
             <h2>Что мы делаем перед обновлением</h2>
           </div>
         </div>
-        <div class="adv-grid">
+        <div class="adv-grid adv-grid--3col adv-grid--fill-last">
           <div class="list-card"><h4>Проверяем текущую конфигурацию</h4><p>Смотрим версию релиза, платформы и состав уже установленных изменений.</p></div>
           <div class="list-card"><h4>Анализируем доработки</h4><p>Определяем, какие доработки и расширения есть в базе и как они могут повести себя после обновления.</p></div>
           <div class="list-card"><h4>Создаём резервную копию</h4><p>Делаем копию базы, чтобы при любой проблеме можно было безопасно вернуться к рабочему состоянию.</p></div>
@@ -133,12 +133,12 @@
           </div>
         </div>
         <div class="card-grid">
-          <div class="list-card"><h4>Документы</h4><p>Проверяем корректность проведения основных типов документов.</p></div>
-          <div class="list-card"><h4>Отчёты</h4><p>Сверяем ключевые отчёты на предмет расхождений после обновления.</p></div>
-          <div class="list-card"><h4>Обмены</h4><p>Проверяем обмены между информационными базами компании.</p></div>
-          <div class="list-card"><h4>Интеграции</h4><p>Проверяем работу внешних интеграций — банка, кассы, ЭДО, сайта.</p></div>
-          <div class="list-card"><h4>Регламентные задания</h4><p>Убеждаемся, что фоновые задачи выполняются по прежнему расписанию.</p></div>
-          <div class="list-card"><h4>Доработки</h4><p>Проверяем работу всех доработок и расширений на новом релизе.</p></div>
+          <div class="service-card"><h4>Документы</h4><p>Проверяем корректность проведения основных типов документов.</p></div>
+          <div class="service-card"><h4>Отчёты</h4><p>Сверяем ключевые отчёты на предмет расхождений после обновления.</p></div>
+          <div class="service-card"><h4>Обмены</h4><p>Проверяем обмены между информационными базами компании.</p></div>
+          <div class="service-card"><h4>Интеграции</h4><p>Проверяем работу внешних интеграций — банка, кассы, ЭДО, сайта.</p></div>
+          <div class="service-card"><h4>Регламентные задания</h4><p>Убеждаемся, что фоновые задачи выполняются по прежнему расписанию.</p></div>
+          <div class="service-card"><h4>Доработки</h4><p>Проверяем работу всех доработок и расширений на новом релизе.</p></div>
         </div>
       </div>
     </section>
@@ -168,14 +168,7 @@
             <h2>Конфигурации</h2>
           </div>
         </div>
-        <div class="link-row">
-          <a class="link-chip" href="/pages/programma.html?slug=erp">1С:ERP</a>
-          <a class="link-chip" href="/pages/programma.html?slug=ut">1С:Управление торговлей</a>
-          <a class="link-chip" href="/pages/programma.html?slug=buhgalteriya">1С:Бухгалтерия</a>
-          <a class="link-chip" href="/pages/programma.html?slug=zup">1С:ЗУП</a>
-          <a class="link-chip" href="/pages/programma.html?slug=dokumentooborot">1С:Документооборот</a>
-          <a class="link-chip" href="/pages/programma.html?slug=unf">1С:УНФ</a>
-        </div>
+        <div class="link-row" id="updateProgramsRow"></div>
       </div>
     </section>
 
@@ -204,15 +197,15 @@
         </div>
         <div class="stage-list">
           <details class="stage-item">
-            <summary><span class="n">Q</span>Можно ли обновить систему без остановки работы пользователей?</summary>
+            <summary>Можно ли обновить систему без остановки работы пользователей?</summary>
             <div class="stage-body">Само обновление рабочей базы требует короткого перерыва в работе — планируем его на время с наименьшей нагрузкой, чтобы минимизировать влияние.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Что если после обновления доработка перестала работать?</summary>
+            <summary>Что если после обновления доработка перестала работать?</summary>
             <div class="stage-body">Для этого и делается тестовое обновление до переноса в рабочую базу — конфликты выявляются заранее. Если проблема всё же обнаружена после обновления, её устранение — часть сопровождения или отдельная доработка, в зависимости от объёма.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Обязательно ли обновляться до последнего релиза?</summary>
+            <summary>Обязательно ли обновляться до последнего релиза?</summary>
             <div class="stage-body">Не всегда — важна не «самая свежая», а актуальная для нужд компании версия, особенно если это связано с требованиями к регламентированной отчётности.</div>
           </details>
         </div>
@@ -238,7 +231,7 @@
       <div class="wrap cta-band-grid">
         <div>
           <h2>Пора обновить 1С?</h2>
-          <p>Расскажите про конфигурацию и доработки — оценим риски и предложим безопасный порядок обновления.</p>
+          <p>Поделитесь информацией о конфигурации и доработках — оценим риски и предложим безопасный порядок обновления.</p>
         </div>
         <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
       </div>
@@ -248,8 +241,15 @@
   <div id="footer"></div>
 
   <script src="/js/data.js"></script>
+  <script src="/js/solutions-data.js"></script>
+  <script src="/js/render.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
+  <script>
+    document.getElementById("updateProgramsRow").innerHTML = onecPrograms
+      .map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
+      .join("");
+  </script>
 </body>
 </html>

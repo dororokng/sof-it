@@ -41,7 +41,7 @@
             <h2>С какими вопросами обращаются</h2>
           </div>
         </div>
-        <div class="adv-grid">
+        <div class="adv-grid adv-grid--2col">
           <div class="list-card"><h4>Ошибка</h4><p>Документ или отчёт ведёт себя не так, как ожидается.</p></div>
           <div class="list-card"><h4>Непонятная настройка</h4><p>Неясно, где в системе находится нужный параметр или как его изменить.</p></div>
           <div class="list-card"><h4>Документ</h4><p>Вопрос по заполнению или проведению конкретного документа.</p></div>
@@ -62,12 +62,12 @@
           </div>
         </div>
         <div class="card-grid">
-          <div class="service-card"><h4>Разобраться с проблемой</h4><p>Найти причину конкретной ошибки или некорректного поведения системы.</p></div>
+          <div class="service-card"><h4>Найти причину проблемы</h4><p>Провести диагностику ошибки или некорректного поведения системы и указать источник расхождения в данных.</p></div>
           <div class="service-card"><h4>Объяснить работу системы</h4><p>Показать, как устроен процесс или расчёт в 1С и почему он работает именно так.</p></div>
           <div class="service-card"><h4>Проверить настройки</h4><p>Оценить, корректно ли настроены учётная политика и параметры учёта.</p></div>
-          <div class="service-card"><h4>Найти причину ошибки</h4><p>Провести диагностику и указать источник расхождения в данных.</p></div>
           <div class="service-card"><h4>Предложить решение</h4><p>Дать вариант, как закрыть задачу — настройкой, доработкой или изменением процесса.</p></div>
           <div class="service-card"><h4>Провести обучение</h4><p>Показать сотруднику, как правильно выполнять операцию в системе.</p></div>
+          <div class="service-card"><h4>Оформить заключение</h4><p>Дать письменный вывод по итогам аудита или консультации, если он нужен для внутренних процессов заказчика.</p></div>
         </div>
       </div>
     </section>
@@ -150,14 +150,7 @@
             <h2>Конфигурации 1С</h2>
           </div>
         </div>
-        <div class="link-row">
-          <a class="link-chip" href="/pages/programma.html?slug=erp">1С:ERP</a>
-          <a class="link-chip" href="/pages/programma.html?slug=ut">1С:Управление торговлей</a>
-          <a class="link-chip" href="/pages/programma.html?slug=buhgalteriya">1С:Бухгалтерия</a>
-          <a class="link-chip" href="/pages/programma.html?slug=zup">1С:ЗУП</a>
-          <a class="link-chip" href="/pages/programma.html?slug=dokumentooborot">1С:Документооборот</a>
-          <a class="link-chip" href="/pages/programma.html?slug=unf">1С:УНФ</a>
-        </div>
+        <div class="link-row" id="consultProgramsRow"></div>
       </div>
     </section>
 
@@ -170,15 +163,15 @@
         </div>
         <div class="stage-list">
           <details class="stage-item">
-            <summary><span class="n">Q</span>Нужен ли договор для разовой консультации?</summary>
+            <summary>Нужен ли договор для разовой консультации?</summary>
             <div class="stage-body">Нет, для разового вопроса достаточно обращения через контакты — оформление отдельного договора требуется только для более крупных форматов работы.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Консультируете ли вы по системам, которые внедряла не «Софит»?</summary>
+            <summary>Консультируете ли вы по системам, которые внедряла не «Софит»?</summary>
             <div class="stage-body">Да, для консультации важна сама конфигурация 1С и суть вопроса, а не то, кто её изначально настраивал.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Что если по итогам консультации станет ясно, что нужна доработка?</summary>
+            <summary>Что если по итогам консультации станет ясно, что нужна доработка?</summary>
             <div class="stage-body">Дадим рекомендацию и, если нужно, оценим доработку отдельно — как самостоятельную задачу, см. <a href="/pages/dorabotka-1s.html">«Доработка 1С»</a>.</div>
           </details>
         </div>
@@ -204,7 +197,7 @@
       <div class="wrap cta-band-grid">
         <div>
           <h2>Есть вопрос по 1С?</h2>
-          <p>Опишите ситуацию — подскажем, как быть, или предложим формат консультации.</p>
+          <p>Сформулируйте вопрос — подскажем, как быть, или предложим формат консультации.</p>
         </div>
         <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
       </div>
@@ -214,8 +207,15 @@
   <div id="footer"></div>
 
   <script src="/js/data.js"></script>
+  <script src="/js/solutions-data.js"></script>
+  <script src="/js/render.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
+  <script>
+    document.getElementById("consultProgramsRow").innerHTML = onecPrograms
+      .map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
+      .join("");
+  </script>
 </body>
 </html>

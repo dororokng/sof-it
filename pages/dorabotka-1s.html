@@ -43,7 +43,7 @@
             <h2>Когда нужна доработка</h2>
           </div>
         </div>
-        <div class="adv-grid">
+        <div class="adv-grid" style="grid-template-columns: repeat(3, 1fr);">
           <div class="list-card"><h4>Типового функционала недостаточно</h4><p>Процесс компании устроен иначе, чем в типовой конфигурации, и обойти это настройками не получается.</p></div>
           <div class="list-card"><h4>Операции выполняются вручную</h4><p>Сотрудники вручную делают то, что можно было бы автоматизировать доработкой.</p></div>
           <div class="list-card"><h4>Нужны специальные отчёты</h4><p>Требуется отчёт с аналитикой, которой нет ни в одном типовом варианте.</p></div>
@@ -161,14 +161,7 @@
             <h2>С какими конфигурациями работаем</h2>
           </div>
         </div>
-        <div class="link-row">
-          <a class="link-chip" href="/pages/programma.html?slug=erp">1С:ERP</a>
-          <a class="link-chip" href="/pages/programma.html?slug=ut">1С:Управление торговлей</a>
-          <a class="link-chip" href="/pages/programma.html?slug=buhgalteriya">1С:Бухгалтерия</a>
-          <a class="link-chip" href="/pages/programma.html?slug=zup">1С:ЗУП</a>
-          <a class="link-chip" href="/pages/programma.html?slug=dokumentooborot">1С:Документооборот</a>
-          <a class="link-chip" href="/pages/programma.html?slug=unf">1С:УНФ</a>
-        </div>
+        <div class="link-row" id="revisionProgramsRow"></div>
       </div>
     </section>
 
@@ -198,15 +191,15 @@
         </div>
         <div class="stage-list">
           <details class="stage-item">
-            <summary><span class="n">Q</span>Доработка ломает возможность обновлять конфигурацию?</summary>
+            <summary>Доработка ломает возможность обновлять конфигурацию?</summary>
             <div class="stage-body">Не обязательно — если доработка сделана через расширение, обновление конфигурации в большинстве случаев проходит штатно. Прямое изменение типового кода усложняет обновления, поэтому мы стараемся использовать его только когда расширения недостаточно.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Можно ли доработать чужое внедрение?</summary>
+            <summary>Можно ли доработать чужое внедрение?</summary>
             <div class="stage-body">Да, доработка возможна независимо от того, кто внедрял систему — начинаем с анализа текущей конфигурации.</div>
           </details>
           <details class="stage-item">
-            <summary><span class="n">Q</span>Чем доработка отличается от автоматизации процессов?</summary>
+            <summary>Чем доработка отличается от автоматизации процессов?</summary>
             <div class="stage-body">Доработка — это изменение самой конфигурации 1С (код, формы, отчёты). Автоматизация — это чаще настройка уже существующего функционала и интеграций поверх текущей конфигурации, см. <a href="/pages/avtomatizaciya-1s.html">«Автоматизация процессов»</a>. На практике задачи часто пересекаются.</div>
           </details>
         </div>
@@ -232,7 +225,7 @@
       <div class="wrap cta-band-grid">
         <div>
           <h2>Не хватает типового функционала?</h2>
-          <p>Опишите задачу — оценим объём доработки и способ реализации.</p>
+          <p>Пришлите описание задачи — оценим объём доработки, способ реализации и сроки.</p>
         </div>
         <a href="/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
       </div>
@@ -242,8 +235,15 @@
   <div id="footer"></div>
 
   <script src="/js/data.js"></script>
+  <script src="/js/solutions-data.js"></script>
+  <script src="/js/render.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
+  <script>
+    document.getElementById("revisionProgramsRow").innerHTML = onecPrograms
+      .map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
+      .join("");
+  </script>
 </body>
 </html>

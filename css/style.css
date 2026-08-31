@@ -290,6 +290,11 @@ filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) 
 .media-frame--wide{aspect-ratio:16/6; margin-bottom:40px;}
 .media-frame--dark{aspect-ratio:4/3; background:var(--dark-2); border-color:var(--dark-line);}
 .media-frame--dark::after{color:var(--dark-ink-soft);}
+/* Изображение чуть выходит за края рамки (overflow:hidden срезает),
+   а штриховая рамка гасится — если у самой картинки по краю своя
+   рамка/поле, оно уходит в обрез, а не дублирует пунктир .media-frame. */
+.media-frame--bleed{border-color:transparent;}
+.media-frame--bleed img{transform:scale(1.05);}
 
 /* Отступ для инлайн-CTA (текст-ссылка/кнопка под текстом блока). */
 .cta-inline{margin-top:28px;}
@@ -595,7 +600,9 @@ h2{font-size:28px;}
 .hero-visual{margin-right:0;}
 .hero::before, .hero::after{width:380px; height:380px;}
 .about-grid{grid-template-columns:1fr; gap:48px;}
-.adv-grid{grid-template-columns:repeat(2,1fr);}
+.adv-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
 .card-grid{grid-template-columns:repeat(2,1fr);}
 .industry-media-grid{grid-template-columns:repeat(2,1fr);}
 .section-dark .wrap{grid-template-columns:1fr; gap:36px;}
@@ -613,6 +620,26 @@ h2{font-size:28px;}
 .effect-grid{grid-template-columns:repeat(2,1fr);}
 .segment-grid{grid-template-columns:1fr;}
 }
+/* Модификаторы сеток для отдельных блоков, где нужна фиксированная раскладка
+   (навешиваются вручную в разметке). Стоят после медиазапроса 1024px и до
+   760px: на планшете/десктопе задают своё число колонок, на телефоне ниже
+   по файлу перекрываются общими .adv-grid{1fr} / .card-grid{1fr}.
+   .adv-grid--2col   — konsultacii-1s.html «С какими вопросами обращаются» (2×4).
+   .adv-grid--3col   — avtomatizaciya-1s.html «Когда бизнесу нужна автоматизация»,
+                       soprovozhdenie-1s.html «Типовые задачи»,
+                       obnovlenie-1s.html «Зачем обновлять 1С» / «Что мы делаем
+                       перед обновлением» (3×2).
+   .card-grid--4col  — soprovozhdenie-1s.html «Что входит в сопровождение» (4×2)
+                       и «Форматы работы» (4 карточки ровно в один ряд). */
+.adv-grid--2col{grid-template-columns:repeat(2,1fr);}
+.adv-grid--3col{grid-template-columns:repeat(3,1fr);}
+.card-grid--4col{grid-template-columns:repeat(4,1fr);}
+/* Нечётный «хвост» в мозаичной сетке (.adv-grid — у неё background:var(--line),
+   поэтому пустая ячейка последнего ряда выглядит цветным квадратом). Если
+   последняя карточка встала в середину незаполненного ряда 3-колоночной
+   сетки — растягиваем её на 2 колонки, чтобы ряд закрылся без дыры.
+   При сворачивании в 1 колонку (≤760px) span просто игнорируется. */
+.adv-grid--fill-last > :last-child:nth-child(3n+2){grid-column:span 2;}
 @media (max-width: 760px){
 .proof-grid{grid-template-columns:1fr;}
 .related-grid{grid-template-columns:1fr;}

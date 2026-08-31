@@ -98,13 +98,18 @@ function programCardHTML(p) {
 }
 
 // Карточка отрасли с рамкой под фоновое изображение — используется только на
-// главной (блок «Отраслевые решения»). Пока реального фото нет, .media-frame
-// показывает подпись-хинт; когда фото появится, внутрь рамки кладётся <img>
-// (см. .media-frame img в style.css). Для /pages/otrasli.html используется
-// industryCardHTML выше (обычная .service-card без фото).
+// главной (блок «Отраслевые решения»). Если у отрасли задан ind.image —
+// внутрь .media-frame кладётся <img>; модификатор .media-frame--raw отключает
+// синий дуотон-фильтр (.media-frame img в style.css) — фото показывается в
+// естественном цвете (решение заказчика). Иначе показывается подпись-хинт из
+// data-hint. Для /pages/otrasli.html используется industryCardHTML выше
+// (обычная .service-card без фото).
 function industryMediaCardHTML(ind) {
+  const frame = ind.image
+    ? `<div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(ind.image)}" alt="${escapeAttr(ind.name)}" loading="lazy" /></div>`
+    : `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(ind.name)}"></div>`;
   return `<a class="industry-media-card" href="/pages/otrasl.html?slug=${ind.slug}">
-    <div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(ind.name)}"></div>
+    ${frame}
     <div class="industry-media-body">
       <h4>${escapeHtml(ind.name)}</h4>
       <p>${escapeHtml(ind.offer)}</p>

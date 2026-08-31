@@ -11,4 +11,6 @@ server/uploads/
 .env
 
 /sites_for_mirror.md
+/trash/
+/konspekt.md
 
