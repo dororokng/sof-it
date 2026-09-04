@@ -20,7 +20,12 @@ if (!industryPage) {
   document.getElementById("indOffer").textContent = ind.offer;
   document.getElementById("indCtaTitle").textContent = `Готовы обсудить автоматизацию для отрасли «${ind.name}»?`;
 
-  document.getElementById("indProblemsGrid").innerHTML = ind.problems
+  // Число пунктов «когда нужна 1С» разное по отраслям (4 или 5) — решётка
+  // .adv-grid по умолчанию 4-колоночная, для 5 пунктов без модификатора
+  // осталась бы пустая ячейка (см. фикс «пустых квадратов» в CLAUDE.md).
+  const problemsGrid = document.getElementById("indProblemsGrid");
+  problemsGrid.className = ind.problems.length === 5 ? "adv-grid adv-grid--3col adv-grid--fill-last" : "adv-grid";
+  problemsGrid.innerHTML = ind.problems
     .map((p) => `<div class="list-card"><h4>${escapeHtml(p)}</h4></div>`)
     .join("");
 
