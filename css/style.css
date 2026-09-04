@@ -1,36 +1,52 @@
 :root{
+/* ===================================================================
+   ТОНАЛЬНАЯ ШКАЛА ОДНОГО ФИРМЕННОГО СИНЕГО
+   -------------------------------------------------------------------
+   Базовый оттенок взят из цвета кнопки .btn-primary («Заказать
+   консультацию») = #1B4D8C = HSL(213°, 68%, 33%).
+   Hue 213° и Saturation 68% ЗАФИКСИРОВАНЫ — вся шкала строится
+   изменением только Lightness. S слегка снижена на 50/100 и поднята
+   на 900/950 (в пределах ±5%) для естественности крайних ступеней.
+   Нумерация ступеней как в Tailwind (50…950). Ступень 600 ≡ --accent
+   (тот самый цвет кнопки, НЕ меняется).
+   =================================================================== */
+--blue-50:#F3F7FC;   /* L 97% — почти белый           */
+--blue-100:#E7EFF9;  /* L 94%                          */
+--blue-200:#C5D9F1;  /* L 86% — hairline на светлом    */
+--blue-300:#9ABEEA;  /* L 76% — вторичный текст на тёмном */
+--blue-400:#5D98DF;  /* L 62% — ссылки на тёмном       */
+--blue-500:#2670C9;  /* L 47%                          */
+--blue-600:#1B4D8C;  /* L 33% — ≡ --accent, цвет кнопки */
+--blue-700:#143C6F;  /* L 25% — вторичный текст на светлом */
+--blue-800:#0E2E56;  /* L 19%                          */
+--blue-900:#0A2240;  /* L 14% — секция «Роботизация»   */
+--blue-950:#07182C;  /* L 10% — шапка, футер, CTA, тёмный текст */
 
---blue-50:#F3F7FC;
---blue-100:#E7EFF9;
---blue-200:#C5D9F1;
---blue-300:#9ABEEA;
---blue-400:#5D98DF;
---blue-500:#2670C9;
---blue-600:#1B4D8C;
---blue-700:#143C6F;
---blue-800:#0E2E56;
---blue-900:#0A2240;
---blue-950:#07182C;
-
+/* --- Роли: всё указывает на ступени шкалы. Отдельного серого/чёрного
+       в палитре нет — тёмный текст = ступень 950, светлый = белый/50. --- */
 --bg:var(--blue-50);
 --bg-alt:var(--blue-100);
---ink:var(--blue-950);
---ink-soft:var(--blue-700);
---ink-faint:var(--blue-600);
---line:var(--blue-200);
+--ink:var(--blue-950);            /* основной текст на светлом (16.6:1 на 50) */
+--ink-soft:var(--blue-700);       /* вторичный текст на светлом (10.2:1 на 50) */
+--ink-faint:var(--blue-600);      /* mono-подписи/крошки на светлом (7.8:1 на 50) */
+--line:var(--blue-200);           /* hairline на светлых секциях */
 --line-strong:var(--blue-300);
---accent:var(--blue-600);
---accent-dark:var(--blue-700);
---accent-soft:var(--blue-100);
---accent-on-dark:var(--blue-400);
+--accent:var(--blue-600);         /* кнопки/ссылки — БЕЗ ИЗМЕНЕНИЙ (#1B4D8C) */
+--accent-dark:var(--blue-700);    /* нижний стоп градиента кнопки */
+--accent-soft:var(--blue-100);    /* фон .tint-blue / .placeholder-note */
+--accent-on-dark:var(--blue-400); /* ссылки на тёмном фоне (5.3:1 на 900) */
 
---dark:var(--blue-950);
---dark-2:var(--blue-900);
---dark-3:#0C284B;
+/* --- Тёмная семья — те же Hue/Saturation, ступени 850–950. --- */
+--dark:var(--blue-950);           /* шапка, футер, CTA-баннер */
+--dark-2:var(--blue-900);         /* секция «Роботизация» */
+--dark-3:#0C284B;                 /* ≈ступень 850, только как верхний стоп градиентов глубины */
 --dark-line:rgba(255,255,255,0.12);
---dark-ink:#FFFFFF;
---dark-ink-soft:var(--blue-300);
+--dark-ink:#FFFFFF;               /* заголовки/основной текст на тёмном */
+--dark-ink-soft:var(--blue-300);  /* вторичный текст на тёмном (9.3:1 на 950) */
 
+/* Тёплый акцент оставлен ТОЛЬКО как маркер направления «Роботизация»
+   (pages/robotics.html) и каталога оборудования — на фонах секций и в
+   CTA не используется (оранжевый градиент из CTA убран). */
 --accent-warm:#B8622E;
 --glow-accent:rgba(27,77,140,.45);
 --glow-warm:rgba(184,98,46,.4);
@@ -41,7 +57,8 @@
 --glass-bg:rgba(255,255,255,.05);
 --radius:2px;
 --radius-lg:8px;
-
+/* Одна гарнитура на весь текст — IBM Plex Sans. --disp остаётся отдельным
+   токеном заголовков: та же гарнитура, но своя насыщенность и трекинг. */
 --disp: 'IBM Plex Sans', sans-serif;
 --body: 'IBM Plex Sans', sans-serif;
 --mono: 'IBM Plex Mono', monospace;
@@ -62,6 +79,7 @@ button{font-family:inherit; cursor:pointer;}
 
 .wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
 
+/* ---------- Signature: corner-bracket frame ---------- */
 .bracket{position:relative;}
 .bracket::before, .bracket::after,
 .bracket .bl, .bracket .br{
@@ -78,19 +96,27 @@ font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:up
 color:var(--ink-faint); display:block;
 }
 
-
+/* Смягчение латинских слов (названия брендов/моделей) внутри русского
+   текста — чтобы они не «кричали» на фоне кириллицы. См. highlightLatin()
+   в js/render.js. */
 .latin-inline{font-size:.93em; letter-spacing:.01em; color:var(--ink-soft);}
 
+/* ---------- Header ---------- */
 header{
 position:sticky; top:0; z-index:100;
-
+/* ступени 900 → 950 той же шкалы, с прозрачностью под backdrop-blur */
 background:linear-gradient(180deg, rgba(10,34,64,.92), rgba(7,24,44,.94));
 backdrop-filter:blur(14px) saturate(150%); border-bottom:1px solid var(--dark-line);
 box-shadow:0 1px 0 rgba(255,255,255,.04);
 transition:padding .2s ease, box-shadow .2s ease;
 }
 header.compact{box-shadow:var(--shadow-dark);}
-
+/* Затемнение/блюр остального контента при открытом меню. Скрим — сосед
+   <header> внутри монтажного <div id="header">; z-index:90 держит его выше
+   контента страницы (<main> на уровне 0), но ниже самого хедера
+   (z-index:100) и выпадающих панелей. Включается через :has() по
+   наведению/фокусу любого пункта с дропдауном; без поддержки :has()
+   просто не показывается (graceful). */
 .nav-scrim{
 position:fixed; inset:0; z-index:90; pointer-events:none;
 background:rgba(7,24,44,.4); backdrop-filter:blur(2px);
@@ -135,6 +161,11 @@ transition:background-position .3s ease, box-shadow .2s ease, transform .15s eas
 .btn-arrow::after{content:'→'; font-size:15px; transition:transform .15s ease;}
 .btn-arrow:hover::after{transform:translateX(3px);}
 
+/* Плоская текст-ссылка для вторичных действий («Все услуги», «Все решения»,
+   «О команде» в шапках секций). Раньше все они были .btn.btn-outline.btn-arrow
+   и визуально конкурировали с основным CTA «Заказать консультацию» — теперь
+   синяя заливка/обводка закреплена только за основным действием, а «смотреть
+   всё» — просто ссылка со стрелкой. */
 .text-link{
 display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600;
 color:var(--accent); white-space:nowrap;
@@ -145,22 +176,28 @@ color:var(--accent); white-space:nowrap;
 .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px;}
 .burger span{width:22px; height:2px; background:var(--dark-ink);}
 
+/* ---------- Sections generic ---------- */
 section{padding:96px 0;}
 section.tight{padding:64px 0;}
 .section-alt{background:var(--bg-alt);}
 .tint-blue{background:var(--accent-soft);}
-
+/* Одна гарнитура (IBM Plex Sans) на всё; капслок — только за mono-подписями
+   (.info-label, .breadcrumbs, .footer-grid h5), длинные заголовки в обычном
+   регистре. */
 h1,h2,h3,h4{font-family:var(--disp); font-weight:700; line-height:1.12; letter-spacing:-0.02em;}
 h2{font-size:31px; line-height:1.15;}
 h3{font-size:21px;}
 p.lead{font-size:18px; color:var(--ink-soft); max-width:640px; line-height:1.6;}
 .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:52px; flex-wrap:wrap;}
-
+/* Заголовок уровня 2 (вспомогательные блоки: FAQ, Кто ведёт проект,
+   Связанные услуги) — eyebrow-подпись .info-label + уменьшенный h2,
+   чтобы визуально уступать ключевым продающим блокам (Услуги, Тарифы). */
 .section-head--sub{margin-bottom:32px;}
 .section-head--sub h2, h2.h2-sub{font-size:22px;}
 .section-head--sub .info-label, h2.h2-sub .info-label{margin-bottom:10px;}
 .info-label + h2.h2-sub{margin-top:10px;}
 
+/* ---------- Hero ---------- */
 .hero{padding:76px 0 100px; position:relative; overflow:hidden;}
 .hero::before{
 content:''; position:absolute; top:-10%; right:-8%; width:640px; height:640px; z-index:0; pointer-events:none;
@@ -174,20 +211,18 @@ background:radial-gradient(circle, var(--glow-accent), transparent 70%); filter:
 .hero h1{font-size:50px; font-weight:700; margin:20px 0 22px; line-height:1.08; letter-spacing:-0.025em;}
 .hero h1 em{font-style:normal; color:var(--accent);}
 .hero-ctas{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
-
+/* Вторичная кнопка в hero остаётся кнопкой (не текст-ссылка), но усилена:
+   более контрастная тёмная рамка вместо блёклой. Синяя заливка по-прежнему
+   только у основного CTA. */
 .hero-ctas .btn-outline{border-width:1.5px; border-color:var(--ink); color:var(--ink);}
 .hero-ctas .btn-outline:hover{border-color:var(--accent); color:var(--accent);}
 .hero-visual{aspect-ratio:4/5; background:var(--bg-alt); position:relative; overflow:hidden; margin-right:-40px; box-shadow:var(--shadow-lg);}
-.hero-visual.bracket::before, .hero-visual.bracket::after,
-.hero-visual.bracket .bl, .hero-visual.bracket .br{ box-shadow:0 0 12px 1px var(--glow-accent); }
 .hero-visual img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;}
 
-.hero-metrics{
-display:flex; gap:40px; flex-wrap:wrap; margin-top:44px; padding-top:26px; border-top:1px solid var(--line);
-}
-.hero-metric .v{font-family:var(--disp); font-weight:700; font-size:34px; color:var(--accent); display:block; line-height:1;}
-.hero-metric .l{font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-top:8px; max-width:130px;}
-
+/* Универсальная рамка-заглушка под изображение. Пока реального фото нет —
+   показывает подпись-хинт из data-hint. Когда фото появится, внутрь кладётся
+   <img> и ложится поверх рамки. Модификаторы задают пропорции и тёмную
+   вариацию. */
 .media-frame{
 position:relative; background:var(--bg-alt); border:1px dashed var(--line-strong);
 display:grid; place-items:center; overflow:hidden;
@@ -196,7 +231,9 @@ display:grid; place-items:center; overflow:hidden;
 content:attr(data-hint); font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
 color:var(--ink-faint); text-align:center; padding:0 28px; max-width:280px;
 }
-
+/* Любое реальное фото в рамке «прошивается» в брендовый синий (grayscale →
+   sepia → поворот тона), чтобы не выглядело вставленным сторонним снимком.
+   Модификатор .media-frame--raw отключает эффект. */
 .media-frame img{
 position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
 filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) saturate(2.1);
@@ -208,11 +245,10 @@ filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) 
 .media-frame--dark{aspect-ratio:4/3; background:var(--dark-2); border-color:var(--dark-line);}
 .media-frame--dark::after{color:var(--dark-ink-soft);}
 
-.media-frame--bleed{border-color:transparent;}
-.media-frame--bleed img{transform:scale(1.05);}
-
+/* Отступ для инлайн-CTA (текст-ссылка/кнопка под текстом блока). */
 .cta-inline{margin-top:28px;}
 
+/* ---------- About / advantages ---------- */
 .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;}
 .about-list{display:flex; flex-direction:column;}
 .about-list li{list-style:none; padding:18px 0; border-top:1px solid var(--line); display:flex; gap:18px; align-items:baseline;}
@@ -220,12 +256,30 @@ filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) 
 .about-list .k{font-family:var(--mono); font-size:12px; color:var(--accent); min-width:52px;}
 
 .adv-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); margin-top:56px;}
-
+/* Модификаторы числа колонок: число ячеек в ряду должно совпадать с числом
+   карточек — иначе «пустые» ячейки решётки показывают фон-подложку --line. */
+.adv-grid--2col{grid-template-columns:repeat(2,1fr);}
+.adv-grid--3col{grid-template-columns:repeat(3,1fr);}
+.adv-grid--fill-last>.list-card:last-child{grid-column:span 2;}
+/* .principle-grid / .trust-grid / .effect-grid — те же решётки; объявлены
+   здесь (до @media), чтобы адаптивные правила ниже действительно работали. */
+.principle-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
+.trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+.effect-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+/* ---------- Card B: «Процесс/список» (.list-card) ----------
+   Единый компонент для сеток-«решёток» (hairline-мозаика: gap:1px на фоне
+   --line, карточка — сплошная --bg). Слоты: .n (mono-номер, опционально),
+   h4, p. Число колонок задаёт контейнер (.adv-grid / .principle-grid /
+   .steps / .trust-grid). */
 .list-card{background:var(--bg); padding:28px 24px; display:flex; flex-direction:column; gap:8px;}
 .list-card .n{font-family:var(--mono); font-size:12px; color:var(--accent); margin-bottom:6px;}
 .list-card h4{font-family:var(--body); font-size:15px; font-weight:600;}
 .list-card p{font-size:13.5px; color:var(--ink-soft);}
 
+/* ---------- Card A: «Витрина» (.service-card) ----------
+   Единый витринный компонент. Опциональные слоты: .info-label (eyebrow
+   сверху), .card-icon (линейная SVG-иконка), .more (ссылка снизу, прижата
+   через margin-top:auto). Лежит в .card-grid (3→2→1) как <a> или <div>. */
 .card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
 .service-card{
 display:flex; flex-direction:column; align-items:flex-start;
@@ -238,20 +292,32 @@ transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 .service-card p{font-size:14px; color:var(--ink-soft); margin-bottom:18px;}
 .service-card .more{font-size:13px; font-weight:600; color:var(--accent); margin-top:auto;}
 .service-card .info-label{margin-bottom:12px;}
-
+/* Выделенная карточка (ключевая услуга / акцентная плашка-ссылка). */
 .service-card-featured{border-color:var(--line-strong);}
 
+/* Отраслевые карточки на главной — подпись лежит прямо на фото (не под ним):
+   ровный лёгкий тёмный тон на всё фото (::before, фото остаётся узнаваемым)
+   + чуть более тёмный градиент строго под текстом читаемости ради (см.
+   .industry-media-overlay ниже), сама карточка — просто рамка фото. */
 .industry-media-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
 .industry-media-card{
-display:flex; flex-direction:column; border:1px solid var(--line); background:var(--bg);
+position:relative; display:block; border:1px solid var(--line); overflow:hidden;
 box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 .industry-media-card:hover{border-color:var(--accent); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-accent);}
-.industry-media-card .media-frame{border:none; border-bottom:1px solid var(--line);}
-.industry-media-body{padding:24px; display:flex; flex-direction:column; gap:10px; flex:1;}
-.industry-media-body h4{font-family:var(--body); font-size:17px; font-weight:600;}
-.industry-media-body p{font-size:13px; color:var(--ink-soft);}
-.industry-media-body .more{font-size:12.5px; font-weight:600; color:var(--accent); margin-top:auto;}
+.industry-media-card .media-frame{border:none;}
+.industry-media-card .media-frame::before{
+content:""; position:absolute; inset:0; z-index:1; background:rgba(7,24,44,.32);
+}
+.industry-media-overlay{
+position:absolute; inset:auto 0 0 0; z-index:2; padding:32px 22px 20px;
+display:flex; flex-direction:column; gap:6px;
+background:linear-gradient(180deg, rgba(7,24,44,0) 0%, rgba(7,24,44,.3) 55%, rgba(7,24,44,.6) 100%);
+backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+}
+.industry-media-overlay h4{font-family:var(--body); font-size:17px; font-weight:600; color:#fff;}
+.industry-media-overlay p{font-size:13px; color:rgba(255,255,255,.82);}
+.industry-media-overlay .more{font-size:12.5px; font-weight:600; color:#fff; margin-top:2px;}
 
 .product-card{border:1px solid var(--line); background:var(--bg); display:flex; flex-direction:column; box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;}
 .product-card:hover{border-color:var(--accent-warm); transform:translateY(-4px); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-warm);}
@@ -269,9 +335,12 @@ border:1px dashed var(--line-strong);
 .product-actions{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
 .product-actions .btn{padding:9px 14px; font-size:13px;}
 
+/* ---------- Process steps ---------- */
 .steps{display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--line); margin-top:20px;}
 .steps.steps-4{grid-template-columns:repeat(4,1fr);}
+/* .steps содержит .list-card (Card B) — см. правила выше. */
 
+/* ---------- News ---------- */
 .news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
 .news-card{
 cursor:pointer; display:flex; flex-direction:column;
@@ -282,7 +351,9 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 .news-thumb{aspect-ratio:16/10; background:linear-gradient(150deg,var(--dark-3),var(--dark)); position:relative; margin-bottom:18px; overflow:hidden;}
 .news-thumb .grid-overlay{position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size:24px 24px;}
 .news-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
-
+/* Страница новости всегда рендерит и картинку, и декоративный фон разом —
+   JS переключает видимость классом .has-photo. В карточках (news-card)
+   рендерится только что-то одно из двух, переключатель там не нужен. */
 .news-thumb.article-thumb img{display:none;}
 .news-thumb.article-thumb.has-photo img{display:block;}
 .news-thumb.article-thumb.has-photo .grid-overlay{display:none;}
@@ -293,20 +364,26 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 .article-wrap{max-width:760px;}
 .article-body{font-size:16px; color:var(--ink-soft); line-height:1.8; white-space:pre-line;}
 
+/* ---------- Юридические страницы (privacy/personal-data/requisites) ---------- */
 .legal-text{max-width:760px;}
 .legal-text h2{font-size:20px; font-weight:600; font-family:var(--body); margin:36px 0 12px;}
 .legal-text h2:first-child{margin-top:0;}
 .legal-text p{font-size:15px; color:var(--ink-soft); line-height:1.7; margin-bottom:12px;}
 .news-thumb.article-thumb{margin-bottom:36px;}
 
+/* ---------- CTA band ---------- */
 .cta-band{
-
+/* фирменный градиент ступеней 900 → 950 (вместо прежнего синий→оранжевый) */
 background:radial-gradient(ellipse 100% 140% at 85% 100%, var(--blue-900), var(--blue-950) 55%);
 color:var(--dark-ink); padding:88px 0; position:relative; overflow:hidden;
 }
 .cta-band-grid{display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; position:relative; z-index:1;}
 
-.section-dark::before, .stats-strip::before, .cta-band::before{
+/* ---------- Фирменный мотив: чертёжная сетка на тёмных секциях ----------
+   Слабая координатная сетка (линии --dark-line ~12%), маской растворяется
+   к краям — та же инженерная линия, что уголки-скобки .bracket. На секции
+   «Роботизация» (.section-dark) убрана по прямому запросу заказчика. */
+.stats-strip::before, .cta-band::before{
 content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
 background-image:
   linear-gradient(var(--dark-line) 1px, transparent 1px),
@@ -318,8 +395,10 @@ mask-image:radial-gradient(ellipse 85% 80% at 50% 35%, #000 35%, transparent 100
 .cta-band h2{font-size:30px; color:#fff; max-width:560px;}
 .cta-band p{color:var(--dark-ink-soft); margin-top:14px; max-width:440px;}
 
+/* ---------- Тёмная секция «Роботизация» на главной ----------
+   Тёмно-синяя, тем же цветовым языком, что .cta-band / .stats-strip. */
 .section-dark{
-
+/* секция «Роботизация» = ступень 900 (лёгкий радиал для глубины: 880→900) */
 background:radial-gradient(ellipse 120% 130% at 20% 0%, #0B2547, var(--blue-900) 70%);
 color:var(--dark-ink); padding:96px 0; position:relative; overflow:hidden;
 }
@@ -329,15 +408,18 @@ color:var(--dark-ink); padding:96px 0; position:relative; overflow:hidden;
 .section-dark .info-label{color:var(--dark-ink-soft); margin-bottom:16px;}
 .section-dark .btn-outline{color:#fff; border-color:var(--dark-line);}
 .section-dark .btn-outline:hover{border-color:var(--accent-on-dark); color:var(--accent-on-dark);}
-
+/* Тёмные варианты общих компонентов для секции «Роботизация». */
 .section-dark .text-link{color:var(--accent-on-dark);}
 .section-dark .text-link:hover{color:#fff;}
 .section-dark .placeholder-note{
 background:rgba(255,255,255,.06); color:var(--dark-ink-soft); border-left-color:var(--accent-on-dark);
 }
 
+/* Сетка «Связанные услуги» на vnedrenie-1s (карточки .service-card с
+   описаниями вместо голых чипов). */
 .related-grid{grid-template-columns:repeat(2,1fr);}
 
+/* ---------- Footer ---------- */
 footer{
 background:linear-gradient(180deg, var(--blue-950) 0%, #08203A 100%);
 color:var(--dark-ink-soft); padding-top:64px; position:relative;
@@ -364,12 +446,14 @@ opacity:.5;
 .footer-bottom a{color:var(--dark-ink-soft); margin-left:20px;}
 .footer-bottom a:hover{color:#fff;}
 
+/* ---------- Page header (inner pages) ---------- */
 .page-hero{padding:56px 0 64px; border-bottom:1px solid var(--line);}
 .page-hero h1{font-size:38px; margin-top:16px;}
 .breadcrumbs{font-family:var(--mono); font-size:12px; color:var(--ink-faint);}
 .breadcrumbs a{color:var(--ink-faint);}
 .breadcrumbs a:hover{color:var(--accent);}
 
+/* ---------- Category tabs ---------- */
 .cat-tabs{display:flex; gap:10px; margin-bottom:44px; flex-wrap:wrap;}
 .cat-tab{
 padding:10px 20px; border:1px solid var(--line-strong); font-size:13px; font-weight:600;
@@ -378,6 +462,7 @@ background:var(--bg); color:var(--ink-soft);
 .cat-tab.active{background:var(--accent-warm); border-color:var(--accent-warm); color:#fff;}
 .cat-tab:hover:not(.active){border-color:var(--accent-warm); color:var(--accent-warm);}
 
+/* ---------- Product detail ---------- */
 .pd-grid{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:flex-start;}
 .pd-thumb{aspect-ratio:1/1; background:var(--bg-alt); position:relative; overflow:hidden;}
 .pd-thumb.bracket::before, .pd-thumb.bracket::after,
@@ -386,8 +471,6 @@ background:var(--bg); color:var(--ink-soft);
 .pd-thumb img#pdImage{display:none;}
 .pd-thumb.has-photo #pdImage{display:block;}
 .pd-thumb.has-photo .thumb-fallback{display:none;}
-.pd-thumbs-row{display:flex; gap:10px; margin-top:12px;}
-.pd-thumbs-row div{width:64px; height:64px; background:var(--dark-3); opacity:.6; border:1px solid var(--line);}
 .pd-body h1{font-size:30px; margin:14px 0 18px;}
 .pd-desc{color:var(--ink-soft); margin-bottom:28px; max-width:520px; white-space:pre-line;}
 .spec-table{width:100%; border-collapse:collapse; margin-bottom:32px;}
@@ -402,6 +485,7 @@ padding:12px 16px; margin-bottom:28px; border-left:2px solid var(--accent);
 .pd-tags{display:flex; gap:10px; margin:20px 0 8px; flex-wrap:wrap;}
 .pd-tags span{font-size:12px; font-family:var(--mono); color:var(--ink-soft); border:1px solid var(--line-strong); padding:6px 12px;}
 
+/* ---------- Form ---------- */
 .form-wrap{max-width:640px;}
 .field{margin-bottom:20px;}
 .field label{display:block; font-size:12px; font-family:var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:8px;}
@@ -426,21 +510,22 @@ font-size:14px; margin-top:16px;
 .form-error.show{display:block;}
 .field-honeypot{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
 
+/* ---------- Contacts info ---------- */
 .contact-info-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); margin-bottom:64px;}
 .contact-info-card{background:var(--bg); padding:30px;}
 .contact-info-card .info-label{margin-bottom:16px;}
 .contact-info-card div.val{font-family:var(--mono); font-size:16px;}
 
-.view{display:none;}
-.view.active{display:block;}
-
+/* ---------- Focus ---------- */
 a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 
+/* ---------- Animations ---------- */
 @media (prefers-reduced-motion: no-preference){
 .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
 .reveal.in{opacity:1; transform:none;}
 }
 
+/* ---------- Responsive ---------- */
 @media (max-width: 1024px){
 .hero-grid{grid-template-columns:1fr; gap:44px;}
 .hero h1{font-size:40px;}
@@ -448,9 +533,7 @@ h2{font-size:28px;}
 .hero-visual{margin-right:0;}
 .hero::before, .hero::after{width:380px; height:380px;}
 .about-grid{grid-template-columns:1fr; gap:48px;}
-.adv-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
+.adv-grid{grid-template-columns:repeat(2,1fr);}
 .card-grid{grid-template-columns:repeat(2,1fr);}
 .industry-media-grid{grid-template-columns:repeat(2,1fr);}
 .section-dark .wrap{grid-template-columns:1fr; gap:36px;}
@@ -461,19 +544,13 @@ h2{font-size:28px;}
 .pd-grid{grid-template-columns:1fr; gap:36px;}
 .contact-info-grid{grid-template-columns:1fr;}
 .stats-grid{grid-template-columns:repeat(2,1fr);}
-.principle-grid{grid-template-columns:repeat(2,1fr);}
+.principle-grid{grid-template-columns:repeat(3,1fr);}
 .tariff-grid{grid-template-columns:1fr;}
 .case-grid{grid-template-columns:1fr;}
 .trust-grid{grid-template-columns:repeat(2,1fr);}
 .effect-grid{grid-template-columns:repeat(2,1fr);}
 .segment-grid{grid-template-columns:1fr;}
 }
-
-.adv-grid--2col{grid-template-columns:repeat(2,1fr);}
-.adv-grid--3col{grid-template-columns:repeat(3,1fr);}
-.card-grid--4col{grid-template-columns:repeat(4,1fr);}
-
-.adv-grid--fill-last > :last-child:nth-child(3n+2){grid-column:span 2;}
 @media (max-width: 760px){
 .related-grid{grid-template-columns:1fr;}
 .wrap{padding:0 20px;}
@@ -483,7 +560,6 @@ nav.main-nav{display:none;}
 .adv-grid{grid-template-columns:1fr;}
 .card-grid{grid-template-columns:1fr;}
 .industry-media-grid{grid-template-columns:1fr;}
-.hero-metrics{gap:22px;}
 .section-dark{padding:64px 0;}
 .steps{grid-template-columns:1fr 1fr;}
 .steps.steps-4{grid-template-columns:1fr 1fr;}
@@ -502,6 +578,7 @@ section{padding:64px 0;}
 .stage-item .stage-body{padding-left:4px;}
 }
 
+/* ---------- Spacing / layout utilities ---------- */
 .breadcrumbs + h1{margin-top:14px;}
 .breadcrumbs + .news-date{margin-top:16px;}
 .page-hero .news-date{display:inline-block;}
@@ -512,6 +589,7 @@ h1 + .lead, h2 + .lead, h3 + .lead{margin-top:16px;}
 .text-center .lead{margin-left:auto; margin-right:auto;}
 .empty-state{padding:80px 0;}
 
+/* ---------- Stats strip ---------- */
 .stats-strip{
 background:radial-gradient(ellipse 120% 100% at 15% 0%, var(--blue-900), var(--blue-950) 65%);
 color:var(--dark-ink); padding:64px 0; position:relative; overflow:hidden;
@@ -529,8 +607,7 @@ border-radius:var(--radius-lg); transition:background .2s ease;
 .stat-num{font-family:var(--disp); font-weight:700; font-size:48px; color:#fff; display:block; line-height:1;}
 .stat-label{font-family:var(--mono); font-size:12px; color:var(--dark-ink-soft); text-transform:uppercase; letter-spacing:.06em; display:block; margin-top:12px;}
 
-.principle-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
-
+/* ---------- Messenger links ---------- */
 .messenger-row, .link-row{display:flex; gap:12px; flex-wrap:wrap;}
 .messenger-row.section-gap{margin-bottom:64px;}
 .messenger-link, .link-chip{
@@ -540,11 +617,14 @@ border:1px solid var(--line-strong); padding:10px 18px; border-radius:var(--radi
 .messenger-link::before, .link-chip::before{content:''; width:7px; height:7px; background:var(--accent); display:inline-block;}
 .messenger-link:hover, .link-chip:hover{border-color:var(--accent); color:var(--accent);}
 
+/* ---------- Related items heading ---------- */
 .related-head{margin-bottom:32px; margin-top:88px; padding-top:56px; border-top:1px solid var(--line);}
 
+/* ---------- 404 page ---------- */
 .error-code{font-family:var(--disp); font-weight:700; font-size:120px; color:var(--accent); line-height:1; display:block;}
 .error-code + h2{margin-top:8px;}
 
+/* Mobile nav drawer */
 .mobile-nav{
 position:fixed; inset:0; z-index:200; padding:24px; display:none; flex-direction:column;
 background:linear-gradient(160deg, var(--dark-2), var(--dark) 70%);
@@ -558,6 +638,12 @@ color:var(--dark-ink);
 .mobile-nav-top .burger span:nth-child(2){opacity:0;}
 .mobile-nav-top .burger span:nth-child(3){transform:rotate(-45deg) translate(4px, -4px);}
 
+/* ---------- Nav dropdowns (desktop) ---------- */
+/* Три одинаковых по устройству дропдауна: «Услуги 1С», «Решения 1С»,
+   «Компания» — простой одноколоночный список ссылок, открывается под своим
+   пунктом. Прежняя мега-панель «Услуги 1С» убрана в фазе 1 редизайна
+   «убрать шаблонность»: «Решения 1С» и «Роботизация» подняты на верхний
+   уровень меню, все дропдауны приведены к единому паттерну. */
 .nav-item{position:relative;}
 .main-nav{position:relative;}
 .nav-item > a{display:inline-flex; align-items:center; gap:6px;}
@@ -570,10 +656,25 @@ position:absolute; top:100%; left:-18px; margin-top:14px; min-width:250px; z-ind
 background:linear-gradient(180deg, var(--blue-900), var(--blue-950)); border:1px solid var(--dark-line);
 box-shadow:var(--shadow-dark); padding:10px; border-radius:var(--radius-lg);
 opacity:0; visibility:hidden; transform:translateY(8px);
-
+/* Появление — мгновенно по наведению (см. правило :hover/:focus-within
+   ниже, где transition без задержки). Закрытие — с «периодом снисхождения»:
+   0.28s панель остаётся полностью видимой и кликабельной после ухода
+   курсора, затем 0.18s плавно гаснет. visibility переключается в hidden
+   только в самом конце (0.46s), поэтому всё это время по панели можно
+   вести курсор и кликать — если вернуться раньше, срабатывает :hover и
+   панель мгновенно «возвращается». pointer-events НЕ трогаем: скрытие
+   через visibility:hidden само по себе отключает клики, а держать
+   pointer-events в списке transition (как было раньше) приводило к тому,
+   что панель гасла раньше, чем переставала перехватывать курсор —
+   из-за этого меню казалось одновременно «улетающим» и «не кликающимся». */
 transition:opacity .18s ease .28s, transform .18s ease .28s, visibility 0s linear .46s;
 }
-
+/* Невидимый мостик вдоль верхнего края раскрытой панели: перекрывает
+   зрительно пустой зазор (margin-top) между пунктом меню и панелью.
+   Панель — потомок .nav-item, поэтому пока курсор над мостиком/панелью,
+   селектор .nav-item.has-dropdown:hover остаётся истинным. Плюс к этому
+   период снисхождения на закрытие (0.28s, см. .nav-dropdown выше) даёт
+   курсору спокойно пересечь сам зазор. */
 .nav-dropdown::before{
 content:''; position:absolute; top:-18px; left:0; right:0; height:18px;
 }
@@ -584,15 +685,21 @@ transition:opacity .18s ease, transform .18s ease, visibility 0s;
 .nav-dropdown a{display:block; padding:11px 14px; font-size:13px; color:var(--dark-ink-soft); white-space:nowrap; border-left:2px solid transparent; border-radius:4px; transition:background .12s ease, color .12s ease, border-color .12s ease;}
 .nav-dropdown a:hover{color:#fff; background:rgba(255,255,255,.06); border-left-color:var(--accent-on-dark);}
 
+/* Небольшой дропдаун «Компания» — в отличие от мега-панели, позиционируется
+   от своего пункта (он у правого края меню), поэтому пункту возвращаем
+   собственный контекст и прижимаем панель правым краем. */
 .nav-item.has-dropdown.nav-item--rel{position:relative;}
 .nav-item--rel .nav-dropdown{left:auto; right:0; min-width:210px;}
 
+/* Завершающая ссылка «Все … →» в дропдаунах «Услуги 1С» / «Решения 1С» —
+   визуально отделена верхней линией, синим акцентом на тёмном фоне. */
 .nav-dropdown-all{
 margin-top:6px; padding-top:12px; border-top:1px solid var(--dark-line);
 color:var(--accent-on-dark); font-size:12px; font-weight:500;
 }
 .nav-dropdown a.nav-dropdown-all:hover{border-left-color:transparent;}
 
+/* ---------- Mobile nav dropdown groups ---------- */
 .mobile-nav details{border-bottom:1px solid var(--dark-line);}
 .mobile-nav details summary{
 list-style:none; cursor:pointer; padding:14px 0; display:flex; justify-content:space-between; align-items:center;
@@ -607,6 +714,7 @@ font-family:var(--body); font-size:15px; text-transform:none; padding:10px 0 10p
 border-bottom:none; color:var(--dark-ink-soft);
 }
 
+/* ---------- Tariff cards ---------- */
 .tariff-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
 .tariff-card{
 border:1px solid var(--line); background:var(--bg); padding:32px; display:flex; flex-direction:column;
@@ -614,7 +722,9 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 }
 .tariff-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-md);}
 .tariff-card.highlighted{border-color:var(--accent); box-shadow:var(--shadow-md), 0 0 0 1px var(--glow-accent);}
-
+/* Бейдж рендерится на всех карточках (в невыделенных — скрыт через
+   visibility), чтобы зарезервировать одинаковую высоту и выровнять
+   заголовок/цену/кнопку по всем трём тарифам. */
 .tariff-badge{display:block; min-height:1.4em; line-height:1.4; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;}
 .tariff-card:not(.highlighted) .tariff-badge{visibility:hidden;}
 .tariff-card h4{font-size:20px; font-weight:600; font-family:var(--body); margin-bottom:6px;}
@@ -625,6 +735,7 @@ box-shadow:var(--shadow-sm); transition:border-color .2s ease, transform .2s eas
 .tariff-features li{font-size:13px; color:var(--ink-soft); padding:9px 0; border-top:1px solid var(--line);}
 .tariff-features li:last-child{border-bottom:1px solid var(--line);}
 
+/* ---------- Case cards ---------- */
 .case-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
 .case-card{
 border:1px solid var(--line); background:var(--bg); padding:32px;
@@ -644,13 +755,13 @@ color:var(--ink-faint); background:var(--bg-alt); border:1px solid var(--line-st
 .case-metric-val{font-family:var(--disp); font-size:24px; font-weight:700; color:var(--accent);}
 .case-metric-label{font-size:11px; color:var(--ink-faint); font-family:var(--mono); text-transform:uppercase; letter-spacing:.04em;}
 
-.trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
-
-.effect-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
+/* ---------- Доверие / показатели эффекта ---------- */
+/* .trust-grid / .effect-grid объявлены выше, рядом с .adv-grid. */
 .effect-item{background:var(--bg); padding:28px 24px;}
 .effect-val{font-family:var(--disp); font-weight:700; font-size:36px; color:var(--accent); display:block;}
 .effect-label{font-size:13px; color:var(--ink-soft); margin-top:8px; display:block;}
 
+/* ---------- Аккордеон этапов внедрения ---------- */
 .stage-list{border-top:1px solid var(--line);}
 .stage-item{border-bottom:1px solid var(--line);}
 .stage-item summary{
@@ -663,11 +774,12 @@ font-family:var(--body); font-weight:600; font-size:16px;
 .stage-item[open] summary::after{content:'\2212';}
 .stage-item .stage-body{padding:0 4px 24px 52px; color:var(--ink-soft); font-size:14px; max-width:640px; line-height:1.7;}
 
+/* ---------- Сегменты «кому и когда нужно» ---------- */
 .segment-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
 .segment-card{border:1px solid var(--line); background:var(--bg-alt); padding:28px; display:flex; flex-direction:column;}
 .segment-card h4{font-size:16px; font-weight:600; font-family:var(--body); margin-bottom:10px;}
 .segment-card p{font-size:13px; color:var(--ink-soft);}
-
+/* Явная связь сегмента бизнеса с рекомендованным тарифом ниже. */
 .segment-rec{
 margin-top:auto; padding-top:18px; font-family:var(--mono); font-size:12px; letter-spacing:.02em;
 color:var(--accent); display:inline-flex; align-items:center; gap:6px;
@@ -675,6 +787,7 @@ color:var(--accent); display:inline-flex; align-items:center; gap:6px;
 .segment-rec::after{content:'→'; transition:transform .15s ease;}
 .segment-rec:hover::after{transform:translateX(3px);}
 
+/* ---------- Таблица сравнения проектов ---------- */
 .compare-table-wrap{overflow-x:auto;}
 .compare-table{width:100%; border-collapse:collapse; min-width:640px;}
 .compare-table th, .compare-table td{padding:16px 18px; border:1px solid var(--line); font-size:13px; text-align:left;}

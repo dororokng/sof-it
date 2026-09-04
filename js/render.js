@@ -74,16 +74,19 @@ function programCardHTML(p) {
   </a>`;
 }
 
-// Вариант карточки отрасли с рамкой под фоновое фото — только на главной.
-// media-frame--raw отключает синий дуотон, фото показывается в естественном
-// цвете. Без ind.image рендерится подпись-хинт из data-hint.
+// Вариант карточки отрасли с фоновым фото — только на главной. Текст лежит
+// прямо на фото: затемняющий градиент + лёгкий backdrop-blur под текстом
+// (см. .industry-media-overlay в style.css), чтобы подпись оставалась
+// читаемой на любом снимке. media-frame--raw отключает синий дуотон, фото
+// показывается в естественном цвете. Без ind.image рендерится подпись-хинт
+// из data-hint вместо фото.
 function industryMediaCardHTML(ind) {
   const frame = ind.image
     ? `<div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(ind.image)}" alt="${escapeAttr(ind.name)}" loading="lazy" /></div>`
     : `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(ind.name)}"></div>`;
   return `<a class="industry-media-card" href="/pages/otrasl.html?slug=${ind.slug}">
     ${frame}
-    <div class="industry-media-body">
+    <div class="industry-media-overlay">
       <h4>${escapeHtml(ind.name)}</h4>
       <p>${escapeHtml(ind.offer)}</p>
       <span class="more">Решения для отрасли →</span>
