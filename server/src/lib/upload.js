@@ -65,7 +65,3 @@ export const deleteNewsImageFile = newsImages.deleteImageFile;
 const categoryImages = createImageUploader("categories");
 export const uploadCategoryImage = categoryImages.uploadImage;
 export const deleteCategoryImageFile = categoryImages.deleteImageFile;
-
-const serviceImages = createImageUploader("services");
-export const uploadServiceImage = serviceImages.uploadImage;
-export const deleteServiceImageFile = serviceImages.deleteImageFile;

@@ -1,4 +1,5 @@
 import "dotenv/config";
+import crypto from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
@@ -11,7 +12,6 @@ import { authRouter } from "./routes/auth.js";
 import { productsRouter } from "./routes/products.js";
 import { newsRouter } from "./routes/news.js";
 import { categoriesRouter } from "./routes/categories.js";
-import { servicesRouter } from "./routes/services.js";
 import { settingsRouter } from "./routes/settings.js";
 import { leadsRouter } from "./routes/leads.js";
 import { publicApiRouter } from "./routes/publicApi.js";
@@ -28,6 +28,27 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// Временный слой Basic Auth поверх ВСЕГО сайта (включая /admin), нужен только
+// пока сервер прокинут в публичный интернет через ngrok/туннель. Активируется
+// исключительно если заданы обе переменные окружения — без них ведёт себя как
+// раньше, без каких-либо ограничений (обычная локальная разработка).
+const PUBLIC_AUTH_USER = process.env.PUBLIC_BASIC_AUTH_USER;
+const PUBLIC_AUTH_PASS = process.env.PUBLIC_BASIC_AUTH_PASS;
+if (PUBLIC_AUTH_USER && PUBLIC_AUTH_PASS) {
+  app.use((req, res, next) => {
+    const header = req.headers.authorization || "";
+    const [scheme, encoded] = header.split(" ");
+    if (scheme === "Basic" && encoded) {
+      const [user, pass] = Buffer.from(encoded, "base64").toString().split(":");
+      const userOk = user?.length === PUBLIC_AUTH_USER.length && crypto.timingSafeEqual(Buffer.from(user), Buffer.from(PUBLIC_AUTH_USER));
+      const passOk = pass?.length === PUBLIC_AUTH_PASS.length && crypto.timingSafeEqual(Buffer.from(pass), Buffer.from(PUBLIC_AUTH_PASS));
+      if (userOk && passOk) return next();
+    }
+    res.set("WWW-Authenticate", 'Basic realm="Sofit"');
+    res.status(401).send("Authentication required.");
+  });
+}
 
 // Отдаём наружу только публичные директории, а не весь корень репозитория
 // (в нём же server/, docker-compose.yml, .env).
@@ -68,7 +89,6 @@ app.get("/admin", (req, res) => res.redirect("/admin/products"));
 app.use("/admin", authRouter);
 app.use("/admin/products", productsRouter);
 app.use("/admin/categories", categoriesRouter);
-app.use("/admin/services", servicesRouter);
 app.use("/admin/news", newsRouter);
 app.use("/admin/settings", settingsRouter);
 app.use("/admin/leads", leadsRouter);

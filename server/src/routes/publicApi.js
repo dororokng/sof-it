@@ -27,10 +27,6 @@ function toCategoryDTO(c) {
   return { id: c.id, name: c.name, slug: c.slug };
 }
 
-function toServiceDTO(s) {
-  return { id: s.id, name: s.name, shortDescription: s.shortDescription, fullDescription: s.fullDescription, image: s.imageUrl || null };
-}
-
 function toNewsDTO(n) {
   const d = n.date;
   const date = `${String(d.getDate()).padStart(2, "0")}.${String(d.getMonth() + 1).padStart(2, "0")}.${d.getFullYear()}`;
@@ -53,11 +49,6 @@ publicApiRouter.get("/news", async (req, res) => {
 publicApiRouter.get("/categories", async (req, res) => {
   const categories = await prisma.category.findMany({ where: { isActive: true }, orderBy: { order: "asc" } });
   res.json(categories.map(toCategoryDTO));
-});
-
-publicApiRouter.get("/services", async (req, res) => {
-  const services = await prisma.service.findMany({ where: { isPublished: true }, orderBy: { order: "asc" } });
-  res.json(services.map(toServiceDTO));
 });
 
 publicApiRouter.get("/settings", async (req, res) => {
