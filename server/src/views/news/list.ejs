@@ -41,7 +41,7 @@
                 <div class="row-actions">
                   <a href="/admin/news/<%= n.id %>/edit" class="btn btn-outline">Изменить</a>
                   <form method="post" action="/admin/news/<%= n.id %>/delete"
-                        onsubmit="return confirm('Удалить новость «<%= n.title %>»?')">
+                        data-confirm="Удалить новость «<%= n.title %>»?">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                     <button type="submit" class="btn btn-outline">Удалить</button>
                   </form>

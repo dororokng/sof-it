@@ -4,6 +4,7 @@ import { requireAuth } from "../middleware/requireAuth.js";
 import { requireCsrf, verifyCsrfToken } from "../middleware/csrf.js";
 import { parseSpecsText, formatSpecsText } from "../lib/specs.js";
 import { uploadProductImage, deleteProductImageFile } from "../lib/upload.js";
+import { isValidId } from "../lib/validate.js";
 
 export const productsRouter = Router();
 productsRouter.use(requireAuth);
@@ -56,6 +57,16 @@ productsRouter.post("/new", async (req, res) => {
       specsText,
       categories,
       error: "Выберите фото товара — без изображения карточку создать нельзя.",
+    });
+  }
+  if (!isValidId(id)) {
+    deleteProductImageFile(`/uploads/products/${req.file.filename}`);
+    return res.render("products/form", {
+      product: null,
+      values: req.body,
+      specsText,
+      categories,
+      error: "Идентификатор может содержать только латиницу, цифры и дефис.",
     });
   }
 

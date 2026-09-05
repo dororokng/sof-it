@@ -3,6 +3,7 @@ import { prisma } from "../db.js";
 import { requireAuth } from "../middleware/requireAuth.js";
 import { requireCsrf, verifyCsrfToken } from "../middleware/csrf.js";
 import { uploadCategoryImage, deleteCategoryImageFile } from "../lib/upload.js";
+import { isValidId } from "../lib/validate.js";
 
 export const categoriesRouter = Router();
 categoriesRouter.use(requireAuth);
@@ -28,6 +29,14 @@ categoriesRouter.post("/new", async (req, res) => {
   }
 
   const { id, name, description, order } = req.body;
+  if (!isValidId(id)) {
+    if (req.file) deleteCategoryImageFile(`/uploads/categories/${req.file.filename}`);
+    return res.render("categories/form", {
+      category: null,
+      values: req.body,
+      error: "Идентификатор может содержать только латиницу, цифры и дефис.",
+    });
+  }
   try {
     await prisma.category.create({
       data: {

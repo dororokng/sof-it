@@ -23,6 +23,17 @@ const projectRoot = path.resolve(__dirname, "../../");
 const app = express();
 const port = process.env.PORT || 4000;
 
+// Express по умолчанию парсит query-string через "qs" (query parser:
+// "extended") — там сейчас открытая уязвимость без выпущенного патча
+// (array-limit bypass / DoS через вложенные bracket-ключи, см. npm audit).
+// В проекте нигде не используются вложенные/массивные query-параметры
+// (везде плоские вида ?id=..., ?slug=..., ?flash=...), поэтому переключаем
+// на встроенный querystring ("simple") — он не подвержен этой уязвимости и
+// покрывает все реальные кейсы. Если когда-нибудь понадобится вложенный
+// параметр вида ?a[b]=1 — эту строку придётся убрать и решать проблему
+// иначе (обновлением qs, как только выйдет патч).
+app.set("query parser", "simple");
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -92,6 +103,17 @@ app.use("/admin/categories", categoriesRouter);
 app.use("/admin/news", newsRouter);
 app.use("/admin/settings", settingsRouter);
 app.use("/admin/leads", leadsRouter);
+
+// Единый обработчик ошибок — всегда последним. Не полагается на NODE_ENV:
+// клиенту в любом окружении уходит только код и общая фраза, полная ошибка
+// со стеком — только в серверный лог. Без этого блока Express в режиме
+// development (по умолчанию, если NODE_ENV не выставлен явно) отдаёт
+// клиенту стек вызовов прямо в теле ответа.
+app.use((err, req, res, next) => {
+  console.error(err);
+  if (res.headersSent) return next(err);
+  res.status(err.status || 500).send("Внутренняя ошибка сервера.");
+});
 
 app.listen(port, () => {
   console.log(`Sofit API listening on http://localhost:${port}`);

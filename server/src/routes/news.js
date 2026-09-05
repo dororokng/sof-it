@@ -3,6 +3,7 @@ import { prisma } from "../db.js";
 import { requireAuth } from "../middleware/requireAuth.js";
 import { requireCsrf, verifyCsrfToken } from "../middleware/csrf.js";
 import { uploadNewsImage, deleteNewsImageFile } from "../lib/upload.js";
+import { isValidId } from "../lib/validate.js";
 
 export const newsRouter = Router();
 newsRouter.use(requireAuth);
@@ -34,6 +35,14 @@ newsRouter.post("/new", async (req, res) => {
 
   // Фото у новости необязательно — в отличие от товара, ошибки при его отсутствии нет.
   const { id, date, title, excerpt, body } = req.body;
+  if (!isValidId(id)) {
+    if (req.file) deleteNewsImageFile(`/uploads/news/${req.file.filename}`);
+    return res.render("news/form", {
+      post: null,
+      values: req.body,
+      error: "Идентификатор может содержать только латиницу, цифры и дефис.",
+    });
+  }
   try {
     await prisma.newsPost.create({
       data: {

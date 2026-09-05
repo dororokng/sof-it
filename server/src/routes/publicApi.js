@@ -71,6 +71,16 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const rateLimitHits = new Map(); // ip -> [timestamps]
 
+// Без этой очистки Map растёт бессрочно: запись про IP чистится только при
+// его повторном обращении, а IP, который зашёл один раз (в т.ч. случайный
+// сканер), в ней остаётся навсегда до перезапуска процесса.
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, hits] of rateLimitHits) {
+    if (hits.every((t) => now - t > RATE_LIMIT_WINDOW_MS)) rateLimitHits.delete(ip);
+  }
+}, RATE_LIMIT_WINDOW_MS).unref();
+
 function isRateLimited(ip) {
   const now = Date.now();
   const hits = (rateLimitHits.get(ip) || []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
