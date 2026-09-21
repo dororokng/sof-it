@@ -32,6 +32,23 @@
 
     <section>
       <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Отраслевые решения</h2>
+            <p class="lead">Выберите общее направление — внутри откроются более конкретные решения.</p>
+          </div>
+        </div>
+        <div class="card-grid" id="industryCategoriesGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Другие отрасли</h2>
+          </div>
+        </div>
         <div class="card-grid" id="industriesGrid"></div>
       </div>
     </section>
@@ -56,6 +73,7 @@
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
   <script>
+    document.getElementById("industryCategoriesGrid").innerHTML = industryCategories.map(industryCategoryCardHTML).join("");
     document.getElementById("industriesGrid").innerHTML = industries.map(industryCardHTML).join("");
   </script>
 </body>

@@ -66,6 +66,22 @@ function industryCardHTML(ind) {
   </a>`;
 }
 
+function industryCategoryCardHTML(cat) {
+  return `<a class="service-card" href="/pages/otrasl-kategoriya.html?slug=${cat.slug}">
+    <h4>${escapeHtml(cat.name)}</h4>
+    <p>${highlightLatin(cat.offer)}</p>
+    <span class="more">Выбрать направление →</span>
+  </a>`;
+}
+
+function industryCategoryItemCardHTML(item) {
+  return `<a class="service-card" href="/pages/otrasl-item.html?slug=${item.slug}">
+    <h4>${escapeHtml(item.name)}</h4>
+    ${item.desc ? `<p>${highlightLatin(item.desc)}</p>` : ""}
+    <span class="more">Подробнее →</span>
+  </a>`;
+}
+
 function programCardHTML(p) {
   return `<a class="service-card" href="/pages/programma.html?slug=${p.slug}">
     <h4>${highlightLatin(p.name)}</h4>
@@ -90,6 +106,24 @@ function industryMediaCardHTML(ind) {
       <h4>${escapeHtml(ind.name)}</h4>
       <p>${escapeHtml(ind.offer)}</p>
       <span class="more">Решения для отрасли →</span>
+    </div>
+  </a>`;
+}
+
+// Медиа-карточка категории отраслевых решений — тот же вид, что и
+// industryMediaCardHTML, но ведёт на хаб категории (otrasl-kategoriya.html),
+// а не на страницу конкретной отрасли. Используется на главной, пока эти
+// категории временно выведены отдельно от общего списка отраслей (см.
+// CLAUDE.md/DESIGN_HISTORY.md) — после того как их перенесут в общий список,
+// здесь снова можно будет использовать industries.slice(0,3).
+function industryCategoryMediaCardHTML(cat) {
+  const frame = `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(cat.name)}"></div>`;
+  return `<a class="industry-media-card" href="/pages/otrasl-kategoriya.html?slug=${cat.slug}">
+    ${frame}
+    <div class="industry-media-overlay">
+      <h4>${escapeHtml(cat.name)}</h4>
+      <p>${highlightLatin(cat.offer)}</p>
+      <span class="more">Выбрать направление →</span>
     </div>
   </a>`;
 }
