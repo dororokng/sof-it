@@ -67,18 +67,21 @@ function industryCardHTML(ind) {
 }
 
 function industryCategoryCardHTML(cat) {
-  return `<a class="service-card" href="/pages/otrasl-kategoriya.html?slug=${cat.slug}">
+  return `<a class="service-card" href="/otrasli/${cat.slug}">
     <h4>${escapeHtml(cat.name)}</h4>
     <p>${highlightLatin(cat.offer)}</p>
     <span class="more">Выбрать направление →</span>
   </a>`;
 }
 
-function industryCategoryItemCardHTML(item) {
-  return `<a class="service-card" href="/pages/otrasl-item.html?slug=${item.slug}">
+// categorySlug нужен для сборки вложенного чистого URL /otrasli/:group/:item —
+// у самого item только собственный слаг, группа известна только вызывающей
+// стороне (industry-category-page.js).
+function industryCategoryItemCardHTML(item, categorySlug) {
+  return `<a class="service-card" href="/otrasli/${categorySlug}/${item.slug}">
     <h4>${escapeHtml(item.name)}</h4>
     ${item.desc ? `<p>${highlightLatin(item.desc)}</p>` : ""}
-    <span class="more">Подробнее →</span>
+    <span class="more">${escapeHtml(item.moreLabel || "Подробнее →")}</span>
   </a>`;
 }
 
@@ -118,7 +121,7 @@ function industryMediaCardHTML(ind) {
 // здесь снова можно будет использовать industries.slice(0,3).
 function industryCategoryMediaCardHTML(cat) {
   const frame = `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(cat.name)}"></div>`;
-  return `<a class="industry-media-card" href="/pages/otrasl-kategoriya.html?slug=${cat.slug}">
+  return `<a class="industry-media-card" href="/otrasli/${cat.slug}">
     ${frame}
     <div class="industry-media-overlay">
       <h4>${escapeHtml(cat.name)}</h4>

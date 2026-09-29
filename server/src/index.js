@@ -74,6 +74,14 @@ for (const file of ["favicon.svg", "robots.txt", "sitemap.xml", "404.html"]) {
 }
 app.get(["/", "/index.html"], (req, res) => res.sendFile(path.join(projectRoot, "index.html")));
 
+// Чистые URL для отраслевых направлений (категория → направление, см.
+// industryCategories в js/solutions-data.js): /otrasli/:group и
+// /otrasli/:group/:item отдают те же статические шаблоны, что раньше были
+// доступны только по ?slug=... — сам слаг клиентский JS разбирает из
+// location.pathname (industry-category-page.js / industry-item-page.js).
+app.get("/otrasli/:group/:item", (req, res) => res.sendFile(path.join(projectRoot, "pages", "otrasl-item.html")));
+app.get("/otrasli/:group", (req, res) => res.sendFile(path.join(projectRoot, "pages", "otrasl-kategoriya.html")));
+
 app.use(express.static(path.join(__dirname, "public")));
 
 const pgPool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
