@@ -21,7 +21,9 @@ if (!industryPage) {
   document.getElementById("indCtaTitle").textContent = `Готовы обсудить автоматизацию для отрасли «${ind.name}»?`;
 
   // Реальное фото вместо общей SVG-схемы «проблема → решение → результат» —
-  // только у отраслей с заданным ind.schemeImage (пока только «Производство»).
+  // у отраслей с заданным ind.schemeImage (сейчас задано у всех 9 отраслей,
+  // см. CLAUDE.md); SVG в otrasl.html — резервный вариант на случай будущей
+  // отрасли без фото.
   if (ind.schemeImage) {
     document.getElementById("indSchemeWrap").innerHTML = `<div class="media-frame media-frame--wide media-frame--raw media-frame--flush">
       <img src="${escapeAttr(ind.schemeImage)}" alt="${escapeAttr(ind.name)}" loading="lazy" />
