@@ -294,14 +294,14 @@ const industries = [
   {
     slug: "proizvodstvo",
     name: "Производство",
-    image: "/images/Производство.jpeg",
+    image: "/images/industries/manufacturing.jpeg",
     // Широкий банер (1942×809), которым у ВСЕХ отраслей (по просьбе
     // заказчика) заменена общая SVG-схема «проблема → решение → результат»
     // на странице otrasl.html — см. indSchemeWrap в industry-page.js.
     // Единственное реальное фото под эту секцию — намеренно переиспользуется
     // как временная общая картинка, пока не появятся отдельные фото под
     // каждую отрасль.
-    schemeImage: "/images/proizvodstvo.png",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "Автоматизация производственного учёта и планирования на базе 1С — от заказа до отгрузки готовой продукции.",
     problems: [
       "Сложно точно посчитать себестоимость продукции",
@@ -327,8 +327,8 @@ const industries = [
   {
     slug: "metallurgiya",
     name: "Металлургия",
-    image: "/images/Металлургия.jpeg",
-    schemeImage: "/images/proizvodstvo.png",
+    image: "/images/industries/metallurgy.jpeg",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "1С для металлургических и металлообрабатывающих предприятий: от плавки до отгрузки готового проката.",
     problems: [
       "Сложный многоэтапный учёт передела металла",
@@ -353,8 +353,8 @@ const industries = [
   {
     slug: "retail",
     name: "Ритейл",
-    image: "/images/Ритейл.jpeg",
-    schemeImage: "/images/proizvodstvo.png",
+    image: "/images/industries/retail.jpeg",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "Автоматизация розничной и оптовой торговли на базе 1С: от кассы до управления ассортиментом сети.",
     problems: [
       "Растёт число SKU и точек продаж",
@@ -380,8 +380,8 @@ const industries = [
   {
     slug: "logistika",
     name: "Логистика",
-    image: "/images/логистика.jpeg",
-    schemeImage: "/images/proizvodstvo.png",
+    image: "/images/industries/logistics.jpeg",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "1С для логистических и складских компаний: учёт перевозок, складских операций и взаиморасчётов.",
     problems: [
       "Разрыв между заявкой на перевозку и фактическим маршрутом",
@@ -406,8 +406,8 @@ const industries = [
   {
     slug: "stroitelstvo",
     name: "Строительство",
-    image: "/images/Строительство.jpeg",
-    schemeImage: "/images/proizvodstvo.png",
+    image: "/images/industries/construction.jpeg",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "1С для строительных и подрядных организаций: учёт по объектам, сметам и договорам.",
     problems: [
       "Учёт затрат ведётся в Excel и перестаёт справляться с объёмом",
@@ -433,8 +433,8 @@ const industries = [
   {
     slug: "uslugi",
     name: "Сфера услуг",
-    image: "/images/стойка.jpeg",
-    schemeImage: "/images/proizvodstvo.png",
+    image: "/images/industries/service-sector.jpeg",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "1С для компаний сферы услуг: учёт заказов, договоров и загрузки специалистов.",
     problems: [
       "Загрузка сотрудников и запись клиентов не связаны с учётом",
@@ -459,7 +459,7 @@ const industries = [
   {
     slug: "medicina",
     name: "Медицина",
-    schemeImage: "/images/proizvodstvo.png",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "Автоматизация клиник и медицинских центров на базе 1С: от расписания и электронной карты до маркировки лекарств и отчётности в ЕГИСЗ.",
     problems: [
       "Клиника растёт, и записи/врачей/оборудование сложно распределять вручную",
@@ -484,7 +484,7 @@ const industries = [
   {
     slug: "avtobiznes",
     name: "Автобизнес",
-    schemeImage: "/images/proizvodstvo.png",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "1С для автосервисов и СТО: заказ-наряды, склад запчастей и учёт нормо-часов в одной системе.",
     problems: [
       "Растёт поток заказ-нарядов",
@@ -515,7 +515,7 @@ const industries = [
   {
     slug: "apk",
     name: "Сельское хозяйство",
-    schemeImage: "/images/proizvodstvo.png",
+    schemeImage: "/images/industries/industry-scheme.png",
     offer: "1С для агропромышленных предприятий (АПК): учёт по полям, партиям и сезонам, мониторинг и управление холдингом.",
     problems: [
       "Учёт ведётся по множеству полей, партий скота или техники, и вручную не понять рентабельность",
