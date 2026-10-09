@@ -2,6 +2,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   if (!form) return;
 
+  // Префилл из блока «Партия до/после» (industry-proof.js): slug отрасли +
+  // отмеченные тезисы кладутся в sessionStorage перед переходом сюда и один
+  // раз подставляются в комментарий — без изменения схемы Lead в БД.
+  try {
+    const prefill = sessionStorage.getItem("leadPrefillComment");
+    if (prefill) {
+      document.getElementById("f-comment").value = prefill;
+      sessionStorage.removeItem("leadPrefillComment");
+    }
+  } catch (e) {
+    // sessionStorage недоступен — просто не префиллим, форма работает как обычно.
+  }
+
   const successBox = document.getElementById("formSuccess");
   const errorBox = document.getElementById("formError");
   const submitBtn = form.querySelector('button[type="submit"]');

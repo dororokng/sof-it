@@ -63,6 +63,26 @@ if (!industryItemPage) {
     document.getElementById("itemProblemsWrap").closest("section").remove();
   }
 
+  // «Партия до/после» + «Журнал смены» (industry-proof.js) — для всех
+  // направлений, у которых есть запись в industriesProof (сейчас это все
+  // заведённые направления категорий, кроме «Полиграфии и упаковки» — там
+  // пока нет самих items). Одно исключение: эталон «Пищевые продукты» —
+  // slug направления (pishchevye-produkty) не совпадает со slug в
+  // industries.ts (pishchevoe-proizvodstvo, имя пришло из макета), поэтому
+  // для него связь — явная карта, а не совпадение по slug.
+  const PROOF_ITEM_SLUGS = { "pishchevye-produkty": "pishchevoe-proizvodstvo" };
+  const proofWrap = document.getElementById("itemProofWrap");
+  const proofSlug = PROOF_ITEM_SLUGS[item.slug] || item.slug;
+  const proof = industriesProof.find((x) => x.slug === proofSlug);
+  if (proof) {
+    document.getElementById("itemPsrWrap")?.closest("section").remove();
+    document.getElementById("itemProblemsWrap")?.closest("section").remove();
+    proofWrap.innerHTML = industryProofHTML(proof);
+    initIndustryProof(proofWrap, proof);
+  } else {
+    proofWrap.closest("section").remove();
+  }
+
   if (item.specifics && item.specifics.length) {
     document.getElementById("itemSpecificsGrid").innerHTML = item.specifics
       .map((s, i) => `<div class="list-card"><span class="n">${String(i + 1).padStart(2, "0")}</span><h4>${escapeHtml(s.title)}</h4><p>${escapeHtml(s.desc)}</p></div>`)

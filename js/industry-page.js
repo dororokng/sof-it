@@ -20,24 +20,17 @@ if (!industryPage) {
   document.getElementById("indOffer").textContent = ind.offer;
   document.getElementById("indCtaTitle").textContent = `Готовы обсудить автоматизацию для отрасли «${ind.name}»?`;
 
-  // Реальное фото вместо общей SVG-схемы «проблема → решение → результат» —
-  // у отраслей с заданным ind.schemeImage (сейчас задано у всех 9 отраслей,
-  // см. CLAUDE.md); SVG в otrasl.html — резервный вариант на случай будущей
-  // отрасли без фото.
-  if (ind.schemeImage) {
-    document.getElementById("indSchemeWrap").innerHTML = `<div class="media-frame media-frame--wide media-frame--raw media-frame--flush">
-      <img src="${escapeAttr(ind.schemeImage)}" alt="${escapeAttr(ind.name)}" loading="lazy" />
-    </div>`;
+  // «Партия до/после» + «Журнал смены» (js/industry-proof.js) заменили
+  // старую SVG/фото-схему и грид «Когда нужна автоматизация» — данные
+  // только из industriesProof (js/industries-proof-data.js), 1:1 по slug.
+  const proofWrap = document.getElementById("indProofWrap");
+  const proof = industriesProof.find((x) => x.slug === ind.slug);
+  if (proof) {
+    proofWrap.innerHTML = industryProofHTML(proof);
+    initIndustryProof(proofWrap, proof);
+  } else {
+    proofWrap.closest("section").remove();
   }
-
-  // Число пунктов «когда нужна 1С» разное по отраслям (4 или 5) — решётка
-  // .adv-grid по умолчанию 4-колоночная, для 5 пунктов без модификатора
-  // осталась бы пустая ячейка (см. фикс «пустых квадратов» в CLAUDE.md).
-  const problemsGrid = document.getElementById("indProblemsGrid");
-  problemsGrid.className = ind.problems.length === 5 ? "adv-grid adv-grid--3col adv-grid--fill-last" : "adv-grid";
-  problemsGrid.innerHTML = ind.problems
-    .map((p) => `<div class="list-card"><h4>${escapeHtml(p)}</h4></div>`)
-    .join("");
 
   document.getElementById("indSpecificsGrid").innerHTML = ind.specifics
     .map((s, i) => `<div class="list-card"><span class="n">${String(i + 1).padStart(2, "0")}</span><h4>${escapeHtml(s.title)}</h4><p>${escapeHtml(s.desc)}</p></div>`)

@@ -7,11 +7,19 @@ document.addEventListener("layout:ready", () => {
 
   // Активный пункт меню — только верхний уровень: ссылки внутри .nav-dropdown
   // ведут на #якоря одной страницы и все помечались бы активными.
+  // «Отрасли» — плоская ссылка (без дропдауна), но ведёт на целое поддерево
+  // страниц (хаб /pages/otrasli.html, категории /otrasli/:group, направления
+  // /otrasli/:group/:item, старые ?slug=-варианты otrasl*.html) — точное
+  // совпадение пути подсвечивало вкладку только на самом хабе, а при переходе
+  // в любую конкретную отрасль/категорию/направление подсветка пропадала.
   const currentPath = window.location.pathname.replace(/\/index\.html$/, "/").replace(/\/$/, "") || "/";
   document.querySelectorAll("nav.main-nav a").forEach((link) => {
     if (link.closest(".nav-dropdown")) return;
     const linkPath = new URL(link.href).pathname.replace(/\/index\.html$/, "/").replace(/\/$/, "") || "/";
-    if (linkPath === currentPath) link.classList.add("active");
+    const isIndustriesActive =
+      linkPath === "/pages/otrasli.html" &&
+      (currentPath.startsWith("/otrasli/") || currentPath.startsWith("/pages/otrasl"));
+    if (linkPath === currentPath || isIndustriesActive) link.classList.add("active");
   });
 
   if (header) {

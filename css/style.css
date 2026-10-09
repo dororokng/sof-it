@@ -278,6 +278,56 @@ filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) 
 .list-card h4{font-family:var(--body); font-size:15px; font-weight:600;}
 .list-card p{font-size:13.5px; color:var(--ink-soft);}
 
+/* ---------- Отраслевой блок «Партия до/после» + «Журнал смены»
+   (js/industry-proof.js, данные — js/industries-proof-data.js). Заменяет на
+   странице отрасли старую SVG/фото-схему и грид «Когда нужна автоматизация». */
+.proof-card{border:1px solid var(--line); background:var(--bg); box-shadow:var(--shadow-sm); margin-top:56px;}
+.proof-card-head{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 24px; border-bottom:1px solid var(--line);}
+.proof-case-header{font-family:var(--mono); font-size:13px; letter-spacing:.04em; color:var(--ink-soft);}
+.proof-sample-note{flex:none;}
+.proof-grid{display:grid; grid-template-columns:1fr 1.3fr 1fr; gap:1px; background:var(--line);}
+.proof-col{background:var(--bg); padding:28px 24px; display:flex; flex-direction:column; gap:10px;}
+.proof-col h4{font-family:var(--body); font-size:16px; font-weight:600; line-height:1.3;}
+.proof-metric-label{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
+/* tabular-nums — ширина цифры не дёргает вёрстку при скачущем/считающем значении. */
+.proof-metric{font-family:var(--disp); font-weight:700; font-size:34px; font-variant-numeric:tabular-nums; line-height:1;}
+.proof-metric--problem{color:var(--ink-soft);}
+.proof-metric--result{color:var(--accent);}
+.proof-steps{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
+.proof-step{display:flex; align-items:baseline; gap:8px;}
+.proof-step-name{flex:none; font-size:13.5px; color:var(--ink);}
+.proof-step-dots{flex:1; border-bottom:1px dotted var(--line-strong); margin-bottom:4px;}
+.proof-step-value{flex:none; font-family:var(--mono); font-size:13px; color:var(--ink-soft);}
+.proof-step-value--plain{font-family:var(--body); font-size:14px; color:var(--ink-soft);}
+/* control-режим: значение — не короткое число, а описательная фраза, иногда
+   вместе с длинным названием этапа — однострочный лидер из точек на такой
+   паре схлопывается в одну точку (см. HANDOVER/чат). Эти пары складываются
+   в колонку: название — мелкой подписью, значение — строкой под ним. */
+.proof-step--plain{flex-direction:column; align-items:flex-start; gap:2px;}
+.proof-step--plain .proof-step-name{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint);}
+.proof-step--plain .proof-step-dots{display:none;}
+.proof-result-lines{margin-top:4px; display:flex; flex-direction:column; gap:4px;}
+.proof-result-lines p{font-size:13px; color:var(--ink-soft);}
+
+.proof-journal-wrap{margin-top:56px;}
+.proof-journal{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+/* 5 записей на десктопе: 6-колоночная сетка — первые 3 карточки по 2
+   колонки (33% каждая, итого ряд), последние 2 по 3 (50% каждая). */
+.proof-journal--5{grid-template-columns:repeat(6,1fr);}
+.proof-journal--5 .proof-log-card:nth-child(-n+3){grid-column:span 2;}
+.proof-journal--5 .proof-log-card:nth-child(n+4){grid-column:span 3;}
+.proof-log-card{background:var(--bg); padding:24px 20px; display:flex; flex-direction:column; gap:10px; cursor:pointer;}
+.proof-log-head{display:flex; align-items:baseline; gap:10px; font-family:var(--mono); font-size:12px; color:var(--accent);}
+.proof-log-place{color:var(--ink-faint);}
+.proof-log-quote{font-size:13.5px; color:var(--ink-soft); font-style:italic;}
+.proof-log-check{display:flex; align-items:flex-start; gap:8px; font-size:13.5px; font-weight:600; margin-top:auto;}
+.proof-log-check input{margin-top:3px; flex:none;}
+
+.proof-tally{margin-top:32px; padding:28px; border:1px solid var(--line); text-align:center;}
+.proof-tally-count{font-family:var(--mono); font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em;}
+.proof-tally-verdict{font-size:17px; font-weight:600; margin-top:10px;}
+.proof-tally-cta{margin-top:20px;}
+
 /* ---------- Card A: «Витрина» (.service-card) ----------
    Единый витринный компонент. Опциональные слоты: .info-label (eyebrow
    сверху), .card-icon (линейная SVG-иконка), .more (ссылка снизу, прижата
@@ -595,6 +645,9 @@ h2{font-size:28px;}
 .trust-grid{grid-template-columns:repeat(2,1fr);}
 .effect-grid{grid-template-columns:repeat(2,1fr);}
 .segment-grid{grid-template-columns:1fr;}
+.proof-grid{grid-template-columns:1fr;}
+.proof-journal, .proof-journal--5{grid-template-columns:repeat(2,1fr);}
+.proof-journal--5 .proof-log-card:nth-child(-n+3), .proof-journal--5 .proof-log-card:nth-child(n+4){grid-column:span 1;}
 }
 @media (max-width: 760px){
 .related-grid{grid-template-columns:1fr;}
@@ -621,6 +674,8 @@ section{padding:64px 0;}
 .trust-grid{grid-template-columns:1fr;}
 .effect-grid{grid-template-columns:1fr;}
 .stage-item .stage-body{padding-left:4px;}
+.proof-journal, .proof-journal--5{grid-template-columns:1fr;}
+.proof-card-head{flex-direction:column; align-items:flex-start; gap:8px;}
 }
 
 /* ---------- Spacing / layout utilities ---------- */
