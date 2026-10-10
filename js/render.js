@@ -114,13 +114,15 @@ function industryMediaCardHTML(ind) {
 }
 
 // Медиа-карточка категории отраслевых решений — тот же вид, что и
-// industryMediaCardHTML, но ведёт на хаб категории (otrasl-kategoriya.html),
-// а не на страницу конкретной отрасли. Используется на главной, пока эти
-// категории временно выведены отдельно от общего списка отраслей (см.
-// CLAUDE.md/DESIGN_HISTORY.md) — после того как их перенесут в общий список,
-// здесь снова можно будет использовать industries.slice(0,3).
+// industryMediaCardHTML (и так же поддерживает фото через cat.image), но
+// ведёт на хаб категории (/otrasli/:group), а не на страницу конкретной
+// отрасли. Используется на главной. Фото под сами категории пока не
+// присланы — показывается честная подпись-хинт, как и раньше; как только
+// cat.image появится в js/solutions-data.js, карточка сама подхватит фото.
 function industryCategoryMediaCardHTML(cat) {
-  const frame = `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(cat.name)}"></div>`;
+  const frame = cat.image
+    ? `<div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(cat.image)}" alt="${escapeAttr(cat.name)}" loading="lazy" /></div>`
+    : `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(cat.name)}"></div>`;
   return `<a class="industry-media-card" href="/otrasli/${cat.slug}">
     ${frame}
     <div class="industry-media-overlay">
