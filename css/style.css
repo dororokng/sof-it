@@ -884,7 +884,12 @@ border:1px solid var(--line-strong); padding:10px 18px; border-radius:var(--radi
 .messenger-link:hover, .link-chip:hover{border-color:var(--accent); color:var(--accent);}
 
 /* ---------- Related items heading ---------- */
-.related-head{margin-bottom:32px; margin-top:88px; padding-top:56px; border-top:1px solid var(--line);}
+/* 88px → 80px (шкала отступов). Разделитель внутри одной секции —
+   используется там, где «Может заинтересовать»/«Другие публикации» лежит
+   во втором .wrap той же <section>, что и контент выше (сейчас только
+   product.html — на news-detail.html этот блок теперь отдельная секция
+   со своим --section-y-sm, повторять отступ не нужно, см. Этап 3). */
+.related-head{margin-bottom:32px; margin-top:80px; padding-top:56px; border-top:1px solid var(--line);}
 
 /* ---------- 404 page ----------
    .error-code — витринная цифра 404, встречается один раз в проекте;
