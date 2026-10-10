@@ -135,7 +135,9 @@
 --grid-gap-tight: 16px;
 --grid-gap: 24px;
 
+--dur-fast:150ms;
 --dur:200ms;
+--dur-slow:400ms;
 --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -228,7 +230,7 @@ transition:all var(--dur) var(--ease);
 .btn-primary{
 background:linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
 background-size:160% 160%; background-position:0% 0%; color:var(--dark-ink);
-transition:background-position .3s var(--ease), box-shadow var(--dur) var(--ease), transform .15s var(--ease);
+transition:background-position var(--dur-slow) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
 }
 .btn-primary:hover{background-position:100% 100%; box-shadow:0 8px 24px var(--glow-accent);}
 .btn-outline{background:transparent; color:var(--ink); border-color:var(--line-strong);}
@@ -247,7 +249,7 @@ transition:background-position .3s var(--ease), box-shadow var(--dur) var(--ease
 display:inline-flex; align-items:center; gap:6px; font-size:var(--fs-small); font-weight:600;
 color:var(--accent); white-space:nowrap;
 }
-.text-link::after{content:'→'; font-size:var(--fs-small); transition:transform .15s var(--ease);}
+.text-link::after{content:'→'; font-size:var(--fs-small); transition:transform var(--dur-fast) var(--ease);}
 .text-link:hover{text-decoration:underline; text-underline-offset:3px;}
 .text-link:hover::after{transform:translateX(3px);}
 .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px;}
@@ -814,12 +816,26 @@ padding:20px 22px; font-size:var(--fs-small); margin-top:16px;
 .contact-info-card div.val{font-family:var(--mono); font-size:var(--fs-body);}
 
 /* ---------- Focus ---------- */
-a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+a:focus-visible, button:focus-visible, summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 
-/* ---------- Animations ---------- */
+/* ---------- Animations (Этап 5) ----------
+   Скрытое состояние «до появления» включено только когда ОБА условия
+   верны: пользователь не просил prefers-reduced-motion:reduce, И на
+   <html> стоит класс .js-reveal (ставит инлайн-скрипт в самом начале
+   <head> каждой страницы, до контента тела — так что когда main.js
+   позже раздаёт .reveal конкретным элементам, правило уже активно и
+   прячет их сразу, без вспышки «появился — тут же спрятался»). Без JS
+   (и для поисковиков, не исполняющих JS) класс на <html> не появляется —
+   .reveal ничего не скрывает, весь контент виден как обычный HTML.
+   --reveal-i — номер элемента в сетке (0..5, ставит main.js инлайн-
+   стилем через style.setProperty), шаг 40ms, не больше 6 ступеней. */
 @media (prefers-reduced-motion: no-preference){
-.reveal{opacity:0; transform:translateY(14px); transition:opacity .5s var(--ease), transform .5s var(--ease);}
-.reveal.in{opacity:1; transform:none;}
+html.js-reveal .reveal{
+opacity:0; transform:translateY(12px);
+transition:opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+transition-delay:calc(var(--reveal-i, 0) * 40ms);
+}
+html.js-reveal .reveal.in{opacity:1; transform:none;}
 }
 
 /* ---------- Responsive ---------- */
@@ -910,7 +926,7 @@ background:var(--dark-line);
 .messenger-row.section-gap{margin-bottom:64px;}
 .messenger-link, .link-chip{
 display:inline-flex; align-items:center; gap:8px; font-size:var(--fs-small); font-weight:600; color:var(--ink);
-border:1px solid var(--line-strong); padding:10px 18px; border-radius:var(--radius); transition:border-color .15s var(--ease), color .15s var(--ease);
+border:1px solid var(--line-strong); padding:10px 18px; border-radius:var(--radius); transition:border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
 .messenger-link::before, .link-chip::before{content:''; width:7px; height:7px; background:var(--accent); display:inline-block;}
 .messenger-link:hover, .link-chip:hover{border-color:var(--accent); color:var(--accent);}
@@ -973,7 +989,12 @@ opacity:0; visibility:hidden; transform:translateY(8px);
    через visibility:hidden само по себе отключает клики, а держать
    pointer-events в списке transition (как было раньше) приводило к тому,
    что панель гасла раньше, чем переставала перехватывать курсор —
-   из-за этого меню казалось одновременно «улетающим» и «не кликающимся». */
+   из-за этого меню казалось одновременно «улетающим» и «не кликающимся».
+   Эти три числа намеренно НЕ сведены к --dur-fast/--dur/--dur-slow (Этап
+   5, п.3) — .46s обязан быть точной суммой .28s+.18s (иначе visibility
+   переключится раньше/позже конца фейда), а токены этой суммы не дают;
+   остальные hover-переходы по сайту переведены на токены, этот — точечное
+   исключение, держится на своей задокументированной арифметике. */
 transition:opacity .18s var(--ease) .28s, transform .18s var(--ease) .28s, visibility 0s linear .46s;
 }
 /* Невидимый мостик вдоль верхнего края раскрытой панели: перекрывает
@@ -989,7 +1010,7 @@ content:''; position:absolute; top:-18px; left:0; right:0; height:18px;
 opacity:1; visibility:visible; transform:none;
 transition:opacity .18s var(--ease), transform .18s var(--ease), visibility 0s;
 }
-.nav-dropdown a{display:block; padding:11px 14px; font-size:var(--fs-small); color:var(--dark-ink-soft); white-space:nowrap; border-left:2px solid transparent; border-radius:var(--radius); transition:background .12s var(--ease), color .12s var(--ease), border-color .12s var(--ease);}
+.nav-dropdown a{display:block; padding:11px 14px; font-size:var(--fs-small); color:var(--dark-ink-soft); white-space:nowrap; border-left:2px solid transparent; border-radius:var(--radius); transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);}
 .nav-dropdown a:hover{color:var(--dark-ink); background:var(--glass-06); border-left-color:var(--accent-on-dark);}
 
 /* Небольшой дропдаун «Компания» — в отличие от мега-панели, позиционируется
@@ -1083,7 +1104,7 @@ font-family:var(--body); font-weight:600; font-size:var(--fs-body);
 margin-top:auto; padding-top:18px; font-family:var(--mono); font-size:var(--fs-label); letter-spacing:.02em;
 color:var(--accent); display:inline-flex; align-items:center; gap:6px;
 }
-.segment-rec::after{content:'→'; transition:transform .15s var(--ease);}
+.segment-rec::after{content:'→'; transition:transform var(--dur-fast) var(--ease);}
 .segment-rec:hover::after{transform:translateX(3px);}
 
 /* ---------- Таблица сравнения проектов ---------- */
@@ -1186,4 +1207,26 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible{outline:
 
 /* ---------- Divider ---------- */
 .divider{border:none; border-top:1px solid var(--line); margin:0;}
+
+/* ---------- prefers-reduced-motion: reduce (Этап 5, п.6) ----------
+   Общая страховка поверх точечных (reveal уже не включается — см. выше;
+   IndustryProof/сparkline/счётчик результата сами проверяют matchMedia в
+   JS). Схлопывает длительность ЛЮБОГО перехода/анимации в стиле до
+   почти-нуля — плавный scroll-behavior, затухание nav-dropdown, шиммер
+   .btn-primary, компактная шапка при скролле и т.п. срабатывают сразу, в
+   финальном состоянии, без видимого движения. Отдельно — transform:none
+   на 8 hover-эффектах с сдвигом карточки/стрелки (.service-card и т.п.):
+   схлопнутой длительности мало, конечный translateY/translateX всё равно
+   успел бы на миг сдвинуть элемент — здесь сдвига нет вообще, как просил
+   пункт «hover без сдвигов». */
+@media (prefers-reduced-motion: reduce){
+html{scroll-behavior:auto;}
+*, *::before, *::after{
+transition-duration:0.01ms !important; transition-delay:0s !important;
+animation-duration:0.01ms !important; animation-delay:0s !important; animation-iteration-count:1 !important;
+}
+.btn-arrow:hover::after, .text-link:hover::after, .segment-rec:hover::after,
+.service-card:hover, .industry-media-card:hover, .product-card:hover,
+.news-card:hover, .tariff-card:hover, .case-card:hover{transform:none;}
+}
 
