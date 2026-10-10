@@ -389,7 +389,12 @@ mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100
    опционально), h4, p. Число колонок задаёт контейнер (.adv-grid /
    .principle-grid / .steps / .trust-grid). */
 .list-card{background:var(--surface); padding:28px 24px; display:flex; flex-direction:column; gap:8px;}
-.list-card .n{font-family:var(--mono); font-size:var(--fs-label); color:var(--accent); margin-bottom:6px;}
+/* --accent-label из черновика ТЗ не заводился отдельным токеном (Этап 1) —
+   его роль уже покрывает --ink-faint. Для старого PSR (.adv-grid--3col)
+   «Проблема»/«Результат» перекрашены точечно ниже в warn/accent — средняя
+   карточка «Решение 1С» остаётся на этом нейтральном цвете, как и просил
+   Этап 4 («Решение: нейтрально»). */
+.list-card .n{font-family:var(--mono); font-size:var(--fs-label); color:var(--ink-faint); margin-bottom:6px;}
 .list-card h4{font-family:var(--body); font-size:var(--fs-body); font-weight:600;}
 .list-card p{font-size:var(--fs-small); color:var(--ink-soft);}
 /* Старая реализация PSR (страницы услуг + направления категорий без
@@ -402,9 +407,15 @@ mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100
 /* ---------- Отраслевой блок «Партия до/после» + «Журнал смены»
    (js/industry-proof.js, данные — js/industries-proof-data.js). Заменяет на
    странице отрасли старую SVG/фото-схему и грид «Когда нужна автоматизация».
-   Полная перестилизация (спарклайн, бейджи «нестабильно»/«по норме»,
-   линия конвейера) — Этап 4; здесь только перевод на токены. */
-.proof-card{border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow-sm); margin-top:56px;}
+   Этап 4: спарклайн под «Проблемой», бейджи «нестабильно»/«по норме»,
+   линия конвейера по нижнему краю карточки. */
+.proof-card{border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow-sm); margin-top:56px; position:relative;}
+/* Линия конвейера — инженерный мотив (та же идея, что уголки .bracket и
+   чертёжная сетка тёмных секций), сегментированная полоса по нижнему краю. */
+.proof-card::after{
+content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+background:repeating-linear-gradient(90deg, var(--accent) 0 14px, transparent 14px 22px);
+}
 .proof-card-head{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 24px; background:var(--surface-muted); border-bottom:1px solid var(--line);}
 .proof-case-header{font-family:var(--mono); font-size:var(--fs-small); letter-spacing:.04em; color:var(--ink-soft);}
 .proof-sample-note{flex:none;}
@@ -419,6 +430,11 @@ mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100
 .proof-metric{font-family:var(--disp); font-weight:700; font-size:var(--fs-stat); font-variant-numeric:tabular-nums; line-height:1;}
 .proof-metric--problem{color:var(--warn);}
 .proof-metric--result{color:var(--accent);}
+.proof-metric-badge{margin-top:2px; width:fit-content;}
+/* Спарклайн — та же случайная история значений, что гонит цифру
+   «Проблемы» (js/industry-proof.js), видно колебание, а не только число. */
+.proof-sparkline{display:block; width:100%; height:28px; margin-top:4px; overflow:visible;}
+.proof-sparkline polyline{fill:none; stroke:var(--warn); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; opacity:.7;}
 .proof-steps{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
 .proof-step{display:flex; align-items:baseline; gap:8px;}
 .proof-step-name{flex:none; font-size:var(--fs-small); color:var(--ink);}
@@ -442,16 +458,27 @@ mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100
 .proof-journal--5{grid-template-columns:repeat(6,1fr);}
 .proof-journal--5 .proof-log-card:nth-child(-n+3){grid-column:span 2;}
 .proof-journal--5 .proof-log-card:nth-child(n+4){grid-column:span 3;}
-.proof-log-card{background:var(--surface); padding:24px 20px; display:flex; flex-direction:column; gap:10px; cursor:pointer;}
-.proof-log-head{display:flex; align-items:baseline; gap:10px; font-family:var(--mono); font-size:var(--fs-label); color:var(--accent);}
+/* Карточка журнала смены — цитата сотрудника основная (крупно, прямо),
+   тезис под ней вторичный; чекбокс «у нас так» — в правом верхнем углу,
+   не в потоке с текстом. Отмеченная карточка подсвечивается левой
+   границей и фоном --accent-soft — видно сразу, без хвоста из галочек. */
+.proof-log-card{background:var(--surface); padding:24px 20px; display:flex; flex-direction:column; gap:6px; cursor:pointer; position:relative; border-left:3px solid transparent; transition:background var(--dur) var(--ease), border-color var(--dur) var(--ease);}
+.proof-log-card:has(.proof-log-check-input:checked){background:var(--accent-soft); border-left-color:var(--accent);}
+/* input[type=checkbox] добавлен в селектор ради специфичности — иначе
+   проигрывает глобальному правилу чекбокса (Этап 2), у которого тоже
+   задан position (relative, под его собственную галочку) и та же
+   специфичность у голого класса. */
+input[type="checkbox"].proof-log-check-input{position:absolute; top:16px; right:16px; margin:0;}
+.proof-log-head{display:flex; align-items:baseline; gap:10px; font-family:var(--mono); font-size:var(--fs-label); color:var(--accent); padding-right:28px;}
 .proof-log-place{color:var(--ink-faint);}
-.proof-log-quote{font-size:var(--fs-small); color:var(--ink-soft); font-style:italic;}
-.proof-log-check{display:flex; align-items:flex-start; gap:8px; font-size:var(--fs-small); font-weight:600; margin-top:auto;}
-.proof-log-check input{margin-top:3px; flex:none;}
+.proof-log-quote{font-size:18px; font-weight:500; color:var(--ink); font-style:normal; line-height:1.4; padding-right:28px;}
+.proof-log-thesis{font-size:var(--fs-small); color:var(--ink-soft); margin-top:2px;}
 
-.proof-tally{margin-top:32px; padding:28px; border:1px solid var(--line); text-align:center;}
+.proof-tally{margin-top:32px; padding:28px; text-align:center;}
 .proof-tally-count{font-family:var(--mono); font-size:var(--fs-small); color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em;}
-.proof-tally-verdict{font-size:var(--fs-body); font-weight:600; margin-top:10px;}
+.proof-tally-bar{height:4px; background:var(--line); max-width:280px; margin:14px auto 0; overflow:hidden;}
+.proof-tally-bar-fill{height:100%; background:var(--accent); transition:width var(--dur) var(--ease);}
+.proof-tally-verdict{font-size:var(--fs-body); font-weight:600; margin-top:14px;}
 .proof-tally-cta{margin-top:20px;}
 
 /* ---------- Card A: «Витрина» (.service-card) ----------

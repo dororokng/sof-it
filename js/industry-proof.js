@@ -55,6 +55,8 @@ function industryProofHTML(p) {
         <h4>${escapeHtml(p.titles.problem)}</h4>
         <span class="proof-metric-label">${escapeHtml(p.metric.label)}</span>
         <span class="proof-metric proof-metric--problem" data-min="${p.metric.problemRange[0]}" data-max="${p.metric.problemRange[1]}"></span>
+        <svg class="proof-sparkline" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,14 100,14"/></svg>
+        <span class="badge badge--warn proof-metric-badge">Нестабильно</span>
       </div>
       <div class="proof-col proof-col--solution">
         <span class="info-label">Решение 1С</span>
@@ -66,6 +68,7 @@ function industryProofHTML(p) {
         <h4>${escapeHtml(p.titles.result)}</h4>
         <span class="proof-metric-label">${escapeHtml(p.metric.label)}</span>
         <span class="proof-metric proof-metric--result" data-value="${p.metric.resultValue}">${proofFormatMetric(0, p.metric)}</span>
+        <span class="badge badge--accent proof-metric-badge">По норме</span>
         <div class="proof-result-lines">
           ${p.resultLines.map((l) => `<p>${escapeHtml(l)}</p>`).join("")}
         </div>
@@ -81,38 +84,61 @@ function industryProofHTML(p) {
       ${p.log
         .map(
           (entry, i) => `<label class="proof-log-card">
+            <input type="checkbox" class="proof-log-check-input" data-thesis="${escapeAttr(entry.thesis)}" aria-label="У нас так" />
             <div class="proof-log-head">
               <span class="proof-log-time">${escapeHtml(entry.time)}</span>
               <span class="proof-log-place">${escapeHtml(entry.place)}</span>
             </div>
             <p class="proof-log-quote">«${escapeHtml(entry.quote)}»</p>
-            <span class="proof-log-check">
-              <input type="checkbox" data-thesis="${escapeAttr(entry.thesis)}" />
-              <span>${escapeHtml(entry.thesis)}</span>
-            </span>
+            <p class="proof-log-thesis">${escapeHtml(entry.thesis)}</p>
           </label>`
         )
         .join("")}
     </div>
     <div class="proof-tally">
       <span class="proof-tally-count">Отмечено 0 из ${p.log.length}</span>
+      <div class="proof-tally-bar"><div class="proof-tally-bar-fill" style="width:0%"></div></div>
       <p class="proof-tally-verdict">${proofTallyText(0, p.log.length, p.verdictObject)}</p>
-      <a href="/pages/contacts.html" class="btn btn-primary btn-arrow proof-tally-cta">Заказать консультацию</a>
+      <a href="/pages/contacts.html" class="btn btn-primary btn-arrow proof-tally-cta" hidden>Заказать консультацию</a>
     </div>
   </div>`;
+}
+
+// Спарклайн под «Проблемой» — та же случайная история, что гонит цифру:
+// на каждый тик добавляется новая точка, последние 10 остаются на графике.
+// Визуально подтверждает слово «нестабильно» в бейдже рядом.
+function proofSparklinePoints(history, min, max) {
+  const w = 100;
+  const h = 28;
+  const pad = 3;
+  const n = history.length;
+  return history
+    .map((v, i) => {
+      const x = n === 1 ? 0 : (i / (n - 1)) * w;
+      const t = max === min ? 0.5 : (v - min) / (max - min);
+      const y = pad + (1 - t) * (h - pad * 2);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
 }
 
 function proofAnimateProblem(el) {
   const min = Number(el.dataset.min);
   const max = Number(el.dataset.max);
   const metric = el.__proofMetric;
+  const spark = el.parentElement.querySelector(".proof-sparkline polyline");
   if (PROOF_REDUCED_MOTION.matches) {
     el.textContent = proofFormatMetric((min + max) / 2, metric);
+    if (spark) spark.setAttribute("points", proofSparklinePoints([min, max, min, max, (min + max) / 2], min, max));
     return;
   }
+  const history = [];
   const tick = () => {
     const value = min + Math.random() * (max - min);
     el.textContent = proofFormatMetric(value, metric);
+    history.push(value);
+    if (history.length > 10) history.shift();
+    if (spark) spark.setAttribute("points", proofSparklinePoints(history, min, max));
   };
   tick();
   el.__proofInterval = setInterval(tick, 900);
@@ -158,7 +184,8 @@ function initIndustryProof(root, p) {
 
   const countEl = root.querySelector(".proof-tally-count");
   const verdictEl = root.querySelector(".proof-tally-verdict");
-  const checkboxes = Array.from(root.querySelectorAll(".proof-log-check input[type=checkbox]"));
+  const barFill = root.querySelector(".proof-tally-bar-fill");
+  const checkboxes = Array.from(root.querySelectorAll(".proof-log-check-input"));
   const cta = root.querySelector(".proof-tally-cta");
   const total = p.log.length;
 
@@ -166,8 +193,10 @@ function initIndustryProof(root, p) {
     const checked = checkboxes.filter((c) => c.checked);
     countEl.textContent = `Отмечено ${checked.length} из ${total}`;
     verdictEl.textContent = proofTallyText(checked.length, total, p.verdictObject);
+    if (barFill) barFill.style.width = `${Math.round((checked.length / total) * 100)}%`;
     if (cta) {
       cta.dataset.theses = checked.map((c) => c.dataset.thesis).join("\n");
+      cta.hidden = checked.length === 0;
     }
   };
 
