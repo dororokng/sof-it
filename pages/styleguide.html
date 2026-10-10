@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Styleguide — Софит (служебная страница)</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    /* Разметка только этой служебной страницы — не компонент сайта,
+       поэтому инлайн-стиль здесь намеренно (на остальном сайте запрещён). */
+    .sg-wrap{max-width:1100px; margin:0 auto; padding:40px 32px 120px;}
+    .sg-block{margin-top:64px;}
+    .sg-block:first-child{margin-top:0;}
+    .sg-block > h2{margin-bottom:8px;}
+    .sg-block > .sg-note{font-size:var(--fs-small); color:var(--ink-soft); max-width:680px; margin-bottom:28px;}
+    .sg-row{display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start;}
+    .sg-swatch{width:140px;}
+    .sg-swatch .box{height:72px; border:1px solid var(--line);}
+    .sg-swatch .label{font-family:var(--mono); font-size:11px; color:var(--ink-soft); margin-top:6px;}
+    .sg-type-row{display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid var(--line);}
+    .sg-type-row .tag{font-family:var(--mono); font-size:11px; color:var(--ink-faint); width:120px; flex:none;}
+    .sg-sp-row{display:flex; align-items:center; gap:16px; padding:8px 0;}
+    .sg-sp-bar{height:12px; background:var(--accent);}
+    .sg-sp-label{font-family:var(--mono); font-size:12px; color:var(--ink-soft); width:50px;}
+    .sg-section-demo{border:1px solid var(--line); margin-top:12px;}
+    .sg-section-demo section{padding:40px 32px;}
+    .sg-grid-demo{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--grid-gap); margin-top:0;}
+    .sg-dark-demo{background:var(--dark); padding:40px 32px; display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
+    code.sg-code{font-family:var(--mono); font-size:12px; background:var(--surface-muted); padding:2px 6px; border-radius:var(--radius);}
+  </style>
+</head>
+<body>
+  <div class="sg-wrap">
+    <div class="sg-block">
+      <span class="info-label">Служебная страница · не в навигации</span>
+      <h1 style="margin-top:10px;">Styleguide</h1>
+      <p class="sg-note">Токены и базовые компоненты Этапа 1–2. Это справочная страница для проверки, не часть публичного сайта.</p>
+    </div>
+
+    <!-- ===== Цвета ===== -->
+    <div class="sg-block">
+      <h2>Цвета</h2>
+      <p class="sg-note">Тональная шкала --blue-50…950 (не менялась) + роли Этапа 1.</p>
+      <div class="sg-row">
+        <div class="sg-swatch"><div class="box" style="background:var(--bg)"></div><div class="label">--bg</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--surface); border-color:var(--line-strong)"></div><div class="label">--surface</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--surface-muted)"></div><div class="label">--surface-muted</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--tint)"></div><div class="label">--tint</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--bg-alt)"></div><div class="label">--bg-alt</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--line)"></div><div class="label">--line</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--line-strong)"></div><div class="label">--line-strong</div></div>
+      </div>
+      <div class="sg-row" style="margin-top:16px;">
+        <div class="sg-swatch"><div class="box" style="background:var(--accent)"></div><div class="label">--accent</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--accent-soft)"></div><div class="label">--accent-soft</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--warn)"></div><div class="label">--warn</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--warn-soft)"></div><div class="label">--warn-soft</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--error)"></div><div class="label">--error</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--error-border)"></div><div class="label">--error-border</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--error-soft)"></div><div class="label">--error-soft</div></div>
+      </div>
+      <div class="sg-row" style="margin-top:16px;">
+        <div class="sg-swatch"><div class="box" style="background:var(--dark)"></div><div class="label">--dark</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--dark-2)"></div><div class="label">--dark-2</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--dark-top)"></div><div class="label">--dark-top</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--dark-bottom)"></div><div class="label">--dark-bottom</div></div>
+        <div class="sg-swatch"><div class="box" style="background:var(--accent-warm)"></div><div class="label">--accent-warm</div></div>
+      </div>
+      <p class="sg-note" style="margin-top:20px; margin-bottom:0;">
+        Текст: <span style="color:var(--ink)">--ink</span> ·
+        <span style="color:var(--ink-soft)">--ink-soft</span> ·
+        <span style="color:var(--ink-faint)">--ink-faint (7.85:1 на --bg, 8.44:1 на --surface)</span> ·
+        <span style="color:var(--warn)">--warn (4.81:1 на --bg)</span>
+      </p>
+    </div>
+
+    <!-- ===== Типографика ===== -->
+    <div class="sg-block">
+      <h2>Типографика</h2>
+      <p class="sg-note">IBM Plex Sans / IBM Plex Mono — шрифты не менялись. Шкала заменила ~30 разных px.</p>
+      <div class="sg-type-row"><span class="tag">--fs-h1</span><span style="font-family:var(--disp); font-weight:700; font-size:var(--fs-h1); letter-spacing:-0.02em;">Заголовок H1</span></div>
+      <div class="sg-type-row"><span class="tag">--fs-h2</span><h2 style="margin:0;">Заголовок H2</h2></div>
+      <div class="sg-type-row"><span class="tag">--fs-h3</span><h3 style="margin:0;">Заголовок H3</h3></div>
+      <div class="sg-type-row"><span class="tag">--fs-stat</span><span class="stat-figure"><span class="v">92,7 %</span></span></div>
+      <div class="sg-type-row"><span class="tag">--fs-lead</span><p class="lead" style="margin:0;">Lead-текст под заголовком, максимум 640px.</p></div>
+      <div class="sg-type-row"><span class="tag">--fs-body</span><p style="font-size:var(--fs-body); margin:0;">Обычный текст абзаца.</p></div>
+      <div class="sg-type-row"><span class="tag">--fs-small</span><p style="font-size:var(--fs-small); margin:0; color:var(--ink-soft);">Мелкий текст карточек.</p></div>
+      <div class="sg-type-row"><span class="tag">--fs-label</span><span class="info-label" style="display:inline;">Метка-eyebrow</span></div>
+    </div>
+
+    <!-- ===== Отступы ===== -->
+    <div class="sg-block">
+      <h2>Отступы</h2>
+      <p class="sg-note">Шкала 4–120px + именованные роли --section-y/--head-gap/--card-pad/--grid-gap.</p>
+      <div>
+        <div class="sg-sp-row"><span class="sg-sp-label">4</span><div class="sg-sp-bar" style="width:4px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">8</span><div class="sg-sp-bar" style="width:8px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">12</span><div class="sg-sp-bar" style="width:12px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">16</span><div class="sg-sp-bar" style="width:16px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">24</span><div class="sg-sp-bar" style="width:24px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">32</span><div class="sg-sp-bar" style="width:32px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">40</span><div class="sg-sp-bar" style="width:40px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">48</span><div class="sg-sp-bar" style="width:48px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">56</span><div class="sg-sp-bar" style="width:56px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">64</span><div class="sg-sp-bar" style="width:64px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">80</span><div class="sg-sp-bar" style="width:80px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">96</span><div class="sg-sp-bar" style="width:96px"></div></div>
+        <div class="sg-sp-row"><span class="sg-sp-label">120</span><div class="sg-sp-bar" style="width:120px"></div></div>
+      </div>
+      <p class="sg-note" style="margin-top:16px; margin-bottom:0;">
+        <code class="sg-code">--section-y: clamp(64,7vw,96)</code>
+        <code class="sg-code">--section-y-sm: clamp(48,5vw,64)</code>
+        <code class="sg-code">--head-gap: 40</code>
+        <code class="sg-code">--card-pad: clamp(24,4vw,32)</code>
+        <code class="sg-code">--grid-gap: 24 / --grid-gap-tight: 16</code>
+      </p>
+    </div>
+
+    <!-- ===== Радиусы и тени ===== -->
+    <div class="sg-block">
+      <h2>Радиусы и тени</h2>
+      <p class="sg-note">Только два радиуса (острые углы — часть стиля, 4/6/10px из первой версии ТЗ отменены). Тени — только для hover карточек.</p>
+      <div class="sg-row">
+        <div style="width:120px; height:72px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:11px;">--radius 2px</div>
+        <div style="width:120px; height:72px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:11px;">--radius-lg 8px</div>
+        <div style="width:160px; height:72px; background:var(--surface); box-shadow:var(--shadow-sm); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:11px;">--shadow-sm (покой)</div>
+        <div style="width:160px; height:72px; background:var(--surface); box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:11px;">--shadow-md (hover)</div>
+      </div>
+    </div>
+
+    <!-- ===== Section ===== -->
+    <div class="sg-block">
+      <h2>Section — 3 варианта фона</h2>
+      <p class="sg-note">Соседние секции не могут иметь одинаковый фон (Этап 3). Отступ — везде --section-y.</p>
+      <div class="sg-section-demo">
+        <section style="background:var(--bg); padding:40px 32px;"><span class="info-label">default</span><p style="margin-top:8px;">var(--bg)</p></section>
+        <section class="section-alt" style="padding:40px 32px;"><span class="info-label">surface</span><p style="margin-top:8px;">var(--surface) — было --bg-alt, замена из Этапа 1</p></section>
+        <section class="section-dark" style="padding:40px 32px; background:var(--dark);"><span class="info-label" style="color:var(--dark-ink-soft);">dark</span><p style="margin-top:8px; color:var(--dark-ink);">var(--dark)</p></section>
+      </div>
+    </div>
+
+    <!-- ===== Section header ===== -->
+    <div class="sg-block">
+      <h2>Section header</h2>
+      <div class="section-head" style="margin-bottom:var(--head-gap);">
+        <div>
+          <span class="info-label">Eyebrow-метка</span>
+          <h2 style="margin-top:8px;">Заголовок секции</h2>
+          <p class="lead" style="margin-top:10px;">Необязательный lead шириной до 640px поясняет, о чём секция ниже.</p>
+        </div>
+        <a href="#" class="text-link">Ссылка справа</a>
+      </div>
+      <p class="sg-note">↑ до контента — --head-gap (40px, не больше 56px).</p>
+    </div>
+
+    <!-- ===== Card ===== -->
+    <div class="sg-block">
+      <h2>Card</h2>
+      <p class="sg-note">Фон --surface, рамка --border(--line), радиус --radius-lg, тень --shadow-sm, отступ --card-pad. Hover: рамка --line-strong, тень --shadow-md, translateY(-2px).</p>
+      <div class="sg-grid-demo">
+        <a class="service-card" href="#"><h4>Обычная карточка</h4><p>Наведите, чтобы увидеть hover.</p><span class="more">Подробнее →</span></a>
+        <div class="list-card"><span class="n">01</span><h4>Карточка-решётка</h4><p>.list-card в hairline-сетке.</p></div>
+        <div class="service-card" style="background:var(--surface-muted);"><h4>На --surface-muted</h4><p>Шапка карточки / вторичная плашка.</p></div>
+      </div>
+    </div>
+
+    <!-- ===== Stat ===== -->
+    <div class="sg-block">
+      <h2>Stat (цифра)</h2>
+      <p class="sg-note">Цвет по смыслу: результат/эффект — --accent, проблема — --warn, нейтральное — --ink.</p>
+      <div class="sg-row">
+        <div class="stat-figure"><span class="v v--accent">92,7 %</span><span class="cap">Результат</span></div>
+        <div class="stat-figure"><span class="v v--warn">61 000 ₽</span><span class="cap">Проблема</span><span class="badge badge--warn" style="margin-top:4px; width:fit-content;">нестабильно</span></div>
+        <div class="stat-figure"><span class="v">24</span><span class="cap">Нейтральное значение</span></div>
+      </div>
+    </div>
+
+    <!-- ===== Badge ===== -->
+    <div class="sg-block">
+      <h2>Badge</h2>
+      <div class="sg-row">
+        <span class="badge badge--accent">accent</span>
+        <span class="badge badge--warn">warn</span>
+        <span class="badge badge--neutral">neutral</span>
+      </div>
+    </div>
+
+    <!-- ===== Buttons ===== -->
+    <div class="sg-block">
+      <h2>Buttons</h2>
+      <p class="sg-note">Высота 48px, padding 0 24px, радиус --radius. Стрелка → сдвигается на 4px при hover.</p>
+      <div class="sg-row">
+        <a href="#" class="btn btn-primary btn-arrow">Primary</a>
+        <a href="#" class="btn btn-outline btn-arrow">Secondary</a>
+        <a href="#" class="btn btn-dark">Dark</a>
+      </div>
+      <div class="sg-dark-demo" style="margin-top:16px;">
+        <a href="#" class="btn btn-light btn-arrow">Light (на тёмном фоне)</a>
+        <a href="#" class="btn btn-outline" style="color:#fff; border-color:var(--dark-line);">Outline на тёмном</a>
+      </div>
+    </div>
+
+    <!-- ===== Списки с маркером ===== -->
+    <div class="sg-block">
+      <h2>Списки с маркером</h2>
+      <div class="sg-row" style="align-items:flex-start;">
+        <ul class="marker-list" style="width:320px;">
+          <li>Обычный пункт списка</li>
+          <li>Второй пункт, маркер --accent</li>
+        </ul>
+        <ul class="marker-list marker-list--warn" style="width:320px;">
+          <li>Пункт списка проблем</li>
+          <li>Маркер --warn</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== Checkbox / radio ===== -->
+    <div class="sg-block">
+      <h2>Checkbox / radio</h2>
+      <div class="sg-row" style="align-items:center;">
+        <label style="display:flex; align-items:center; gap:8px; font-size:var(--fs-small);"><input type="checkbox" /> Чекбокс</label>
+        <label style="display:flex; align-items:center; gap:8px; font-size:var(--fs-small);"><input type="checkbox" checked /> Отмечен</label>
+        <label style="display:flex; align-items:center; gap:8px; font-size:var(--fs-small);"><input type="radio" name="sg-r" /> Radio</label>
+        <label style="display:flex; align-items:center; gap:8px; font-size:var(--fs-small);"><input type="radio" name="sg-r" checked /> Выбран</label>
+      </div>
+    </div>
+
+    <!-- ===== Поля форм ===== -->
+    <div class="sg-block">
+      <h2>Поля форм</h2>
+      <div class="field" style="max-width:360px;">
+        <label>Имя</label>
+        <input type="text" placeholder="Как к вам обращаться" />
+      </div>
+      <p class="sg-note">Высота 48px, фон --surface, рамка --line-strong. В фокусе — рамка --accent + кольцо 3px --accent-soft (кликните в поле).</p>
+    </div>
+
+    <!-- ===== Divider ===== -->
+    <div class="sg-block">
+      <h2>Divider</h2>
+      <hr class="divider" />
+    </div>
+  </div>
+</body>
+</html>
