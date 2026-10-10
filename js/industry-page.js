@@ -48,6 +48,6 @@ if (!industryPage) {
   }
 
   document.getElementById("indEffectsGrid").innerHTML = ind.effects
-    .map((e) => `<div class="effect-item"><span class="effect-val">${escapeHtml(e.val)}</span><span class="effect-label">${escapeHtml(e.label)}</span></div>`)
+    .map((e) => `<div class="effect-item"><div class="stat-figure"><span class="v v--accent">${escapeHtml(e.val)}</span><span class="cap">${escapeHtml(e.label)}</span></div></div>`)
     .join("");
 }

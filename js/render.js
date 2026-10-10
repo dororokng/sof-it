@@ -145,7 +145,7 @@ function tariffCardHTML(t) {
   // Слот бейджа рендерится всегда (в невыделенных карточках скрыт через CSS) —
   // так у всех карточек одинаковая высота шапки.
   return `<div class="tariff-card${t.highlighted ? " highlighted" : ""}">
-    <span class="tariff-badge">${t.highlighted ? "Популярный выбор" : ""}</span>
+    <span class="badge badge--accent tariff-badge">${t.highlighted ? "Популярный выбор" : ""}</span>
     <h4>${escapeHtml(t.name)}</h4>
     <div class="tariff-term">${escapeHtml(t.term)}</div>
     <div class="tariff-price">${escapeHtml(t.priceFrom)}</div>
@@ -171,12 +171,12 @@ function caseCardHTML(c) {
   ].join("");
 
   return `<div class="case-card">
-    <span class="case-demo-badge">Демонстрационный пример</span>
+    <span class="badge badge--neutral case-demo-badge">Демонстрационный пример</span>
     <span class="case-industry">${escapeHtml(c.industry)}</span>
     <h4>${escapeHtml(c.title)}</h4>
     <p>${highlightLatin(c.summary)}</p>
     <div class="case-metrics">
-      ${c.metrics.map((m) => `<div><span class="case-metric-val">${escapeHtml(m.val)}</span><span class="case-metric-label">${escapeHtml(m.label)}</span></div>`).join("")}
+      ${c.metrics.map((m) => `<div class="stat-figure"><span class="v v--accent">${escapeHtml(m.val)}</span><span class="cap">${escapeHtml(m.label)}</span></div>`).join("")}
     </div>
     ${links ? `<div class="link-row case-links">${links}</div>` : ""}
   </div>`;
