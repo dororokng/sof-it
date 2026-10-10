@@ -113,22 +113,30 @@ function industryMediaCardHTML(ind) {
   </a>`;
 }
 
-// Медиа-карточка категории отраслевых решений — тот же вид, что и
-// industryMediaCardHTML (и так же поддерживает фото через cat.image), но
-// ведёт на хаб категории (/otrasli/:group), а не на страницу конкретной
-// отрасли. Используется на главной. Фото под сами категории пока не
-// присланы — показывается честная подпись-хинт, как и раньше; как только
-// cat.image появится в js/solutions-data.js, карточка сама подхватит фото.
+// Медиа-карточка категории отраслевых решений — ведёт на хаб категории
+// (/otrasli/:group), используется на главной. С cat.image — тот же вид,
+// что у industryMediaCardHTML (фото + градиент-оверлей снизу). Без
+// cat.image — оформленная тёмная обложка (.media-frame--cover), а не
+// дашед-рамка с хинтом: те же пропорции 16:10, что у карточки с фото.
+// Как только у категории появится image в js/solutions-data.js — эта
+// функция сама переключится на фото-ветку, код трогать не придётся.
 function industryCategoryMediaCardHTML(cat) {
-  const frame = cat.image
-    ? `<div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(cat.image)}" alt="${escapeAttr(cat.name)}" loading="lazy" /></div>`
-    : `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(cat.name)}"></div>`;
+  if (cat.image) {
+    return `<a class="industry-media-card" href="/otrasli/${cat.slug}">
+      <div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(cat.image)}" alt="${escapeAttr(cat.name)}" loading="lazy" /></div>
+      <div class="industry-media-overlay">
+        <h4>${escapeHtml(cat.name)}</h4>
+        <p>${highlightLatin(cat.offer)}</p>
+        <span class="more">Выбрать направление →</span>
+      </div>
+    </a>`;
+  }
   return `<a class="industry-media-card" href="/otrasli/${cat.slug}">
-    ${frame}
-    <div class="industry-media-overlay">
-      <h4>${escapeHtml(cat.name)}</h4>
-      <p>${highlightLatin(cat.offer)}</p>
-      <span class="more">Выбрать направление →</span>
+    <div class="media-frame media-frame--card media-frame--cover">
+      <span class="media-frame-cover-label">Направление</span>
+      <h4 class="media-frame-cover-name">${escapeHtml(cat.name)}</h4>
+      <p class="media-frame-cover-offer">${highlightLatin(cat.offer)}</p>
+      <span class="media-frame-cover-more">Выбрать направление →</span>
     </div>
   </a>`;
 }

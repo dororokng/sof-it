@@ -332,6 +332,36 @@ filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) 
 .media-frame--flush{border:none;}
 .media-frame--compact{max-width:800px; margin:0 auto;}
 
+/* Оформленная обложка для industry-media-card без фото (вместо дашед-рамки
+   с подписью-хинтом) — тёмный фон + чертёжная сетка той же техникой, что у
+   .stats-strip/.cta-band (секция «Роботизация», .section-dark, с неё сетку
+   когда-то сняли по просьбе заказчика — здесь это новый, отдельный
+   компонент, не трогает её). Пропорции — как у .media-frame--card (16:10,
+   уже унаследовано через класс). border:none не нужен — .industry-media-card
+   .media-frame{border:none} уже обнуляет рамку для любого .media-frame. */
+.media-frame--cover{
+background:var(--dark); display:flex; flex-direction:column;
+align-items:flex-start; justify-content:flex-end; padding:32px 22px 20px; position:relative; overflow:hidden;
+}
+.media-frame--cover::before{
+content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+background-image:
+  linear-gradient(var(--dark-line) 1px, transparent 1px),
+  linear-gradient(90deg, var(--dark-line) 1px, transparent 1px);
+background-size:40px 40px;
+-webkit-mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100%);
+mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100%);
+}
+.media-frame--cover::after{display:none;} /* отменяет content:attr(data-hint) базового .media-frame — обложка не использует data-hint */
+.media-frame--cover > *{position:relative; z-index:1;}
+.media-frame-cover-label{font-family:var(--mono); font-size:var(--fs-label); letter-spacing:.08em; text-transform:uppercase; color:var(--dark-ink-soft); margin-bottom:10px;}
+/* --on-dark из черновика ТЗ не заводился отдельным токеном — Этап 1 запретил
+   дублировать существующие роли; --dark-ink уже ровно эта роль (белый текст
+   на тёмном фоне, 15.4:1). */
+.media-frame-cover-name{font-family:var(--disp); font-weight:700; font-size:var(--fs-h3); color:var(--dark-ink); line-height:1.25;}
+.media-frame-cover-offer{font-size:var(--fs-small); color:var(--dark-ink-soft); margin-top:10px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
+.media-frame-cover-more{font-size:var(--fs-label); font-weight:600; color:var(--dark-ink); margin-top:14px;}
+
 /* Отступ для инлайн-CTA (текст-ссылка/кнопка под текстом блока). */
 .cta-inline{margin-top:28px;}
 
@@ -596,27 +626,41 @@ mask-image:radial-gradient(ellipse 85% 80% at 50% 35%, #000 35%, transparent 100
 .cta-band h2{font-size:var(--fs-h2); color:var(--dark-ink); max-width:560px;}
 .cta-band p{color:var(--dark-ink-soft); margin-top:14px; max-width:440px;}
 
-/* Светлый вариант CTA-банды — только там, где по соседству уже есть своя
-   тёмная секция (.section-dark) и повторять тёмное вплотную к ней нельзя
-   (см. Этап 1, index.html). Раскладка и содержимое те же, меняется только
-   фон/цвет текста/декоративная сетка; кнопка остаётся .btn-primary как есть. */
-.cta-band--light{background:var(--surface); color:var(--ink);}
-.cta-band--light::before{
+/* Светлый вариант CTA-банды — автоматически, где угодно на сайте, если
+   прямо перед .cta-band в DOM стоит .section-dark (две тёмные секции
+   подряд вплотную нельзя — Этап 3). Правило общее, не завязано на
+   конкретную страницу: сработает само на любой новой странице с такой
+   же последовательностью блоков. Раскладка и содержимое те же, меняется
+   только фон/цвет текста/декоративная сетка; кнопка остаётся
+   .btn-primary как есть. */
+.section-dark + .cta-band{background:var(--surface); color:var(--ink);}
+.section-dark + .cta-band::before{
 background-image:
   linear-gradient(var(--line) 1px, transparent 1px),
   linear-gradient(90deg, var(--line) 1px, transparent 1px);
 }
-.cta-band--light h2{color:var(--ink);}
-.cta-band--light p{color:var(--ink-soft);}
+.section-dark + .cta-band h2{color:var(--ink);}
+.section-dark + .cta-band p{color:var(--ink-soft);}
 
-/* ---------- Тёмная секция «Роботизация» на главной ----------
-   Тёмно-синяя, тем же цветовым языком, что .cta-band / .stats-strip. */
+/* ---------- Тёмная секция (общий фон) ----------
+   .section-dark — просто тёмный фон/текст/отступ, без собственной
+   раскладки: используется и на главной («Роботизация»), и на страницах
+   отраслей (блок «Экономический эффект»). Раскладка «текст слева, медиа
+   справа» — отдельный модификатор .section-dark--split (ниже), её
+   форсировать на все тёмные секции нельзя: у «Экономического эффекта»
+   контент другой формы (решётка цифр, не текст+картинка). */
 .section-dark{
 /* секция «Роботизация» = ступень 900 (лёгкий радиал для глубины: 880→900) */
 background:radial-gradient(ellipse 120% 130% at 20% 0%, var(--dark-top), var(--blue-900) 70%);
 padding:var(--section-y) 0; position:relative; overflow:hidden;
 }
-.section-dark .wrap{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; position:relative; z-index:1;}
+.section-dark--split .wrap{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; position:relative; z-index:1;}
+/* Решётка «Экономический эффект» на тёмном — стеклянные чипы (тот же
+   приём, что .stat на .stats-strip), не сплошной белый --surface. */
+.section-dark .effect-grid{background:var(--dark-line);}
+.section-dark .effect-item{background:var(--glass-bg); backdrop-filter:blur(6px);}
+.section-dark .effect-val{color:var(--accent-on-dark);}
+.section-dark .effect-label{color:var(--dark-ink-soft);}
 .section-dark h2{color:var(--dark-ink);}
 .section-dark .lead{color:var(--dark-ink-soft);}
 .section-dark .info-label{color:var(--dark-ink-soft); margin-bottom:16px;}
@@ -755,7 +799,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-o
 .adv-grid{grid-template-columns:repeat(2,1fr);}
 .card-grid{grid-template-columns:repeat(2,1fr);}
 .industry-media-grid{grid-template-columns:repeat(2,1fr);}
-.section-dark .wrap{grid-template-columns:1fr; gap:36px;}
+.section-dark--split .wrap{grid-template-columns:1fr; gap:36px;}
 .steps{grid-template-columns:repeat(3,1fr);}
 .steps.steps-4{grid-template-columns:repeat(2,1fr);}
 .news-grid{grid-template-columns:repeat(2,1fr);}
