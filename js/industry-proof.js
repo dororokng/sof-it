@@ -129,7 +129,9 @@ function proofAnimateProblem(el) {
   const spark = el.parentElement.querySelector(".proof-sparkline polyline");
   if (PROOF_REDUCED_MOTION.matches) {
     el.textContent = proofFormatMetric((min + max) / 2, metric);
-    if (spark) spark.setAttribute("points", proofSparklinePoints([min, max, min, max, (min + max) / 2], min, max));
+    // Плоская линия, не зигзаг: "статично" — значит без намёка на
+    // движение/колебание, а не просто "больше не меняется".
+    if (spark) spark.setAttribute("points", "0,14 100,14");
     return;
   }
   const history = [];
