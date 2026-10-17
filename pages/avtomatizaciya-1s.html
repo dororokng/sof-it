@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <script>document.documentElement.classList.add("js-reveal");</script>
+  <script src="/js/js-reveal-init.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Софит — Автоматизация бизнес-процессов на базе 1С</title>
@@ -11,10 +11,8 @@
   <meta property="og:description" content="Автоматизация процессов на базе 1С: что можно убрать из ручного режима, какие интеграции подключаем, как проходит проект." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="canonical" href="https://sofit.example/pages/avtomatizaciya-1s.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
-    rel="stylesheet"/>
+  <link rel="preload" href="/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/fonts.css" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
@@ -86,7 +84,7 @@
           </div>
         </div>
         <div class="media-frame media-frame--card media-frame--raw media-frame--flush" data-hint="Схема: 1С в центре, вокруг подключены банк, касса, ЭДО и интернет-магазин">
-          <img src="/images/services/avtomatizaciya-scheme.png" alt="Схема: 1С в центре, вокруг подключены банк, онлайн-касса, ЭДО и интернет-магазин" loading="lazy" />
+          <img src="/images/services/avtomatizaciya-scheme.webp" alt="Схема: 1С в центре, вокруг подключены банк, онлайн-касса, ЭДО и интернет-магазин" width="1536" height="1024" loading="lazy" decoding="async" />
         </div>
         <div class="card-grid">
           <div class="list-card"><h4>Банк</h4><p>Обмен выписками и платёжными поручениями напрямую из 1С без ручной выгрузки файлов.</p></div>

@@ -72,7 +72,9 @@ function setupReveal(el, index) {
   if (el.dataset.revealDone) return;
   el.dataset.revealDone = "1";
   if (typeof index === "number") {
-    el.style.setProperty("--reveal-i", Math.min(index, REVEAL_STEP_MAX));
+    // Класс, не style.setProperty — CSP style-src без 'unsafe-inline'
+    // блокирует и программную запись в style, не только атрибут в разметке.
+    el.classList.add("reveal-i-" + Math.min(index, REVEAL_STEP_MAX));
   }
   if (REDUCED_MOTION.matches || isInViewportNow(el)) {
     el.classList.add("reveal", "in");

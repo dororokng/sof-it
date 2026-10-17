@@ -294,12 +294,12 @@ const industries = [
   {
     slug: "proizvodstvo",
     name: "Производство",
-    image: "/images/industries/manufacturing.jpeg",
+    image: "/images/industries/manufacturing",
     // schemeImage больше не используется industry-page.js: секцию с этим
     // фото заменил интерактивный блок «Партия до/после» (industry-proof.js,
     // раунд «Все отрасли»). Поле оставлено как инертные данные — удаление
     // требует явного решения, см. CLAUDE.md.
-    schemeImage: "/images/industries/industry-scheme.png",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "Автоматизация производственного учёта и планирования на базе 1С — от заказа до отгрузки готовой продукции.",
     problems: [
       "Сложно точно посчитать себестоимость продукции",
@@ -325,8 +325,8 @@ const industries = [
   {
     slug: "metallurgiya",
     name: "Металлургия",
-    image: "/images/industries/metallurgy.jpeg",
-    schemeImage: "/images/industries/industry-scheme.png",
+    image: "/images/industries/metallurgy",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "1С для металлургических и металлообрабатывающих предприятий: от плавки до отгрузки готового проката.",
     problems: [
       "Сложный многоэтапный учёт передела металла",
@@ -351,8 +351,8 @@ const industries = [
   {
     slug: "retail",
     name: "Ритейл",
-    image: "/images/industries/retail.jpeg",
-    schemeImage: "/images/industries/industry-scheme.png",
+    image: "/images/industries/retail",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "Автоматизация розничной и оптовой торговли на базе 1С: от кассы до управления ассортиментом сети.",
     problems: [
       "Растёт число SKU и точек продаж",
@@ -378,8 +378,8 @@ const industries = [
   {
     slug: "logistika",
     name: "Логистика",
-    image: "/images/industries/logistics.jpeg",
-    schemeImage: "/images/industries/industry-scheme.png",
+    image: "/images/industries/logistics",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "1С для логистических и складских компаний: учёт перевозок, складских операций и взаиморасчётов.",
     problems: [
       "Разрыв между заявкой на перевозку и фактическим маршрутом",
@@ -404,8 +404,8 @@ const industries = [
   {
     slug: "stroitelstvo",
     name: "Строительство",
-    image: "/images/industries/construction.jpeg",
-    schemeImage: "/images/industries/industry-scheme.png",
+    image: "/images/industries/construction",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "1С для строительных и подрядных организаций: учёт по объектам, сметам и договорам.",
     problems: [
       "Учёт затрат ведётся в Excel и перестаёт справляться с объёмом",
@@ -431,8 +431,8 @@ const industries = [
   {
     slug: "uslugi",
     name: "Сфера услуг",
-    image: "/images/industries/service-sector.jpeg",
-    schemeImage: "/images/industries/industry-scheme.png",
+    image: "/images/industries/service-sector",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "1С для компаний сферы услуг: учёт заказов, договоров и загрузки специалистов.",
     problems: [
       "Загрузка сотрудников и запись клиентов не связаны с учётом",
@@ -457,7 +457,7 @@ const industries = [
   {
     slug: "medicina",
     name: "Медицина",
-    schemeImage: "/images/industries/industry-scheme.png",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "Автоматизация клиник и медицинских центров на базе 1С: от расписания и электронной карты до маркировки лекарств и отчётности в ЕГИСЗ.",
     problems: [
       "Клиника растёт, и записи/врачей/оборудование сложно распределять вручную",
@@ -482,7 +482,7 @@ const industries = [
   {
     slug: "avtobiznes",
     name: "Автобизнес",
-    schemeImage: "/images/industries/industry-scheme.png",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "1С для автосервисов и СТО: заказ-наряды, склад запчастей и учёт нормо-часов в одной системе.",
     problems: [
       "Растёт поток заказ-нарядов",
@@ -513,7 +513,7 @@ const industries = [
   {
     slug: "apk",
     name: "Сельское хозяйство",
-    schemeImage: "/images/industries/industry-scheme.png",
+    schemeImage: "/images/industries/industry-scheme.webp",
     offer: "1С для агропромышленных предприятий (АПК): учёт по полям, партиям и сезонам, мониторинг и управление холдингом.",
     problems: [
       "Учёт ведётся по множеству полей, партий скота или техники, и вручную не понять рентабельность",
@@ -583,7 +583,7 @@ const industryCategories = [
     // Своего фото под категорию нет — переиспользовано фото отрасли
     // "Производство" (industries[].image), ближайшее по теме. Если
     // появится отдельное фото под эту категорию — заменить.
-    image: "/images/industries/manufacturing.jpeg",
+    image: "/images/industries/manufacturing",
     h1: "Автоматизация производства товаров массового потребления на 1С",
     offer:
       "Автоматизируем пищевые, химические и парфюмерно-косметические производства на 1С. Настраиваем рецептурный учёт, партии и сроки годности, нормы расхода сырья и прослеживаемость от закупки до отгрузки. Подключаем ЕГАИС, «Меркурий» и «Честный ЗНАК». В итоге вы видите реальную себестоимость каждой партии и меньше теряете сырья.",
@@ -728,7 +728,7 @@ const industryCategories = [
     // Своего фото под категорию нет — переиспользовано фото отрасли
     // "Строительство" (industries[].image), ближайшее по теме. Если
     // появится отдельное фото под эту категорию — заменить.
-    image: "/images/industries/construction.jpeg",
+    image: "/images/industries/construction",
     h1: "Автоматизация производства строительных материалов на 1С",
     offer:
       "Автоматизируем заводы по выпуску кирпича, сухих смесей, минеральной ваты, ЖБИ и листовых материалов на 1С. Ведём попередельный учёт, планируем загрузку оборудования, контролируем качество сырья и готовой продукции. Считаем плановую и фактическую себестоимость с учётом энергозатрат и сезонности спроса, чтобы вы видели, на каких изделиях зарабатываете.",

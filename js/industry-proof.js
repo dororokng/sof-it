@@ -97,7 +97,7 @@ function industryProofHTML(p) {
     </div>
     <div class="proof-tally">
       <span class="proof-tally-count">Отмечено 0 из ${p.log.length}</span>
-      <div class="proof-tally-bar"><div class="proof-tally-bar-fill" style="width:0%"></div></div>
+      <div class="proof-tally-bar"><div class="proof-tally-bar-fill"></div></div>
       <p class="proof-tally-verdict">${proofTallyText(0, p.log.length, p.verdictObject)}</p>
       <a href="/pages/contacts.html" class="btn btn-primary btn-arrow proof-tally-cta" hidden>Заказать консультацию</a>
     </div>
@@ -195,7 +195,14 @@ function initIndustryProof(root, p) {
     const checked = checkboxes.filter((c) => c.checked);
     countEl.textContent = `Отмечено ${checked.length} из ${total}`;
     verdictEl.textContent = proofTallyText(checked.length, total, p.verdictObject);
-    if (barFill) barFill.style.width = `${Math.round((checked.length / total) * 100)}%`;
+    if (barFill) {
+      // Класс .w-N (шаг 5%), не style.width — CSP style-src без
+      // 'unsafe-inline' блокирует и программную запись в style (см. также
+      // .reveal-i-N в main.js, та же причина).
+      const percent = Math.round((checked.length / total) * 100);
+      const step = Math.min(100, Math.round(percent / 5) * 5);
+      barFill.className = "proof-tally-bar-fill w-" + step;
+    }
     if (cta) {
       cta.dataset.theses = checked.map((c) => c.dataset.thesis).join("\n");
       cta.hidden = checked.length === 0;

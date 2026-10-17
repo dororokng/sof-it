@@ -16,16 +16,38 @@ function escapeAttr(str) {
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-function productThumbHTML(p) {
+// Фото отраслей/категорий — две ширины (800/1600, см. design-src/convert.mjs),
+// basePath без расширения (data: "/images/industries/manufacturing"), сами
+// файлы — "<basePath>-800.webp"/"-1600.webp". sizes — под .industry-media-grid
+// (3 колонки на десктопе, 2 — от 1024px, 1 — от 760px, см. css/style.css).
+// 1600×995 — реальные пропорции сконвертированных файлов (все 6 одинаковые).
+function responsiveIndustryImgHTML(basePath, alt) {
+  return `<img src="${escapeAttr(basePath)}-1600.webp" srcset="${escapeAttr(basePath)}-800.webp 800w, ${escapeAttr(basePath)}-1600.webp 1600w" sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 33vw" width="1600" height="995" alt="${escapeAttr(alt)}" loading="lazy" decoding="async" />`;
+}
+
+// index передаётся только из каталога (js/catalog-page.js) — первый ряд
+// карточек виден на первом экране, лениво их грузить не нужно, а у самой
+// первой (вероятный LCP-элемент мобильного каталога, см. аудит шага 3б)
+// дополнительно fetchpriority="high". У "похожих моделей" на карточке
+// товара (product-page.js) index не передаётся — там всегда lazy.
+const CATALOG_EAGER_COUNT = 3;
+
+function productThumbHTML(p, index) {
   if (p.image) {
-    return `<img src="${p.image}" alt="${escapeAttr(p.name)}" loading="lazy" />`;
+    const eager = typeof index === "number" && index < CATALOG_EAGER_COUNT;
+    const attrs = eager
+      ? index === 0
+        ? `fetchpriority="high"`
+        : `decoding="async"`
+      : `loading="lazy"`;
+    return `<img src="${p.image}" alt="${escapeAttr(p.name)}" ${attrs} />`;
   }
   return `<div class="thumb-fallback">Фото не загружено</div>`;
 }
 
-function productCardHTML(p) {
+function productCardHTML(p, index) {
   return `<div class="product-card">
-    <div class="product-thumb">${productThumbHTML(p)}</div>
+    <div class="product-thumb">${productThumbHTML(p, index)}</div>
     <div class="product-body">
       <span class="product-cat">${escapeHtml(p.catLabel)}</span>
       <h4>${escapeHtml(p.name)}</h4>
@@ -101,7 +123,7 @@ function programCardHTML(p) {
 // из data-hint вместо фото.
 function industryMediaCardHTML(ind) {
   const frame = ind.image
-    ? `<div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(ind.image)}" alt="${escapeAttr(ind.name)}" loading="lazy" /></div>`
+    ? `<div class="media-frame media-frame--card media-frame--raw">${responsiveIndustryImgHTML(ind.image, ind.name)}</div>`
     : `<div class="media-frame media-frame--card" data-hint="Фото: ${escapeAttr(ind.name)}"></div>`;
   return `<a class="industry-media-card" href="/pages/otrasl.html?slug=${ind.slug}">
     ${frame}
@@ -123,7 +145,7 @@ function industryMediaCardHTML(ind) {
 function industryCategoryMediaCardHTML(cat) {
   if (cat.image) {
     return `<a class="industry-media-card" href="/otrasli/${cat.slug}">
-      <div class="media-frame media-frame--card media-frame--raw"><img src="${escapeAttr(cat.image)}" alt="${escapeAttr(cat.name)}" loading="lazy" /></div>
+      <div class="media-frame media-frame--card media-frame--raw">${responsiveIndustryImgHTML(cat.image, cat.name)}</div>
       <div class="industry-media-overlay">
         <h4>${escapeHtml(cat.name)}</h4>
         <p>${highlightLatin(cat.offer)}</p>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <script>document.documentElement.classList.add("js-reveal");</script>
+  <script src="/js/js-reveal-init.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Софит</title>
@@ -12,10 +12,12 @@
   <meta property="og:locale" content="ru_RU" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="canonical" href="https://sofit.example/index.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
-    rel="stylesheet"/>
+  <link rel="preload" href="/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <!-- LCP-картинка (аудит, шаг 3б) — та же, что <img> в .hero-visual ниже;
+       preload даёт браузеру начать загрузку раньше, не дожидаясь парсинга
+       HTML до самого тега. -->
+  <link rel="preload" href="/images/hero/hero1.jpeg" as="image" fetchpriority="high" />
+  <link rel="stylesheet" href="/css/fonts.css" />
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -40,7 +42,7 @@
         </div>
         <div class="hero-visual">
           <div class="media-frame media-frame--hero media-frame--raw" data-hint="Интерфейс / дашборд 1С или команда за работой">
-            <img src="/images/hero/hero1.jpeg" alt="Команда Софит за внедрением 1С" />
+            <img src="/images/hero/hero1.jpeg" alt="Команда Софит за внедрением 1С" width="928" height="1002" fetchpriority="high" />
           </div>
         </div>
       </div>
@@ -152,7 +154,7 @@
         <div>
           <div class="media-frame media-frame--dark bracket">
             <span class="bl"></span><span class="br"></span>
-            <img src="/images/hero/hero.jpg" alt="Роботизированное оборудование" />
+            <img src="/images/hero/hero.jpg" alt="Роботизированное оборудование" width="1000" height="700" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

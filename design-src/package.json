@@ -1,0 +1,6 @@
+{
+  "name": "sofit-design-src-tools",
+  "private": true,
+  "description": "Разовые инструменты подготовки картинок (сюда НЕ ходит рантайм сервера — см. CLAUDE.md).",
+  "type": "module"
+}

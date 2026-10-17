@@ -8,9 +8,18 @@ server/node_modules/
 server/.env
 server/dist/
 server/uploads/
+server/uploads-originals/
 .env
 
 /sites_for_mirror.md
 /trash/
 /konspekt.md
+
+# Разовые инструменты подготовки картинок/шрифтов (design-src/README или
+# CLAUDE.md) — сам package.json коммитится, node_modules нет.
+design-src/node_modules/
+
+# Самоподписанный сертификат для локальных замеров через Nginx — не для
+# продакшена, на боевом сервере свой настоящий сертификат (deploy/nginx.conf).
+deploy/certs/
 

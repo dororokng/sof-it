@@ -27,5 +27,7 @@ document.addEventListener("data:ready", () => {
     `<span>${escapeHtml(p.catLabel)}</span><span>Производитель: ${escapeHtml(p.manufacturer)}</span>`;
 
   const related = products.filter((x) => x.cat === p.cat && x.id !== p.id).slice(0, 3);
-  document.getElementById("pdRelatedGrid").innerHTML = related.map(productCardHTML).join("");
+  // Без index — map() иначе передал бы его сам и часть «похожих» грузилась
+  // бы eager, а это точно ниже первого экрана.
+  document.getElementById("pdRelatedGrid").innerHTML = related.map((p) => productCardHTML(p)).join("");
 });
