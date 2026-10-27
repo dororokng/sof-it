@@ -210,10 +210,6 @@
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
-  <script>
-    document.getElementById("consultProgramsRow").innerHTML = onecPrograms
-      .map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
-      .join("");
-  </script>
+  <script src="/js/program-chips.js"></script>
 </body>
 </html>

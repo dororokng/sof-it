@@ -254,11 +254,7 @@
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
-  <script>
-    document.getElementById("pageTariffGrid").innerHTML = tariffs.map(tariffCardHTML).join("");
-    document.getElementById("pageProgramsRow").innerHTML = onecPrograms
-      .map((p) => `<a class="link-chip" href="/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
-      .join("");
-  </script>
+  <script src="/js/tariff-grid.js"></script>
+  <script src="/js/program-chips.js"></script>
 </body>
 </html>
