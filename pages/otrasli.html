@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="/sof-it/js/js-reveal-init.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Отрасли</title>
+  <meta name="description" content="Отраслевые решения на базе 1С: производство, металлургия, ритейл, логистика, строительство, сфера услуг." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Софит — Отрасли" />
+  <meta property="og:description" content="Отраслевые решения на базе 1С: производство, металлургия, ритейл, логистика, строительство, сфера услуг." />
+  <link rel="icon" type="image/svg+xml" href="/sof-it/favicon.svg" />
+  <link rel="canonical" href="https://sofit.example/pages/otrasli.html" />
+  <link rel="preload" href="/sof-it/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/sof-it/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs"><a href="/sof-it/index.html">Главная</a> / Отрасли</div>
+      <h1>Отрасли</h1>
+      <p class="lead">
+        Подбираем решения на базе 1С под специфику конкретной отрасли —
+        выберите свою, чтобы увидеть типовые задачи и подобранные программы.
+      </p>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Отраслевые решения</h2>
+            <p class="lead">Выберите общее направление — внутри откроются более конкретные решения.</p>
+          </div>
+        </div>
+        <div class="card-grid" id="industryCategoriesGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Другие отрасли</h2>
+          </div>
+        </div>
+        <div class="card-grid" id="industriesGrid"></div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-band-grid">
+        <div>
+          <h2>Не нашли свою отрасль?</h2>
+          <p>Расскажите о своём бизнесе — подберём решение индивидуально.</p>
+        </div>
+        <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/sof-it/js/data.js"></script>
+  <script src="/sof-it/js/solutions-data.js"></script>
+  <script src="/sof-it/js/render.js"></script>
+  <script src="/sof-it/js/include.js"></script>
+  <script src="/sof-it/js/main.js"></script>
+  <script src="/sof-it/js/settings.js"></script>
+  <script>
+    document.getElementById("industryCategoriesGrid").innerHTML = industryCategories.map(industryCategoryCardHTML).join("");
+    document.getElementById("industriesGrid").innerHTML = industries.map(industryCardHTML).join("");
+  </script>
+</body>
+</html>

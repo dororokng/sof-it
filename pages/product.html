@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="/sof-it/js/js-reveal-init.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Карточка оборудования</title>
+  <meta name="description" content="Карточка оборудования из каталога компании «Софит»: промышленные, складские и логистические роботы." />
+  <link rel="icon" type="image/svg+xml" href="/sof-it/favicon.svg" />
+  <link rel="preload" href="/sof-it/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/sof-it/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs">
+        <a href="/sof-it/index.html">Главная</a> /
+        <a href="/sof-it/pages/robotics.html">Роботизированное оборудование</a> /
+        <span id="pdBreadcrumbName"></span>
+      </div>
+    </div>
+    <section class="tight">
+      <div class="wrap pd-grid">
+        <div>
+          <div class="pd-thumb bracket">
+            <span class="bl"></span><span class="br"></span>
+            <img id="pdImage" alt="" />
+            <div class="thumb-fallback">Фото не загружено</div>
+          </div>
+        </div>
+        <div class="pd-body">
+          <h1 id="pdName"></h1>
+          <p class="pd-desc" id="pdDesc"></p>
+          <table class="spec-table" id="pdSpecs"></table>
+          <div class="pd-tags" id="pdTags"></div>
+          <div class="hero-ctas">
+            <a href="/sof-it/pages/contacts.html" class="btn btn-primary">Заказать консультацию</a>
+            <a href="/sof-it/pages/contacts.html" class="btn btn-outline">Запросить предложение</a>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="section-head related-head">
+          <div>
+            <h2>Может заинтересовать</h2>
+          </div>
+        </div>
+        <div class="card-grid" id="pdRelatedGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/sof-it/js/data.js"></script>
+  <script src="/sof-it/js/render.js"></script>
+  <script src="/sof-it/js/include.js"></script>
+  <script src="/sof-it/js/main.js"></script>
+  <script src="/sof-it/js/settings.js"></script>
+  <script src="/sof-it/js/product-page.js"></script>
+</body>
+</html>

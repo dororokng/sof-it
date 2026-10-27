@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="/sof-it/js/js-reveal-init.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Кейсы</title>
+  <meta name="description" content="Реализованные проекты внедрения 1С: отрасль, использованные программы и результат в цифрах." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Софит — Кейсы" />
+  <meta property="og:description" content="Реализованные проекты внедрения 1С: отрасль, использованные программы и результат в цифрах." />
+  <link rel="icon" type="image/svg+xml" href="/sof-it/favicon.svg" />
+  <link rel="canonical" href="https://sofit.example/pages/keysy.html" />
+  <link rel="preload" href="/sof-it/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/sof-it/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs"><a href="/sof-it/index.html">Главная</a> / Кейсы</div>
+      <h1>Реализованные проекты</h1>
+      <p class="lead">
+        Примеры внедрения 1С в разных отраслях — с использованными
+        программами и результатом в цифрах.
+      </p>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <div class="case-grid" id="casesGrid"></div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-band-grid">
+        <div>
+          <h2>Хотите похожий результат?</h2>
+          <p>Расскажите о задаче — предложим решение и оценим эффект.</p>
+        </div>
+        <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/sof-it/js/data.js"></script>
+  <script src="/sof-it/js/solutions-data.js"></script>
+  <script src="/sof-it/js/render.js"></script>
+  <script src="/sof-it/js/include.js"></script>
+  <script src="/sof-it/js/main.js"></script>
+  <script src="/sof-it/js/settings.js"></script>
+  <script>
+    document.getElementById("casesGrid").innerHTML = cases.map(caseCardHTML).join("");
+  </script>
+</body>
+</html>

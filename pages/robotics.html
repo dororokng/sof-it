@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="/sof-it/js/js-reveal-init.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Роботизированное оборудование</title>
+  <meta name="description" content="Каталог промышленных, складских и логистических роботов с индивидуальным подбором под задачу бизнеса." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Софит — Роботизированное оборудование" />
+  <meta property="og:description" content="Каталог промышленных, складских и логистических роботов с индивидуальным подбором под задачу бизнеса." />
+  <link rel="icon" type="image/svg+xml" href="/sof-it/favicon.svg" />
+  <link rel="canonical" href="https://sofit.example/pages/robotics.html" />
+  <link rel="preload" href="/sof-it/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/sof-it/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs"><a href="/sof-it/index.html">Главная</a> / Роботизированное оборудование</div>
+      <h1>Роботизированное оборудование</h1>
+      <p class="lead">
+        Промышленные роботы, а также складские и логистические роботизированные
+        системы, подобранные под задачу бизнеса.
+      </p>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <div class="cat-tabs" id="catTabs"></div>
+        <!-- 3 статичные карточки-заглушки (аудит, шаг 3в) — занимают то же
+             место/пропорции, что реальные карточки товара, пока /api/products
+             грузится. js/catalog-page.js заменяет всё содержимое целиком, как
+             только данные (или ошибка) готовы — лишние заглушки при <3
+             товарах уходят сами же заменой. -->
+        <div class="card-grid" id="catalogGrid">
+          <div class="product-card product-card--skeleton" aria-hidden="true">
+            <div class="product-thumb"></div>
+            <div class="product-body">
+              <div class="sk-line sk-cat"></div>
+              <div class="sk-line sk-title"></div>
+              <div class="sk-line sk-desc"></div>
+              <div class="sk-line sk-desc"></div>
+              <div class="sk-actions"><div class="sk-btn"></div><div class="sk-btn"></div></div>
+            </div>
+          </div>
+          <div class="product-card product-card--skeleton" aria-hidden="true">
+            <div class="product-thumb"></div>
+            <div class="product-body">
+              <div class="sk-line sk-cat"></div>
+              <div class="sk-line sk-title"></div>
+              <div class="sk-line sk-desc"></div>
+              <div class="sk-line sk-desc"></div>
+              <div class="sk-actions"><div class="sk-btn"></div><div class="sk-btn"></div></div>
+            </div>
+          </div>
+          <div class="product-card product-card--skeleton" aria-hidden="true">
+            <div class="product-thumb"></div>
+            <div class="product-body">
+              <div class="sk-line sk-cat"></div>
+              <div class="sk-line sk-title"></div>
+              <div class="sk-line sk-desc"></div>
+              <div class="sk-line sk-desc"></div>
+              <div class="sk-actions"><div class="sk-btn"></div><div class="sk-btn"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Из чего состоит роботизированная ячейка</h2>
+            <p class="lead">Манипулятор — центральный узел, вокруг которого под конкретную задачу и линию подбирается остальное оборудование.</p>
+          </div>
+        </div>
+        <!-- Добавлена схема (2026-09-18): робот-манипулятор как хаб ячейки — раскрывает раздел про подбор оборудования -->
+        <div class="scheme">
+          <svg viewBox="0 0 800 500" role="img" aria-label="Схема: робот-манипулятор в центре, вокруг подключены захватное оснащение, система управления, линия и датчики безопасности">
+            <defs>
+              <marker id="roboArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 Z" class="scheme-arrowhead-warm"/>
+              </marker>
+            </defs>
+            <circle class="scheme-ring" cx="400" cy="250" r="160"/>
+            <line class="scheme-edge-warm" x1="400" y1="202" x2="400" y2="120" marker-end="url(#roboArrow)"/>
+            <line class="scheme-edge-warm" x1="448" y1="250" x2="530" y2="250" marker-end="url(#roboArrow)"/>
+            <line class="scheme-edge-warm" x1="400" y1="298" x2="400" y2="380" marker-end="url(#roboArrow)"/>
+            <line class="scheme-edge-warm" x1="352" y1="250" x2="270" y2="250" marker-end="url(#roboArrow)"/>
+            <circle class="scheme-node-warm" cx="400" cy="250" r="48"/>
+            <text class="scheme-num" x="400" y="250" dy=".35em" text-anchor="middle" font-size="16">Робот</text>
+            <circle class="scheme-node-warm" cx="400" cy="90" r="30"/>
+            <text class="scheme-label" x="400" y="50" text-anchor="middle">Захват / оснастка</text>
+            <circle class="scheme-node-warm" cx="560" cy="250" r="30"/>
+            <text class="scheme-label" x="600" y="254" text-anchor="start">Система управления</text>
+            <circle class="scheme-node-warm" cx="400" cy="410" r="30"/>
+            <text class="scheme-label" x="400" y="452" text-anchor="middle">Линия / конвейер</text>
+            <circle class="scheme-node-warm" cx="240" cy="250" r="30"/>
+            <text class="scheme-label" x="200" y="254" text-anchor="end">Датчики безопасности</text>
+          </svg>
+          <p class="scheme-caption">Точный состав ячейки зависит от процесса — подбираем на заявке</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>От заявки до поставки</h2>
+          </div>
+        </div>
+        <div class="steps steps-4">
+          <div class="list-card"><span class="n">01</span><h4>Заявка</h4><p>Описываете процесс, который нужно автоматизировать.</p></div>
+          <div class="list-card"><span class="n">02</span><h4>Подбор</h4><p>Предлагаем подходящие модели из каталога или под запрос.</p></div>
+          <div class="list-card"><span class="n">03</span><h4>Поставка</h4><p>Согласовываем характеристики, сроки и условия поставки.</p></div>
+          <div class="list-card"><span class="n">04</span><h4>Сопровождение</h4><p>Оказываем техническую поддержку в эксплуатации.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap text-center">
+        <h2>Подберём оборудование под вашу задачу</h2>
+        <p class="lead">
+          Расскажите о процессе, который нужно автоматизировать — предложим
+          подходящие варианты оборудования.
+        </p>
+        <div class="cta-inline">
+          <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/sof-it/js/data.js"></script>
+  <script src="/sof-it/js/render.js"></script>
+  <script src="/sof-it/js/include.js"></script>
+  <script src="/sof-it/js/main.js"></script>
+  <script src="/sof-it/js/settings.js"></script>
+  <script src="/sof-it/js/catalog-page.js"></script>
+</body>
+</html>

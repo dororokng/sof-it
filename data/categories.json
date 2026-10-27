@@ -1,0 +1,12 @@
+[
+  {
+    "id": "industrial",
+    "name": "Промышленные роботы",
+    "slug": "industrial"
+  },
+  {
+    "id": "warehouse",
+    "name": "Складские и логистические роботы",
+    "slug": "warehouse"
+  }
+]

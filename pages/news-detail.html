@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="/sof-it/js/js-reveal-init.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Новость</title>
+  <meta name="description" content="Новость компании «Софит» — новости направлений IT/1С и роботизированного оборудования." />
+  <link rel="icon" type="image/svg+xml" href="/sof-it/favicon.svg" />
+  <link rel="preload" href="/sof-it/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/sof-it/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs">
+        <a href="/sof-it/index.html">Главная</a> /
+        <a href="/sof-it/pages/news.html">Новости</a> /
+        <span id="ndBreadcrumb"></span>
+      </div>
+      <span class="news-date" id="ndDate"></span>
+      <h1 id="ndTitle"></h1>
+    </div>
+    <section class="tight">
+      <div class="wrap article-wrap">
+        <div class="news-thumb article-thumb bracket">
+          <span class="bl"></span><span class="br"></span>
+          <div class="grid-overlay"></div>
+          <img id="ndImage" alt="" />
+        </div>
+        <div id="ndBody" class="article-body"></div>
+      </div>
+    </section>
+
+    <!-- Текст — дословно из финального .cta-band на pages/about.html (по
+         просьбе; у этого блока на about.html подзаголовка на самом деле
+         нет — только H2 и кнопка). Сразу после тела статьи. -->
+    <section class="cta-band">
+      <div class="wrap text-center">
+        <h2>Готовы обсудить задачу?</h2>
+        <div class="cta-inline">
+          <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="tight">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Другие публикации</h2>
+          </div>
+        </div>
+        <div class="news-grid" id="ndRelatedGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/sof-it/js/data.js"></script>
+  <script src="/sof-it/js/render.js"></script>
+  <script src="/sof-it/js/include.js"></script>
+  <script src="/sof-it/js/main.js"></script>
+  <script src="/sof-it/js/settings.js"></script>
+  <script src="/sof-it/js/news-detail-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="/sof-it/js/js-reveal-init.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Отраслевое решение</title>
+  <meta name="description" content="Отраслевое решение на базе 1С: типовые задачи, подобранные программы и эффект от автоматизации." />
+  <link rel="icon" type="image/svg+xml" href="/sof-it/favicon.svg" />
+  <link rel="preload" href="/sof-it/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/sof-it/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs">
+        <a href="/sof-it/index.html">Главная</a> /
+        <a href="/sof-it/pages/otrasli.html">Отрасли</a> /
+        <span id="indBreadcrumbName"></span>
+      </div>
+      <h1 id="indName"></h1>
+      <p class="lead" id="indOffer"></p>
+      <div class="hero-ctas">
+        <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+      </div>
+    </div>
+
+    <section>
+      <div class="wrap" id="indProofWrap"></div>
+    </section>
+    <!-- IndustryProof рисуется синхронно сразу здесь, не в нижнем блоке
+         скриптов (аудит, шаг 3в): данные полностью статические
+         (js/solutions-data.js), асинхронного ожидания никогда не было —
+         но под CPU-троттлингом Lighthouse синхронный разбор/выполнение
+         ~150 КБ JS перед этим местом (data.js и остальные нижние скрипты)
+         иногда успевает дать браузеру шанс покрасить пустой div раньше,
+         чем скрипт его заполнит — это и давало CLS 0.995 через раз (не
+         всегда, оттого и путало прошлые разовые замеры). Здесь — без
+         такого окна: скрипты-зависимости (ниже) и сам рендер идут прямо
+         в точке вставки, до остальной разметки страницы. Намеренно без
+         reveal-анимации для этой секции — она и так не должна была её
+         получать (main.js, scanReveal() исключает .proof-card), но раз
+         контент гарантированно есть к моменту paint, повторно доказывать
+         это сканом не нужно. -->
+    <script src="/sof-it/js/solutions-data.js"></script>
+    <script src="/sof-it/js/industries-proof-data.js"></script>
+    <script src="/sof-it/js/render.js"></script>
+    <script src="/sof-it/js/industry-proof.js"></script>
+    <script>
+      (function () {
+        var slug = new URLSearchParams(window.location.search).get("slug");
+        var ind = industries.find(function (x) { return x.slug === slug; });
+        var wrap = document.getElementById("indProofWrap");
+        if (!ind) return; // industry-page.js ниже отрисует "отрасль не найдена"
+        var proof = industriesProof.find(function (x) { return x.slug === ind.slug; });
+        if (proof) {
+          wrap.innerHTML = industryProofHTML(proof);
+          initIndustryProof(wrap, proof);
+        } else {
+          wrap.closest("section").remove();
+        }
+      })();
+    </script>
+
+    <section class="section-alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Специфика процессов отрасли</h2>
+          </div>
+        </div>
+        <div class="principle-grid" id="indSpecificsGrid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Подобранные решения</h2>
+            <p class="lead">Решения 1С, которые чаще всего закрывают задачи этой отрасли.</p>
+          </div>
+        </div>
+        <div class="card-grid" id="indSolutionsGrid"></div>
+        <div class="link-row section-note">
+          <a class="link-chip" href="/sof-it/pages/vnedrenie-1s.html">Внедрение</a>
+          <a class="link-chip" href="/sof-it/pages/dorabotka-1s.html">Доработка</a>
+          <a class="link-chip" href="/sof-it/pages/soprovozhdenie-1s.html">Сопровождение</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-dark">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Экономический эффект</h2>
+          </div>
+        </div>
+        <div class="effect-grid" id="indEffectsGrid"></div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-band-grid">
+        <div>
+          <h2 id="indCtaTitle">Готовы обсудить автоматизацию отрасли?</h2>
+          <p>Опишите текущую ситуацию — предложим решение под задачи вашей отрасли.</p>
+        </div>
+        <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- solutions-data.js/industries-proof-data.js/render.js/industry-proof.js
+       загружены раньше, сразу у #indProofWrap — см. комментарий там же.
+       industry-page.js (заполняет ещё 3 пустых блока — Специфика/Решения/
+       Эффект — тем же статическим способом) — первым из нижних, до
+       data.js/include.js/main.js/settings.js: ни от одного из них не
+       зависит, а их разбор/выполнение перед ним только продлевает то же
+       окно случайной покраски пустых блоков, что чинили для #indProofWrap. -->
+  <script src="/sof-it/js/industry-page.js"></script>
+  <script src="/sof-it/js/data.js"></script>
+  <script src="/sof-it/js/include.js"></script>
+  <script src="/sof-it/js/main.js"></script>
+  <script src="/sof-it/js/settings.js"></script>
+</body>
+</html>

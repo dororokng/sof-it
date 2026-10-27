@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="/sof-it/js/js-reveal-init.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Софит — Направление отраслевого решения</title>
+  <meta name="description" content="1С для конкретного производственного направления — подберём решение под вашу специфику." />
+  <link rel="icon" type="image/svg+xml" href="/sof-it/favicon.svg" />
+  <link rel="preload" href="/sof-it/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/sof-it/css/style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <div class="page-hero wrap">
+      <div class="breadcrumbs">
+        <a href="/sof-it/index.html">Главная</a> /
+        <a href="/sof-it/pages/otrasli.html">Отрасли</a> /
+        <a id="itemBreadcrumbCategory" href="/sof-it/pages/otrasli.html"></a> /
+        <span id="itemBreadcrumbName"></span>
+      </div>
+      <h1 id="itemName"></h1>
+      <p class="lead" id="itemOffer"></p>
+      <div class="hero-ctas">
+        <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+      </div>
+    </div>
+
+    <section class="section-alt">
+      <div class="wrap" id="itemPsrWrap">
+        <div class="adv-grid adv-grid--3col" id="itemPsrGrid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap" id="itemProblemsWrap">
+        <div class="section-head">
+          <div>
+            <h2>Когда нужна автоматизация</h2>
+          </div>
+        </div>
+        <div class="adv-grid" id="itemProblemsGrid"></div>
+      </div>
+    </section>
+
+    <!-- «Партия до/после» + «Журнал смены» (js/industry-proof.js) — только у
+         направлений с данными в industriesProof (сейчас одно, эталон
+         «Пищевые продукты»). Для остальных industry-item-page.js удаляет эту
+         секцию и оставляет два блока выше как есть. -->
+    <section>
+      <div class="wrap" id="itemProofWrap"></div>
+    </section>
+
+    <section class="section-alt">
+      <div class="wrap" id="itemSpecificsWrap">
+        <div class="section-head">
+          <div>
+            <h2>Специфика процессов отрасли</h2>
+          </div>
+        </div>
+        <div class="principle-grid" id="itemSpecificsGrid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Подобранные решения</h2>
+            <p class="lead">Решения 1С, которые чаще всего закрывают задачи этого направления.</p>
+          </div>
+        </div>
+        <div class="card-grid" id="itemSolutionsGrid"></div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-band-grid">
+        <div>
+          <h2 id="itemCtaTitle">Готовы обсудить автоматизацию направления?</h2>
+          <p id="itemCtaText">Опишите текущую ситуацию — предложим решение под задачи вашего производства.</p>
+        </div>
+        <a href="/sof-it/pages/contacts.html" class="btn btn-primary btn-arrow">Заказать консультацию</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/sof-it/js/data.js"></script>
+  <script src="/sof-it/js/solutions-data.js"></script>
+  <script src="/sof-it/js/industries-proof-data.js"></script>
+  <script src="/sof-it/js/render.js"></script>
+  <script src="/sof-it/js/industry-proof.js"></script>
+  <script src="/sof-it/js/include.js"></script>
+  <script src="/sof-it/js/main.js"></script>
+  <script src="/sof-it/js/settings.js"></script>
+  <script src="/sof-it/js/industry-item-page.js"></script>
+</body>
+</html>
