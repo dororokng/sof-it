@@ -427,6 +427,7 @@ filter:grayscale(1) brightness(1.06) contrast(1.02) sepia(1) hue-rotate(178deg) 
 .media-frame--card{aspect-ratio:16/10;}
 .media-frame--wide{aspect-ratio:16/6; margin-bottom:40px;}
 .media-frame--dark{aspect-ratio:4/3; background:var(--dark-2); border-color:var(--dark-line);}
+.media-frame--dark.media-frame--card{aspect-ratio:16/10;}
 .media-frame--dark::after{color:var(--dark-ink-soft);}
 .media-frame--flush{border:none;}
 .media-frame--compact{max-width:800px; margin:0 auto;}
@@ -660,45 +661,7 @@ border:1px dashed var(--line-strong);
 .product-card--skeleton .sk-actions{display:flex; gap:10px; margin-top:12px;}
 .product-card--skeleton .sk-btn{height:36px; width:110px; background:var(--surface-muted); border-radius:var(--radius);}
 .catalog-error{grid-column:1/-1; text-align:center; padding:48px 16px; color:var(--ink-soft); font-family:var(--body);}
-
-/* ---------- Технические схемы (инлайн-SVG диаграммы) ----------
-   Единый визуальный язык для схем процессов на внутренних страницах —
-   тот же тёмный navy + чертёжная сетка, что у .stats-strip/.cta-band, и
-   та же логика «узел-с-номером + подпись + стрелка», что у растровой
-   /images/services/vnedrenie-scheme.png на «Внедрении 1С» — только как SVG и под свою
-   топологию на каждой странице (цикл, петля, хаб, цепочка, врезка
-   модуля). Тёплый акцент (--accent-warm) — только у диаграммы на
-   robotics.html, по общему правилу проекта «тёплый = маркер Роботизации». */
-.scheme{
-position:relative; overflow:hidden; margin:36px 0 8px;
-background:radial-gradient(ellipse 120% 140% at 15% 0%, var(--dark-3), var(--dark-2) 70%);
-border:1px solid var(--dark-line); padding:36px 28px 24px;
-}
-.scheme::before{
-content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
-background-image:
-  linear-gradient(var(--dark-line) 1px, transparent 1px),
-  linear-gradient(90deg, var(--dark-line) 1px, transparent 1px);
-background-size:40px 40px;
-/* Чёрный в маске — технический (альфа-канал прозрачности), не видимый
-   цвет; по прямому указанию не трогаем. */
--webkit-mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100%);
-mask-image:radial-gradient(ellipse 85% 85% at 50% 40%, #000 35%, transparent 100%);
-}
-.scheme svg{position:relative; z-index:1; width:100%; height:auto; display:block;}
-.scheme-caption{
-position:relative; z-index:1; font-family:var(--mono); font-size:var(--fs-label); letter-spacing:.03em;
-color:var(--dark-ink-soft); margin-top:16px; text-align:center;
-}
-.scheme-ring{fill:none; stroke:var(--dark-line); stroke-width:1; stroke-dasharray:4 5;}
-.scheme-node{fill:var(--dark-3); stroke:var(--dark-ink); stroke-width:1.5;}
-.scheme-node-warm{fill:var(--dark-3); stroke:var(--accent-warm); stroke-width:1.5;}
-.scheme-edge{stroke:var(--dark-ink-soft); stroke-width:1.5; fill:none;}
-.scheme-edge-warm{stroke:var(--accent-warm); stroke-width:1.5; fill:none; opacity:.85;}
-.scheme-num{font-family:var(--mono); font-weight:400; fill:var(--dark-ink);}
-.scheme-label{font-family:var(--body); font-size:var(--fs-small); font-weight:500; fill:var(--dark-ink);}
-.scheme-arrowhead{fill:var(--dark-ink-soft);}
-.scheme-arrowhead-warm{fill:var(--accent-warm);}
+.scheme-caption{font-family:var(--mono); font-size:var(--fs-label); letter-spacing:.03em; color:var(--ink-faint); margin-top:16px; text-align:center;}
 
 /* ---------- Process steps ---------- */
 .steps{display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--line); margin-top:20px;}

@@ -267,10 +267,6 @@
   <script src="/sof-it/js/include.js"></script>
   <script src="/sof-it/js/main.js"></script>
   <script src="/sof-it/js/settings.js"></script>
-  <script>
-    document.getElementById("supportProgramsRow").innerHTML = onecPrograms
-      .map((p) => `<a class="link-chip" href="/sof-it/pages/programma.html?slug=${p.slug}">${highlightLatin(p.name)}</a>`)
-      .join("");
-  </script>
+  <script src="/sof-it/js/program-chips.js"></script>
 </body>
 </html>

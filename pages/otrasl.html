@@ -49,21 +49,7 @@
     <script src="/sof-it/js/industries-proof-data.js"></script>
     <script src="/sof-it/js/render.js"></script>
     <script src="/sof-it/js/industry-proof.js"></script>
-    <script>
-      (function () {
-        var slug = new URLSearchParams(window.location.search).get("slug");
-        var ind = industries.find(function (x) { return x.slug === slug; });
-        var wrap = document.getElementById("indProofWrap");
-        if (!ind) return; // industry-page.js ниже отрисует "отрасль не найдена"
-        var proof = industriesProof.find(function (x) { return x.slug === ind.slug; });
-        if (proof) {
-          wrap.innerHTML = industryProofHTML(proof);
-          initIndustryProof(wrap, proof);
-        } else {
-          wrap.closest("section").remove();
-        }
-      })();
-    </script>
+    <script src="/sof-it/js/otrasl-proof-init.js"></script>
 
     <section class="section-alt">
       <div class="wrap">
