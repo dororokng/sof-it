@@ -13,11 +13,10 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="canonical" href="https://sofit.example/index.html" />
   <link rel="preload" href="/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <!-- LCP-картинка (аудит, шаг 3б) — та же, что <img> в .hero-visual ниже;
-       preload даёт браузеру начать загрузку раньше, не дожидаясь парсинга
-       HTML до самого тега. -->
-  <link rel="preload" href="/images/hero/hero1.jpeg" as="image" fetchpriority="high" />
-  <link rel="stylesheet" href="/css/fonts.css" />
+  <!-- Preload hero-картинки убран (аудит, шаг 3в): LCP-элемент на главной —
+       текст (.lead), не картинка (замер Lighthouse), а preload лишь отнимал
+       у него канал/приоритет. fetchpriority="high" на самом <img> ниже
+       оставлен — там он уместен независимо от того, LCP это или нет. -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>

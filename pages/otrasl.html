@@ -8,7 +8,6 @@
   <meta name="description" content="Отраслевое решение на базе 1С: типовые задачи, подобранные программы и эффект от автоматизации." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preload" href="/fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/css/fonts.css" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
@@ -32,6 +31,39 @@
     <section>
       <div class="wrap" id="indProofWrap"></div>
     </section>
+    <!-- IndustryProof рисуется синхронно сразу здесь, не в нижнем блоке
+         скриптов (аудит, шаг 3в): данные полностью статические
+         (js/solutions-data.js), асинхронного ожидания никогда не было —
+         но под CPU-троттлингом Lighthouse синхронный разбор/выполнение
+         ~150 КБ JS перед этим местом (data.js и остальные нижние скрипты)
+         иногда успевает дать браузеру шанс покрасить пустой div раньше,
+         чем скрипт его заполнит — это и давало CLS 0.995 через раз (не
+         всегда, оттого и путало прошлые разовые замеры). Здесь — без
+         такого окна: скрипты-зависимости (ниже) и сам рендер идут прямо
+         в точке вставки, до остальной разметки страницы. Намеренно без
+         reveal-анимации для этой секции — она и так не должна была её
+         получать (main.js, scanReveal() исключает .proof-card), но раз
+         контент гарантированно есть к моменту paint, повторно доказывать
+         это сканом не нужно. -->
+    <script src="/js/solutions-data.js"></script>
+    <script src="/js/industries-proof-data.js"></script>
+    <script src="/js/render.js"></script>
+    <script src="/js/industry-proof.js"></script>
+    <script>
+      (function () {
+        var slug = new URLSearchParams(window.location.search).get("slug");
+        var ind = industries.find(function (x) { return x.slug === slug; });
+        var wrap = document.getElementById("indProofWrap");
+        if (!ind) return; // industry-page.js ниже отрисует "отрасль не найдена"
+        var proof = industriesProof.find(function (x) { return x.slug === ind.slug; });
+        if (proof) {
+          wrap.innerHTML = industryProofHTML(proof);
+          initIndustryProof(wrap, proof);
+        } else {
+          wrap.closest("section").remove();
+        }
+      })();
+    </script>
 
     <section class="section-alt">
       <div class="wrap">
@@ -85,14 +117,17 @@
 
   <div id="footer"></div>
 
+  <!-- solutions-data.js/industries-proof-data.js/render.js/industry-proof.js
+       загружены раньше, сразу у #indProofWrap — см. комментарий там же.
+       industry-page.js (заполняет ещё 3 пустых блока — Специфика/Решения/
+       Эффект — тем же статическим способом) — первым из нижних, до
+       data.js/include.js/main.js/settings.js: ни от одного из них не
+       зависит, а их разбор/выполнение перед ним только продлевает то же
+       окно случайной покраски пустых блоков, что чинили для #indProofWrap. -->
+  <script src="/js/industry-page.js"></script>
   <script src="/js/data.js"></script>
-  <script src="/js/solutions-data.js"></script>
-  <script src="/js/industries-proof-data.js"></script>
-  <script src="/js/render.js"></script>
-  <script src="/js/industry-proof.js"></script>
   <script src="/js/include.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/settings.js"></script>
-  <script src="/js/industry-page.js"></script>
 </body>
 </html>

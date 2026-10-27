@@ -1,5 +1,9 @@
 function renderCatalog(filter) {
   const grid = document.getElementById("catalogGrid");
+  if (dataLoadFailed) {
+    grid.innerHTML = `<p class="catalog-error">Не удалось загрузить каталог. Обновите страницу или напишите нам.</p>`;
+    return;
+  }
   const list = filter === "all" ? products : products.filter((p) => p.cat === filter);
   grid.innerHTML = list.map((p, i) => productCardHTML(p, i)).join("");
 }

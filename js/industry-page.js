@@ -20,17 +20,9 @@ if (!industryPage) {
   document.getElementById("indOffer").textContent = ind.offer;
   document.getElementById("indCtaTitle").textContent = `Готовы обсудить автоматизацию для отрасли «${ind.name}»?`;
 
-  // «Партия до/после» + «Журнал смены» (js/industry-proof.js) заменили
-  // старую SVG/фото-схему и грид «Когда нужна автоматизация» — данные
-  // только из industriesProof (js/industries-proof-data.js), 1:1 по slug.
-  const proofWrap = document.getElementById("indProofWrap");
-  const proof = industriesProof.find((x) => x.slug === ind.slug);
-  if (proof) {
-    proofWrap.innerHTML = industryProofHTML(proof);
-    initIndustryProof(proofWrap, proof);
-  } else {
-    proofWrap.closest("section").remove();
-  }
+  // «Партия до/после» + «Журнал смены» (IndustryProof) отрисовывается
+  // инлайн-скриптом прямо в pages/otrasl.html, сразу у #indProofWrap —
+  // не здесь (аудит, шаг 3в, см. комментарий в otrasl.html про CLS).
 
   document.getElementById("indSpecificsGrid").innerHTML = ind.specifics
     .map((s, i) => `<div class="list-card"><span class="n">${String(i + 1).padStart(2, "0")}</span><h4>${escapeHtml(s.title)}</h4><p>${escapeHtml(s.desc)}</p></div>`)

@@ -5,6 +5,9 @@ let products = [];
 let news = [];
 let categories = [];
 let settings = {};
+// true, если fetch упал — отличает «каталог реально пуст» от «не
+// загрузился» (js/catalog-page.js показывает разные состояния).
+let dataLoadFailed = false;
 
 async function loadData() {
   try {
@@ -20,6 +23,7 @@ async function loadData() {
     settings = await settingsRes.json();
   } catch (err) {
     console.error("Не удалось загрузить данные из API", err);
+    dataLoadFailed = true;
   }
   document.dispatchEvent(new Event("data:ready"));
 }
