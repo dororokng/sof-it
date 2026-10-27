@@ -6,9 +6,10 @@
 
 const industryCategoryPage = (() => {
   const pathParts = window.location.pathname.split("/").filter(Boolean);
+  const otrasliAt = pathParts.indexOf("otrasli");
   const groupSlug =
-    pathParts[0] === "otrasli" && pathParts.length >= 2
-      ? pathParts[1]
+    otrasliAt !== -1 && pathParts.length >= otrasliAt + 2
+      ? pathParts[otrasliAt + 1]
       : new URLSearchParams(window.location.search).get("slug");
   return industryCategories.find((x) => x.slug === groupSlug);
 })();

@@ -10,11 +10,12 @@
 
 const industryItemPage = (() => {
   const pathParts = window.location.pathname.split("/").filter(Boolean);
+  const otrasliAt = pathParts.indexOf("otrasli");
   let groupSlug = null;
   let itemSlug;
-  if (pathParts[0] === "otrasli" && pathParts.length >= 3) {
-    groupSlug = pathParts[1];
-    itemSlug = pathParts[2];
+  if (otrasliAt !== -1 && pathParts.length >= otrasliAt + 3) {
+    groupSlug = pathParts[otrasliAt + 1];
+    itemSlug = pathParts[otrasliAt + 2];
   } else {
     itemSlug = new URLSearchParams(window.location.search).get("slug");
   }
